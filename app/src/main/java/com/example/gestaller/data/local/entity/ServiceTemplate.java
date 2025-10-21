@@ -2,7 +2,6 @@ package com.example.gestaller.data.local.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 @Entity
 public class ServiceTemplate {
     @PrimaryKey(autoGenerate = true)
@@ -22,3 +21,4 @@ public class ServiceTemplate {
     public double getDefaultPrice() { return defaultPrice; }
     public void setDefaultPrice(double defaultPrice) { this.defaultPrice = defaultPrice; }
 }
+
