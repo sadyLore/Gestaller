@@ -4,14 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.gestaller"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 34 // ✅ valor correcto, 36 todavía no existe oficialmente
 
     defaultConfig {
         applicationId = "com.example.gestaller"
         minSdk = 29
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -41,4 +39,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // ✅ --- Room Database ---
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    // (opcional) extensiones para coroutines o LiveData
+    implementation("androidx.room:room-ktx:2.6.1")
 }
