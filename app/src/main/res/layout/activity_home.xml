@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:padding="24dp">
 
-    <!-- Contenedor de fragments -->
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    <!-- Logo superior -->
 
-    <!-- Menú inferior -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
+    <!-- Texto principal (CORREGIDO) -->
+
+    <ImageView
+        android:layout_width="330dp"
+        android:layout_height="74dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Logo Gestaller"
+        android:src="@drawable/gestaller_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/bottom_nav_menu" />
+        android:text="Bienvenido a Gestaller"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Segundo TextView (CORREGIDO) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Gestión de clientes, vehículos y servicios del taller"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
 </LinearLayout>

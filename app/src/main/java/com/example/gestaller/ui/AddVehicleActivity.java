@@ -1,13 +1,13 @@
-package com.example.gestaller;
+package com.example.gestaller.ui;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.gestaller.R;
 
-public class MainActivity extends AppCompatActivity {
-
+public class AddVehicleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // o activity_home, según tu flujo real
+        setContentView(R.layout.activity_add_vehicle);
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nombre de la app -->
+    <string name="app_name">Gestaller</string>
+
+    <!-- Login -->
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="username_hint">Usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Entrar</string>
+
+    <!-- Home -->
+    <string name="home_title">Gestión del Taller</string>
+
+    <!-- Clientes -->
+    <string name="client_list">Lista de Clientes</string>
+    <string name="add_client">Agregar Cliente</string>
+    <string name="edit_client">Editar Cliente</string>
+    <string name="client_name">Nombre</string>
+    <string name="client_phone">Teléfono</string>
+    <string name="client_email">Correo</string>
+    <string name="client_address">Dirección</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Vehículos -->
+    <string name="vehicle_list">Lista de Vehículos</string>
+    <string name="add_vehicle">Agregar Vehículo</string>
+
+    <!-- Trabajos -->
+    <string name="workorder_list">Lista de Trabajos</string>
+    <string name="add_workorder">Agregar Trabajo</string>
+
+    <!-- Servicios -->
+    <string name="service_list">Lista de Servicios</string>
+    <string name="add_service">Agregar Servicio</string>
+
+    <!-- Mensajes generales -->
+    <string name="no_data">No hay registros disponibles</string>
+    <string name="delete_confirm">¿Seguro que deseas eliminar este registro?</string>
+</resources>

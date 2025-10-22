@@ -1,59 +1,44 @@
 package com.example.gestaller.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-
-import androidx.annotation.NonNull;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.gestaller.R;
-import com.example.gestaller.ui.fragments.ClientListFragment;
-import com.example.gestaller.ui.fragments.VehicleListFragment;
-import com.example.gestaller.ui.fragments.WorkOrderListFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private Button btnClientes, btnVehiculos, btnTrabajos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        btnClientes = findViewById(R.id.btnClientes);
+        btnVehiculos = findViewById(R.id.btnVehiculos);
+        btnTrabajos = findViewById(R.id.btnTrabajos);
 
-        // Fragment inicial
-        loadFragment(new ClientListFragment());
-
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+        btnClientes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.menu_clients) {
-                    fragment = new ClientListFragment();
-                } else if (itemId == R.id.menu_vehicles) {
-                    fragment = new VehicleListFragment();
-                } else if (itemId == R.id.menu_workorders) {
-                    fragment = new WorkOrderListFragment();
-                }
-
-                if (fragment != null) {
-                    loadFragment(fragment);
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, ClientListActivity.class));
             }
         });
-    }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.commit();
+        btnVehiculos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, VehicleListActivity.class));
+            }
+        });
+
+        btnTrabajos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, WorkOrderListActivity.class));
+            }
+        });
     }
 }

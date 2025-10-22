@@ -37,5 +37,9 @@ public class ClientRepository {
     public void delete(Client client) {
         executorService.execute(() -> clientDao.delete(client));
     }
+
+    public LiveData<List<Client>> getAll() {
+        return null;
+    }
 }
 
