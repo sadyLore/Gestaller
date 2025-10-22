@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gestaller">
         <activity
+            android:name=".ui.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
