@@ -1,40 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:gravity="center_horizontal"
-    android:padding="24dp">
+    tools:context=".ui.HomeActivity">
 
-    <!-- Logo superior -->
-
-    <!-- Texto principal (CORREGIDO) -->
-
-    <ImageView
-        android:layout_width="330dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="Logo Gestaller"
-        android:src="@drawable/gestaller_logo" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnClientes"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Bienvenido a Gestaller"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="12dp"/>
+        android:text="Clientes"
+        android:layout_marginTop="20dp"/>
 
-    <!-- Segundo TextView (CORREGIDO) -->
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnVehiculos"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Gestión de clientes, vehículos y servicios del taller"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:text="Vehículos"
+        android:layout_marginTop="20dp"/>
 
+    <Button
+        android:id="@+id/btnTrabajos"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Trabajos"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
