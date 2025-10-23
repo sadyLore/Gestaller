@@ -2,26 +2,28 @@ package com.example.gestaller.data.local.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Ignore;
 
 @Entity
 public class ServiceTemplate {
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String name;
     private String description;
     private double defaultPrice;
 
-    // ✅ Constructor vacío requerido por Room
-    public ServiceTemplate() {}
-
-    // ✅ Constructor principal con parámetros correctos
+    // ✅ Constructor principal (usado por Room)
     public ServiceTemplate(String name, String description, double defaultPrice) {
         this.name = name;
         this.description = description;
         this.defaultPrice = defaultPrice;
     }
 
-    // ✅ Getters y Setters
+    // ✅ Constructor vacío para evitar el warning
+    @Ignore
+    public ServiceTemplate() {}
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

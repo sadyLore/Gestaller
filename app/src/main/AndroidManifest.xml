@@ -7,9 +7,10 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        >
 
-        <!-- Activity de login -->
+        <!-- Pantalla de inicio -->
         <activity android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -21,13 +22,13 @@
         <!-- Pantalla principal -->
         <activity android:name=".ui.HomeActivity" />
 
-        <!-- 📋 Actividades de tu app -->
+        <!-- 📋 Listas -->
         <activity android:name=".ui.ClientListActivity" />
         <activity android:name=".ui.VehicleListActivity" />
         <activity android:name=".ui.ServiceTemplateListActivity" />
         <activity android:name=".ui.WorkOrderListActivity" />
 
-        <!-- Formularios para agregar -->
+        <!-- ➕ Formularios -->
         <activity android:name=".ui.AddClientActivity" />
         <activity android:name=".ui.AddVehicleActivity" />
         <activity android:name=".ui.AddServiceTemplateActivity" />
