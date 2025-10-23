@@ -6,11 +6,13 @@ import androidx.room.PrimaryKey;
 public class ServiceTemplate {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String name;
+    public String name;
+    private String Description;
     private double defaultPrice;
 
-    public ServiceTemplate(String name, double defaultPrice) {
+    public ServiceTemplate(String name, String description, double defaultPrice) {
         this.name = name;
+        Description = description;
         this.defaultPrice = defaultPrice;
     }
 
@@ -20,5 +22,13 @@ public class ServiceTemplate {
     public void setName(String name) { this.name = name; }
     public double getDefaultPrice() { return defaultPrice; }
     public void setDefaultPrice(double defaultPrice) { this.defaultPrice = defaultPrice; }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 }
 

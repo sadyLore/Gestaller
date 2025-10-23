@@ -37,5 +37,8 @@ public class WorkOrderRepository {
     public void delete(WorkOrder workOrder) {
         executorService.execute(() -> workOrderDao.delete(workOrder));
     }
+    public LiveData<List<WorkOrder>> getAll() {
+        return workOrderDao.getAll();
+    }
 }
 

@@ -23,6 +23,10 @@ public class Vehicle {
         this.plate = plate;
     }
 
+    public Vehicle(String brand, String model, String year, String color, String plate) {
+
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public int getClientId() { return clientId; }

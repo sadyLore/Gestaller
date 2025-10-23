@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Estilos generales -->
-    <style name="CardViewStyle">
-        <item name="cardCornerRadius">8dp</item>
-        <item name="cardElevation">4dp</item>
-        <item name="android:layout_margin">8dp</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/sans_serif_medium</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorPrimary">@color/gestaller_blue</item>
+        <item name="colorAccent">@color/gestaller_blue</item>
+        <item name="android:statusBarColor">@color/gestaller_blue</item>
     </style>
 
-    <!-- Estilo de botones -->
-    <style name="PrimaryButton">
-        <item name="android:backgroundTint">@color/black</item>
+    <!-- Estilo para botones principales -->
+    <style name="GestallerButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/gestaller_blue</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/sans_serif_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginHorizontal">30dp</item>
+        <item name="android:background">@drawable/rounded_button</item>
     </style>
 </resources>

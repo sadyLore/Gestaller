@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="@color/white">
+    tools:context=".ui.AddWorkOrderActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!-- Campo: ID del vehículo -->
+    <EditText
+        android:id="@+id/etVehicleId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="ID del vehículo"
+        android:inputType="number"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nuevo Trabajo"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp" />
+    <!-- Campo: Precio total -->
+    <EditText
+        android:id="@+id/etTotalPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Precio total (Gs)"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/etVehicleId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginTop="16dp" />
 
-        <EditText
-            android:id="@+id/etCliente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cliente"
-            android:layout_marginBottom="12dp" />
+    <!-- Campo: Notas -->
+    <EditText
+        android:id="@+id/etNotes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Notas"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@id/etTotalPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
-        <EditText
-            android:id="@+id/etVehiculo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Vehículo"
-            android:layout_marginBottom="12dp" />
+    <!-- Botón Guardar -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        app:layout_constraintTop_toBottomOf="@id/etNotes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnCancel"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp" />
 
-        <EditText
-            android:id="@+id/etServicio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Servicio realizado"
-            android:layout_marginBottom="20dp" />
+    <!-- Botón Cancelar -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        app:layout_constraintTop_toBottomOf="@id/etNotes"
+        app:layout_constraintStart_toEndOf="@id/btnSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp" />
 
-        <Button
-            android:id="@+id/btnGuardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GUARDAR"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <Button
-            android:id="@+id/btnCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CANCELAR"
-            android:textColor="@color/black"
-            android:backgroundTint="@android:color/white"
-            android:textStyle="bold" />
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

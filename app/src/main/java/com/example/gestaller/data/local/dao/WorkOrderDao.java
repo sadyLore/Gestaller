@@ -28,5 +28,7 @@ public interface WorkOrderDao {
 
     @Delete
     void delete(WorkOrder workOrder);
+
+    LiveData<List<WorkOrder>> getAll();
 }
 

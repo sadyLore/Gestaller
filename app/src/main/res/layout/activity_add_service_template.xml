@@ -10,60 +10,46 @@
         android:orientation="vertical">
 
         <TextView
-
-            android:text="Nuevo Vehículo"
+            android:text="Nuevo Servicio"
             android:textColor="@color/gestaller_blue"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:layout_marginBottom="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        
 
         <EditText
-            android:id="@+id/etBrand"
-            android:hint="Marca"
+            android:id="@+id/etName"
+            android:hint="Nombre del servicio"
             android:backgroundTint="@color/gestaller_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <EditText
-            android:id="@+id/etModel"
-            android:hint="Modelo"
+            android:id="@+id/etDescription"
+            android:hint="Descripción (opcional)"
             android:backgroundTint="@color/gestaller_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <EditText
-            android:id="@+id/etYear"
-            android:hint="Año"
-            android:inputType="number"
+            android:id="@+id/etPrice"
+            android:hint="Precio (Gs)"
+            android:inputType="numberDecimal"
             android:backgroundTint="@color/gestaller_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/etColor"
-            android:hint="Color"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/etPlate"
-            android:hint="Chapa"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/btnSave"
+            android:hint="Guardar"
             style="@style/GestallerButton"
-            android:text="Guardar" />
+            android:text="Guardar"/>
 
         <Button
             android:id="@+id/btnCancel"
+            android:hint="cerrar"
             style="@style/GestallerButton"
             android:backgroundTint="@color/gestaller_gray"
-            android:text="Cancelar" />
+            android:text="Cancelar"/>
     </LinearLayout>
 </ScrollView>

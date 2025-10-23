@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gestaller_blue_light"
-    tools:context=".ui.WorkOrderListActivity">
+    tools:context=".ui.ServiceTemplateListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp"
-        android:layout_above="@id/fabAdd" />
+        android:layout_above="@id/fabAdd"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
@@ -20,8 +20,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
+        android:contentDescription="Agregar servicio"
         app:backgroundTint="@color/gestaller_blue"
         app:tint="@color/white"
-        android:src="@drawable/ic_add" />
+        android:src="@drawable/ic_add"/>
 
 </RelativeLayout>
