@@ -23,18 +23,16 @@
             android:padding="16dp">
 
             <!-- Logo Gestaller -->
-
-            <!-- Menú hamburguesa -->
-
             <ImageView
-                android:layout_width="209dp"
+                android:layout_width="206dp"
                 android:layout_height="36dp"
                 android:contentDescription="Logo Gestaller"
                 android:src="@drawable/gestaller_logo" />
 
+            <!-- Menú hamburguesa -->
             <ImageButton
                 android:id="@+id/btnMenu"
-                android:layout_width="276dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Menú"
@@ -72,19 +70,17 @@
         </LinearLayout>
 
         <!-- 🔹 Título -->
-
-        <!-- 🔹 Lista de trabajos -->
-
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
             android:text="Trabajos recientes"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp" />
 
+        <!-- 🔹 Lista de trabajos -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerWorkOrders"
             android:layout_width="match_parent"
