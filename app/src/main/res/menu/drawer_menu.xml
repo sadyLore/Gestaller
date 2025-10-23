@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item android:title="Usuario: colaborador" />
+        <item android:title="Usuarios" />
+        <item android:title="Clientes" />
+        <item android:title="Marcas" />
+        <item android:title="Servicios" />
+        <item android:title="Trabajos" />
+    </group>
+</menu>
