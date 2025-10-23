@@ -37,7 +37,9 @@ public class ServiceTemplateAdapter extends RecyclerView.Adapter<ServiceTemplate
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         ServiceTemplate service = serviceList.get(position);
 
-        holder.tvName.setText(service.name);
+        // Old code
+        // New, corrected code
+        holder.tvName.setText(service.getName());
         holder.tvDescription.setText(service.getDescription());
         holder.tvPrice.setText("Gs. " + String.format("%,.0f", service.getDefaultPrice()));
 

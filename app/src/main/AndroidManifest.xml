@@ -1,44 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gestaller">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="Gestaller"
+        android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Gestaller">  <!-- Recomiendo usar tu tema principal aquí -->
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
-        <!-- =============================================================== -->
-        <!--      AQUÍ ESTÁN TODAS LAS PANTALLAS (ACTIVITIES) DECLARADAS      -->
-        <!-- =============================================================== -->
-
-        <!-- Pantalla de Inicio de Sesión (LAUNCHER) -->
-        <activity
-            android:name=".ui.LoginActivity"
-            android:exported="true">  <!-- 'exported=true' es obligatorio para la actividad principal -->
+        <!-- Activity de login -->
+        <activity android:name=".ui.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Otras pantallas de la aplicación -->
+        <!-- Pantalla principal -->
         <activity android:name=".ui.HomeActivity" />
 
+        <!-- 📋 Actividades de tu app -->
         <activity android:name=".ui.ClientListActivity" />
-        <activity android:name=".ui.AddClientActivity" />
-
         <activity android:name=".ui.VehicleListActivity" />
-        <activity android:name=".ui.AddVehicleActivity" />
-
+        <activity android:name=".ui.ServiceTemplateListActivity" />
         <activity android:name=".ui.WorkOrderListActivity" />
+
+        <!-- Formularios para agregar -->
+        <activity android:name=".ui.AddClientActivity" />
+        <activity android:name=".ui.AddVehicleActivity" />
+        <activity android:name=".ui.AddServiceTemplateActivity" />
         <activity android:name=".ui.AddWorkOrderActivity" />
 
-        <activity android:name=".ui.ServiceTemplateListActivity" />
-        <activity android:name=".ui.AddServiceTemplateActivity" />
-
     </application>
-
 </manifest>

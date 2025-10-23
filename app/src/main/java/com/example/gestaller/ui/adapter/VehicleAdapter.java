@@ -37,9 +37,9 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
         Vehicle vehicle = vehicleList.get(position);
 
-        holder.tvBrandModel.setText(vehicle.brand + " " + vehicle.model);
-        holder.tvPlate.setText("Chapa: " + vehicle.plate);
-        holder.tvYearColor.setText(vehicle.year + " • " + vehicle.color);
+        holder.tvBrandModel.setText(vehicle.getBrand() + " " + vehicle.getModel());
+        holder.tvPlate.setText("Chapa: " + vehicle.getPlate());
+        holder.tvYearColor.setText(vehicle.getYear() + " • " + vehicle.getColor());
 
         holder.itemView.setOnLongClickListener(v -> {
             repository.delete(vehicle);

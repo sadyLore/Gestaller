@@ -17,8 +17,8 @@ public interface WorkOrderDao {
     @Query("SELECT * FROM workorder ORDER BY date DESC")
     LiveData<List<WorkOrder>> getAllWorkOrders();
 
-    @Query("SELECT * FROM workorder WHERE vehicleId = :vehicleId")
-    LiveData<List<WorkOrder>> getWorkOrdersByVehicle(int vehicleId);
+    @Query("SELECT * FROM WorkOrder ORDER BY id DESC")
+    LiveData<List<WorkOrder>> getAll();
 
     @Insert
     void insert(WorkOrder workOrder);
@@ -29,6 +29,6 @@ public interface WorkOrderDao {
     @Delete
     void delete(WorkOrder workOrder);
 
-    LiveData<List<WorkOrder>> getAll();
+
 }
 

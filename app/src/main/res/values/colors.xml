@@ -4,4 +4,8 @@
     <color name="gestaller_gray">#B0BEC5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <!-- Colores que faltaban -->
+    <color name="colorAccent">@color/gestaller_blue</color>
+    <color name="buttonColor">@color/gestaller_blue_light</color>
 </resources>

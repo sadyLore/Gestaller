@@ -35,7 +35,6 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
         Client client = clientList.get(position);
         holder.tvName.setText(client.getName());
         holder.tvPhone.setText(client.getPhone());
-        holder.tvEmail.setText(client.getEmail());
         holder.tvAddress.setText(client.getAddress());
     }
 
@@ -45,13 +44,12 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvPhone, tvEmail, tvAddress;
+        TextView tvName, tvPhone, tvAddress;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvPhone = itemView.findViewById(R.id.tvPhone);
-            tvEmail = itemView.findViewById(R.id.tvEmail);
             tvAddress = itemView.findViewById(R.id.tvAddress);
         }
     }
