@@ -1,13 +1,10 @@
 package com.example.gestaller.data.repository;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.gestaller.data.local.TallerDatabase;
 import com.example.gestaller.data.local.dao.ClientDao;
 import com.example.gestaller.data.local.entity.Client;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,8 +35,8 @@ public class ClientRepository {
         executorService.execute(() -> clientDao.delete(client));
     }
 
+    // ✅ FIX
     public LiveData<List<Client>> getAll() {
-        return null;
+        return clientDao.getAllClients();
     }
 }
-
