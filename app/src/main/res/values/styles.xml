@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:fontFamily">@font/sans_serif_medium</item>
         <item name="android:colorBackground">@color/white</item>
@@ -20,4 +21,14 @@
         <item name="android:layout_marginHorizontal">30dp</item>
         <item name="android:background">@drawable/rounded_button</item>
     </style>
+
+    <!-- Estilo para los textos del Drawer -->
+    <style name="DrawerItemText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/sans_serif_medium</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
 </resources>
