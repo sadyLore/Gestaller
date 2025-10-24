@@ -7,27 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.HomeActivity">
 
-    <!-- 🔹 CONTENIDO PRINCIPAL -->
+    <!-- 🔹 Contenido principal -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white">
 
-        <!-- 🔹 Barra superior -->
-
-        <!-- 🔹 Buscador -->
-
+        <!-- Barra superior -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:padding="16dp">
 
             <!-- Logo Gestaller -->
             <ImageView
-                android:layout_width="198dp"
+                android:layout_width="180dp"
                 android:layout_height="36dp"
                 android:contentDescription="Logo Gestaller"
                 android:src="@drawable/gestaller_logo" />
@@ -35,14 +32,16 @@
             <!-- Menú hamburguesa -->
             <ImageButton
                 android:id="@+id/btnMenu"
-                android:layout_width="256dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Menú"
                 android:src="@drawable/ic_menu"
                 app:tint="@color/gestaller_blue" />
         </LinearLayout>
 
+        <!-- Buscador -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,61 +70,7 @@
                 android:contentDescription="Buscar" />
         </LinearLayout>
 
-        <!-- 🔹 Botones principales -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"
-            android:weightSum="4">
-
-            <Button
-                android:id="@+id/btnClientes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/gestaller_blue_light"
-                android:text="Clientes"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btnVehiculos"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Vehículos"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/gestaller_blue_light"
-                android:layout_marginHorizontal="4dp" />
-
-            <Button
-                android:id="@+id/btnTrabajos"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Trabajos"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/gestaller_blue_light"
-                android:layout_marginHorizontal="4dp" />
-
-            <Button
-                android:id="@+id/btnServicios"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Servicios"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/gestaller_blue_light"
-                android:layout_marginHorizontal="4dp" />
-        </LinearLayout>
-
-        <!-- 🔹 Título -->
+        <!-- Título -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,7 +81,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp" />
 
-        <!-- 🔹 Lista de trabajos -->
+        <!-- Lista de trabajos -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerWorkOrders"
             android:layout_width="match_parent"
@@ -145,7 +90,7 @@
             android:paddingHorizontal="16dp"
             android:clipToPadding="false" />
 
-        <!-- 🔹 Botón flotante (+) -->
+        <!-- Botón flotante -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddWork"
             android:layout_width="wrap_content"
@@ -158,19 +103,15 @@
             android:contentDescription="Agregar trabajo" />
     </LinearLayout>
 
-    <!-- 🔹 Drawer lateral -->
+    <!-- Drawer lateral -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
         app:itemTextColor="@color/black"
-        app:itemTextAppearance="@style/DrawerItemText"
-        android:paddingStart="12dp"
-        android:gravity="start" />
-
-
+        app:itemIconTint="@color/gestaller_blue"
+        app:itemTextAppearance="@style/DrawerItemText" />
 </androidx.drawerlayout.widget.DrawerLayout>

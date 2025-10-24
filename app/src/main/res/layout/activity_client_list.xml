@@ -20,6 +20,6 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="24dp"
         android:contentDescription="Agregar nuevo cliente"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/black" />
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/gestaller_blue" />
 </RelativeLayout>

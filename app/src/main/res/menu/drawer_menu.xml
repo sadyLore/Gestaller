@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_usuarios"
-            android:title="Usuarios" />
         <item
             android:id="@+id/nav_clientes"
             android:title="Clientes" />
         <item
-            android:id="@+id/nav_marcas"
-            android:title="Marcas" />
+            android:id="@+id/nav_vehiculos"
+            android:title="Vehículos" />
         <item
             android:id="@+id/nav_servicios"
             android:title="Servicios" />
