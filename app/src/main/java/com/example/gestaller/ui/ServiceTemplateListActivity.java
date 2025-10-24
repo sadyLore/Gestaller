@@ -40,5 +40,17 @@ public class ServiceTemplateListActivity extends AppCompatActivity {
         // 🔹 Botón flotante para agregar un nuevo servicio
         fabAdd.setOnClickListener(v ->
                 startActivity(new Intent(this, AddServiceTemplateActivity.class)));
+        // 🔹 Insertar servicios predeterminados solo si la tabla está vacía
+        repository.getAllTemplates().observe(this, services -> {
+            if (services.isEmpty()) {
+                repository.insert(new ServiceTemplate("Cambio de aceite y filtro", "Reemplazo de aceite y filtro del motor", 120000));
+                repository.insert(new ServiceTemplate("Alineación y balanceo", "Ajuste de ángulos y balanceo de ruedas", 100000));
+                repository.insert(new ServiceTemplate("Revisión y cambio de frenos", "Inspección y sustitución de pastillas o discos", 150000));
+                repository.insert(new ServiceTemplate("Cambio de bujías y mantenimiento del sistema de encendido", "Revisión y cambio de bujías", 130000));
+                repository.insert(new ServiceTemplate("Revisión del sistema eléctrico", "Chequeo de batería, alternador y fusibles", 110000));
+                repository.insert(new ServiceTemplate("Mantenimiento del sistema de refrigeración", "Revisión de radiador, líquido y mangueras", 140000));
+            }
+        });
+
     }
 }

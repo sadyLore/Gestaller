@@ -1,55 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- 🔹 Encabezado con logo -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/gestaller_logo" />
+        </RelativeLayout>
+
+        <!-- 🔹 Título -->
         <TextView
-            android:text="Nuevo Servicio"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:text="Agregar servicio"
             android:textColor="@color/gestaller_blue"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etName"
-            android:hint="Nombre del servicio"
-            android:backgroundTint="@color/gestaller_blue"
+        <!-- 🔹 Tarjeta contenedora -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_border_button"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/etDescription"
-            android:hint="Descripción (opcional)"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <!-- Campos -->
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:hint="Nombre del servicio"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/etPrice"
-            android:hint="Precio (Gs)"
-            android:inputType="numberDecimal"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="129dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="top"
+                android:hint="Descripción (opcional)"
+                android:inputType="textMultiLine"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:hint="Guardar"
-            style="@style/GestallerButton"
-            android:text="Guardar"/>
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_border_button"
+                android:hint="Precio (Gs)"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:hint="cerrar"
-            style="@style/GestallerButton"
-            android:backgroundTint="@color/gestaller_gray"
-            android:text="Cancelar"/>
+            <!-- 🔹 Botones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_border_button"
+                    android:text="Cancelar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_border_button"
+                    android:text="Guardar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
