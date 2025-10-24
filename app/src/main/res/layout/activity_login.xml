@@ -84,7 +84,7 @@
                 android:background="@drawable/bg_login_button"
                 android:text="Iniciar sesión"
                 android:textAllCaps="false"
-                android:textColor="@color/gestaller_blue"
+                android:textColor="@color/gestaller_blue_light"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
