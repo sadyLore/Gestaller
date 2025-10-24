@@ -1,36 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/white"
-    android:padding="16dp">
+    android:padding="20dp">
 
-    <TextView
+    <!-- 🔹 Encabezado -->
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lista de Vehículos"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        android:layout_marginBottom="16dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp">
 
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:src="@drawable/gestaller_logo"
+            android:contentDescription="@string/app_name" />
+
+    </LinearLayout>
+
+    <!-- 🔹 Título -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="(Aquí se mostrará la lista de vehículos)"
-        android:textSize="16sp"
-        android:textColor="@color/buttonColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/tvTitle"
+        android:layout_below="@id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="24dp"
-        android:contentDescription="Agregar nuevo"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/buttonColor" />
+        android:text="Vehículos"
+        android:textColor="@color/gestaller_blue"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
 
-</LinearLayout>
+    <!-- 🔹 Tarjeta de lista de vehículos -->
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_border_button"
+        android:padding="16dp"
+        android:layout_marginBottom="80dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lista de vehículos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/gestaller_blue"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerVehicles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
+
+    <!-- 🔹 Botón flotante para agregar -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        app:backgroundTint="@color/gestaller_blue"
+        android:contentDescription="Agregar vehículo" />
+</RelativeLayout>

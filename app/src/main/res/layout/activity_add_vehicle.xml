@@ -1,69 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- 🔹 Encabezado con logo -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/gestaller_logo" />
+        </RelativeLayout>
+
+        <!-- 🔹 Título -->
         <TextView
-
-            android:text="Nuevo Vehículo"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:text="Agregar vehículo"
             android:textColor="@color/gestaller_blue"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etBrand"
-            android:hint="Marca"
-            android:backgroundTint="@color/gestaller_blue"
+        <!-- 🔹 Tarjeta del formulario -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="540dp"
+            android:background="@drawable/rounded_border_button"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/etModel"
-            android:hint="Modelo"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etBrand"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
+                android:hint="Marca"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etYear"
-            android:hint="Año"
-            android:inputType="number"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etModel"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
+                android:hint="Modelo"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etColor"
-            android:hint="Color"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etYear"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
+                android:hint="Año"
+                android:inputType="number"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etPlate"
-            android:hint="Chapa"
-            android:backgroundTint="@color/gestaller_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etColor"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
+                android:hint="Color"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnSave"
-            style="@style/GestallerButton"
-            android:text="Guardar" />
+            <EditText
+                android:id="@+id/etPlate"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
+                android:hint="Chapa"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnCancel"
-            style="@style/GestallerButton"
-            android:backgroundTint="@color/gestaller_gray"
-            android:text="Cancelar" />
+            <!-- 🔹 Botones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_border_button"
+                    android:text="Cancelar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/gestaller_blue"/>
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_border_button"
+                    android:text="Guardar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/gestaller_blue" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
