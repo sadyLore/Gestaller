@@ -1,51 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="32dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ui.LoginActivity">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TallerManager"
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
-
-    <EditText
-        android:id="@+id/etUsername"
+    <!-- 🔹 Encabezado con logo -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Usuario"
-        android:inputType="textPersonName"
-        android:drawableStart="@android:drawable/ic_menu_myplaces"
-        android:padding="12dp"
-        android:backgroundTint="@color/black"
-        android:layout_marginBottom="12dp" />
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:drawableStart="@android:drawable/ic_lock_lock"
-        android:padding="12dp"
-        android:backgroundTint="@color/black"
-        android:layout_marginBottom="20dp" />
+        <ImageView
+            android:layout_width="234dp"
+            android:layout_height="51dp"
+            android:contentDescription="Logo Gestaller"
+            android:src="@drawable/gestaller_logo" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnLogin"
+    <!-- 🔹 Imagen del mecánico -->
+    <ImageView
+        android:id="@+id/loginImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Iniciar sesión"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:padding="12dp" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_header" />
+
+    <!-- 🔹 Parte inferior azul curvada -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="@drawable/bg_login_bottom"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <!-- Contenedor centrado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <!-- Usuario -->
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_login_input"
+                android:hint="Ingrese usuario"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <!-- Contraseña -->
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_login_input"
+                android:hint="Ingrese contraseña"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <!-- Botón -->
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_login_button"
+                android:text="Iniciar sesión"
+                android:textAllCaps="false"
+                android:textColor="@color/gestaller_blue_light"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

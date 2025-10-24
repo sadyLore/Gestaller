@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gestaller">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="Gestaller"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        >
 
-        <activity android:name=".MainActivity"
+        <!-- Pantalla de inicio -->
+        <activity android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +19,20 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <!-- Pantalla principal -->
+        <activity android:name=".ui.HomeActivity" />
 
+        <!-- 📋 Listas -->
+        <activity android:name=".ui.ClientListActivity" />
+        <activity android:name=".ui.VehicleListActivity" />
+        <activity android:name=".ui.ServiceTemplateListActivity" />
+        <activity android:name=".ui.WorkOrderListActivity" />
+
+        <!-- ➕ Formularios -->
+        <activity android:name=".ui.AddClientActivity" />
+        <activity android:name=".ui.AddVehicleActivity" />
+        <activity android:name=".ui.AddServiceTemplateActivity" />
+        <activity android:name=".ui.AddWorkOrderActivity" />
+
+    </application>
 </manifest>

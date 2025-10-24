@@ -1,13 +1,10 @@
 package com.example.gestaller.data.repository;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.gestaller.data.local.TallerDatabase;
 import com.example.gestaller.data.local.dao.ServiceTemplateDao;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +19,7 @@ public class ServiceTemplateRepository {
         executorService = Executors.newSingleThreadExecutor();
     }
 
+    // ✅ Este es el único método para obtener la lista
     public LiveData<List<ServiceTemplate>> getAllTemplates() {
         return serviceTemplateDao.getAllTemplates();
     }
@@ -38,4 +36,3 @@ public class ServiceTemplateRepository {
         executorService.execute(() -> serviceTemplateDao.delete(serviceTemplate));
     }
 }
-

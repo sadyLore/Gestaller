@@ -26,4 +26,3 @@ public interface ServiceTemplateDao {
     @Delete
     void delete(ServiceTemplate serviceTemplate);
 }
-

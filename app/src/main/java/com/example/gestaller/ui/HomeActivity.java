@@ -1,59 +1,50 @@
 package com.example.gestaller.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.gestaller.R;
-import com.example.gestaller.ui.fragments.ClientListFragment;
-import com.example.gestaller.ui.fragments.VehicleListFragment;
-import com.example.gestaller.ui.fragments.WorkOrderListFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private DrawerLayout drawerLayout;
+    private ImageButton btnMenu;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        btnMenu = findViewById(R.id.btnMenu);
+        navigationView = findViewById(R.id.navigationView);
 
-        // Fragment inicial
-        loadFragment(new ClientListFragment());
+        // 🔹 Abrir el Drawer al presionar el ícono hamburguesa
+        btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                int itemId = item.getItemId();
+        // 🔹 Acciones de los ítems del Drawer
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                if (itemId == R.id.menu_clients) {
-                    fragment = new ClientListFragment();
-                } else if (itemId == R.id.menu_vehicles) {
-                    fragment = new VehicleListFragment();
-                } else if (itemId == R.id.menu_workorders) {
-                    fragment = new WorkOrderListFragment();
-                }
-
-                if (fragment != null) {
-                    loadFragment(fragment);
-                    return true;
-                }
-                return false;
+            if (id == R.id.nav_clientes) {
+                startActivity(new Intent(this, ClientListActivity.class));
+            } else if (id == R.id.nav_vehiculos) {
+                startActivity(new Intent(this, VehicleListActivity.class));
+            } else if (id == R.id.nav_servicios) {
+                startActivity(new Intent(this, ServiceTemplateListActivity.class));
+            } else if (id == R.id.nav_trabajos) {
+                startActivity(new Intent(this, WorkOrderListActivity.class));
             }
-        });
-    }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.commit();
+            drawerLayout.closeDrawers();
+            return true;
+        });
     }
 }

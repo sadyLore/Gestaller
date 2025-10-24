@@ -1,0 +1,55 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Nuevo Servicio"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        
+
+        <EditText
+            android:id="@+id/etName"
+            android:hint="Nombre del servicio"
+            android:backgroundTint="@color/gestaller_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:hint="Descripción (opcional)"
+            android:backgroundTint="@color/gestaller_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etPrice"
+            android:hint="Precio (Gs)"
+            android:inputType="numberDecimal"
+            android:backgroundTint="@color/gestaller_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:hint="Guardar"
+            style="@style/GestallerButton"
+            android:text="Guardar"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:hint="cerrar"
+            style="@style/GestallerButton"
+            android:backgroundTint="@color/gestaller_gray"
+            android:text="Cancelar"/>
+    </LinearLayout>
+</ScrollView>
