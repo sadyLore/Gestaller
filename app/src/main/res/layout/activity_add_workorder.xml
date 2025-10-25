@@ -1,70 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    tools:context=".ui.AddWorkOrderActivity">
+    android:background="@color/white"
+    android:padding="22dp">
 
-    <!-- Campo: ID del vehículo -->
-    <EditText
-        android:id="@+id/etVehicleId"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID del vehículo"
-        android:inputType="number"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="vertical">
 
-    <!-- Campo: Precio total -->
-    <EditText
-        android:id="@+id/etTotalPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Precio total (Gs)"
-        android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/etVehicleId"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0"
-        android:layout_marginTop="16dp" />
+        <!-- 🔹 Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuevo trabajo"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-    <!-- Campo: Notas -->
-    <EditText
-        android:id="@+id/etNotes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Notas"
-        android:inputType="textMultiLine"
-        app:layout_constraintTop_toBottomOf="@id/etTotalPrice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <!-- 🔹 Cliente -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cliente (nombre)"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
-    <!-- Botón Guardar -->
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        app:layout_constraintTop_toBottomOf="@id/etNotes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnCancel"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp" />
+        <EditText
+            android:id="@+id/etClientName"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="14dp"
+            android:hint="Ingresar nombre"
+            android:background="@drawable/rounded_border_button"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/black" />
 
-    <!-- Botón Cancelar -->
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        app:layout_constraintTop_toBottomOf="@id/etNotes"
-        app:layout_constraintStart_toEndOf="@id/btnSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp" />
+        <!-- 🔹 Marca y Modelo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Spinner
+                android:id="@+id/spBrand"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="16dp" />
+
+            <EditText
+                android:id="@+id/etModel"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="Modelo"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- 🔹 Patente y URL imagen -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:id="@+id/etPlate"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:hint="Patente"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/etImageUrl"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:hint="URL imagen"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- 🔹 Servicios -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Servicio"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/servicesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 🔹 Notas -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notas"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:hint="Agregar nota"
+            android:background="@drawable/rounded_border_button"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="22dp" />
+
+        <!-- 🔹 Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_border_button"
+                android:textColor="@color/gestaller_blue" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_border_button"
+                android:textColor="@color/gestaller_blue" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

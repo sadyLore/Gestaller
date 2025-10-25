@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="20dp">
+    android:padding="25dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,9 +39,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/rounded_border_button"
-            android:padding="16dp">
+            android:orientation="vertical"
+            android:padding="22dp">
 
             <!-- Campos -->
             <EditText
@@ -51,21 +51,27 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_border_button"
                 android:hint="Nombre del servicio"
-                android:paddingHorizontal="12dp"
-                android:textColor="@color/black"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
-                android:layout_height="129dp"
-                android:layout_marginBottom="10dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="14dp"
                 android:background="@drawable/rounded_border_button"
-                android:gravity="top"
+                android:gravity="top|start"
                 android:hint="Descripción (opcional)"
                 android:inputType="textMultiLine"
-                android:paddingHorizontal="12dp"
+                android:paddingStart="26dp"
+                android:paddingEnd="26dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+
                 android:textColor="@color/black" />
+
+
 
             <EditText
                 android:id="@+id/etPrice"
@@ -75,23 +81,23 @@
                 android:background="@drawable/rounded_border_button"
                 android:hint="Precio (Gs)"
                 android:inputType="numberDecimal"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="20dp"
                 android:textColor="@color/black" />
 
             <!-- 🔹 Botones -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:layout_marginTop="8dp">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:background="@drawable/rounded_border_button"
                     android:text="Cancelar"
                     android:textAllCaps="false"

@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:padding="20dp">
+    android:fillViewport="true"
+    android:background="@color/white">
 
-    <!-- 🔹 Encabezado con logo -->
-    <LinearLayout
-        android:id="@+id/header"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="12dp">
+        android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:src="@drawable/gestaller_logo"
-            android:contentDescription="@string/app_name" />
-    </LinearLayout>
+        <!-- 🔹 Encabezado con logo -->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
 
-    <!-- 🔹 Título -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_below="@id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Servicios del Taller"
-        android:textColor="@color/gestaller_blue"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="33dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/gestaller_logo" />
+        </LinearLayout>
 
-    <!-- 🔹 Contenedor principal -->
-    <LinearLayout
-        android:id="@+id/container"
-        android:layout_below="@id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/rounded_border_button"
-        android:padding="16dp"
-        android:layout_marginBottom="80dp">
+        <!-- 🔹 Título -->
+
+        <!-- 🔹 Contenedor de lista (sin fondo ni borde) -->
+
+        <!-- 🔹 Botón flotante -->
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lista de servicios disponibles"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_below="@id/header"
+            android:layout_marginTop="29dp"
+            android:layout_marginBottom="16dp"
+            android:text="Servicios del Taller"
             android:textColor="@color/gestaller_blue"
-            android:layout_marginBottom="8dp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <!-- 🔹 RecyclerView con tu ID real -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="8dp" />
-    </LinearLayout>
+            android:layout_below="@id/tvTitle"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-    <!-- 🔹 Botón flotante con tu ID real -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_add"
-        app:tint="@color/white"
-        app:backgroundTint="@color/gestaller_blue"
-        android:contentDescription="Agregar servicio" />
-</RelativeLayout>
+
+            <!-- 🔹 RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="8dp" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/white"
+            app:backgroundTint="@color/gestaller_blue"
+            android:contentDescription="Agregar servicio" />
+    </RelativeLayout>
+</ScrollView>
