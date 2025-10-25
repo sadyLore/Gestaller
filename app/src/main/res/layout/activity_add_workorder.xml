@@ -31,7 +31,6 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="132dp"
                 android:layout_height="31dp"
-                android:layout_gravity="clip_horizontal"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/gestaller_logo" />
