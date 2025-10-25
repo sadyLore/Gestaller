@@ -7,8 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-        >
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Pantalla de inicio -->
         <activity android:name=".ui.LoginActivity"
@@ -33,6 +32,11 @@
         <activity android:name=".ui.AddVehicleActivity" />
         <activity android:name=".ui.AddServiceTemplateActivity" />
         <activity android:name=".ui.AddWorkOrderActivity" />
+
+        <!-- 🔹 MainActivity (para testear base de datos Room) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
     </application>
 </manifest>
