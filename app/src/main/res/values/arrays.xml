@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="brands_array">
+        <item>Toyota</item>
+        <item>Hyundai</item>
+        <item>Nissan</item>
+        <item>Chevrolet</item>
+        <item>Volkswagen</item>
+        <item>Ford</item>
+        <item>Honda</item>
+    </string-array>
+</resources>

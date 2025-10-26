@@ -1,79 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.ClientListActivity">
+    android:fillViewport="true">
 
-    <!-- 🔹 Encabezado con logo y botón cerrar -->
-    <LinearLayout
-        android:id="@+id/header"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:weightSum="1">
+        android:padding="20dp">
 
-        <ImageView
-            android:layout_width="180dp"
-            android:layout_height="36dp"
-            android:src="@drawable/gestaller_logo"
-            android:contentDescription="Logo Gestaller"
-            android:layout_weight="0" />
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:src="@drawable/gestaller_logo"
+                android:contentDescription="@string/app_name" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnCerrar"
-            android:layout_width="77dp"
-            android:layout_height="37dp"
-            android:background="@drawable/rounded_border_button"
-            android:text="cerrar"
-            android:textAllCaps="false"
-            android:textColor="@color/gestaller_blue" />
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:layout_marginTop="29dp"
+            android:layout_marginBottom="16dp"
+            android:text="Clientes"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_below="@id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="80dp">
 
-    <!-- 🔹 Título -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerClients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="8dp" />
+        </LinearLayout>
 
-    <!-- 🔹 Lista de clientes -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
-        android:text="Clientes"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerClients"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tvTitle"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="80dp"
-        android:clipToPadding="false"/>
-
-    <!-- 🔹 Botón flotante “+” -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddClient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_add"
-        app:tint="@color/white"
-        app:backgroundTint="@color/gestaller_blue" />
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_add"
+            app:tint="@color/white"
+            app:backgroundTint="@color/gestaller_blue"
+            android:contentDescription="Agregar cliente" />
+    </RelativeLayout>
+</ScrollView>

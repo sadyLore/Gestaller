@@ -1,50 +1,71 @@
 package com.example.gestaller.ui;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.Observer;
 import com.example.gestaller.R;
-import com.example.gestaller.data.local.entity.WorkOrder;
-import com.example.gestaller.data.repository.WorkOrderRepository;
+import com.example.gestaller.data.local.entity.Vehicle;
+import com.example.gestaller.data.local.entity.ServiceTemplate;
+import com.example.gestaller.data.repository.VehicleRepository;
+import com.example.gestaller.data.repository.ServiceTemplateRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddWorkOrderActivity extends AppCompatActivity {
 
-    private EditText etVehicleId, etTotalPrice, etNotes;
-    private Button btnSave, btnCancel;
-    private WorkOrderRepository repository;
+    private Spinner spBrand, spModel;
+    private LinearLayout servicesContainer;
+    private VehicleRepository vehicleRepo;
+    private ServiceTemplateRepository serviceRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workorder);
 
-        repository = new WorkOrderRepository(getApplication());
+        spBrand = findViewById(R.id.spBrand);
+        spModel = findViewById(R.id.spModel);
+        servicesContainer = findViewById(R.id.servicesContainer);
 
-        etVehicleId = findViewById(R.id.etVehicleId);
-        etTotalPrice = findViewById(R.id.etTotalPrice);
-        etNotes = findViewById(R.id.etNotes);
-        btnSave = findViewById(R.id.btnSave);
-        btnCancel = findViewById(R.id.btnCancel);
+        vehicleRepo = new VehicleRepository(getApplication());
+        serviceRepo = new ServiceTemplateRepository(getApplication());
 
-        btnSave.setOnClickListener(v -> {
-            String vehicleIdText = etVehicleId.getText().toString().trim();
-            String totalText = etTotalPrice.getText().toString().trim();
-            String notes = etNotes.getText().toString().trim();
+        // 🔹 Cargar marcas desde los vehículos guardados
+        vehicleRepo.getAllVehicles().observe(this, vehicles -> {
+            List<String> brands = new ArrayList<>();
+            List<String> models = new ArrayList<>();
 
-            if (vehicleIdText.isEmpty() || totalText.isEmpty()) return;
+            for (Vehicle v : vehicles) {
+                if (!brands.contains(v.getBrand())) brands.add(v.getBrand());
+                if (!models.contains(v.getModel())) models.add(v.getModel());
+            }
 
-            int vehicleId = Integer.parseInt(vehicleIdText);
-            double totalPrice = Double.parseDouble(totalText);
-            long currentDate = System.currentTimeMillis();
+            ArrayAdapter<String> brandAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, brands);
+            brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spBrand.setAdapter(brandAdapter);
 
-            WorkOrder work = new WorkOrder(vehicleId, totalPrice, notes, currentDate);
-            repository.insert(work);
-            finish();
+            ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
+            modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spModel.setAdapter(modelAdapter);
         });
 
-        btnCancel.setOnClickListener(v -> finish());
+        // 🔹 Cargar servicios dinámicamente
+        serviceRepo.getAllTemplates().observe(this, new Observer<List<ServiceTemplate>>() {
+            @Override
+            public void onChanged(List<ServiceTemplate> serviceTemplates) {
+                servicesContainer.removeAllViews();
+                for (ServiceTemplate service : serviceTemplates) {
+                    CheckBox cb = new CheckBox(AddWorkOrderActivity.this);
+                    cb.setText(service.getName());
+                    cb.setTextColor(getResources().getColor(R.color.black));
+                    cb.setPadding(12, 8, 12, 8);
+                    servicesContainer.addView(cb);
+                }
+            }
+        });
     }
 }
