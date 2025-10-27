@@ -23,6 +23,7 @@
 
         <!-- 📋 Listas -->
         <activity android:name=".ui.ClientListActivity" />
+        <activity android:name=".ui.WorkOrderDetailActivity" />
         <activity android:name=".ui.VehicleListActivity" />
         <activity android:name=".ui.ServiceTemplateListActivity" />
         <activity android:name=".ui.WorkOrderListActivity" />

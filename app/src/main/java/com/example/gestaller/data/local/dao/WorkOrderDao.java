@@ -14,22 +14,27 @@ import java.util.List;
 @Dao
 public interface WorkOrderDao {
 
-    // CONSULTA CORREGIDA
-    // Se usa 'work_orders' que es el nombre de la tabla definido en la entidad.
+    // 🔹 Obtener todas las órdenes (por fecha descendente)
     @Query("SELECT * FROM work_orders ORDER BY date DESC")
     LiveData<List<WorkOrder>> getAllWorkOrders();
 
-    // CONSULTA CORREGIDA
-    // También se usa 'work_orders'.
+    // 🔹 Obtener todas las órdenes (por ID descendente)
     @Query("SELECT * FROM work_orders ORDER BY id DESC")
     LiveData<List<WorkOrder>> getAll();
 
+    // 🔹 Obtener una orden específica por su ID
+    @Query("SELECT * FROM work_orders WHERE id = :id LIMIT 1")
+    LiveData<WorkOrder> getWorkOrderById(int id);
+
+    // 🔹 Insertar nueva orden
     @Insert
     void insert(WorkOrder workOrder);
 
+    // 🔹 Actualizar una orden existente
     @Update
     void update(WorkOrder workOrder);
 
+    // 🔹 Eliminar una orden
     @Delete
     void delete(WorkOrder workOrder);
 }
