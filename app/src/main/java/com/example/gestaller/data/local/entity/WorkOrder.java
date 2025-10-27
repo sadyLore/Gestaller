@@ -27,6 +27,9 @@ public class WorkOrder {
     private String notes;
     private long date;
 
+    public WorkOrder() {
+    }
+
     // Tu constructor está bien para crear nuevas órdenes de trabajo
     public WorkOrder(int vehicleId,  String services, double totalPrice, String notes, long date) {
         this.vehicleId = vehicleId;
@@ -44,6 +47,9 @@ public class WorkOrder {
     public String getServices() { return services; }
     // Este setter parece que no lo necesitas si ya tienes el constructor, pero no hace daño
     // public void setServices(String services) { this.services = services; }
+    public void setServices(String services) {
+        this.services = services;}
+
     public double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
     public String getNotes() { return notes; }
