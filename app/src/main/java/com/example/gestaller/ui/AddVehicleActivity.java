@@ -6,14 +6,15 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gestaller.R;
-import com.example.gestaller.data.repository.VehicleRepository;
 import com.example.gestaller.data.local.entity.Vehicle;
+import com.example.gestaller.data.repository.VehicleRepository;
 
 public class AddVehicleActivity extends AppCompatActivity {
 
-    private EditText etBrand, etModel, etYear, etColor, etPlate;
+    private EditText etBrand, etModel;
     private Button btnSave, btnCancel;
     private VehicleRepository repository;
+    private int vehicleId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +28,30 @@ public class AddVehicleActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
 
-        btnSave.setOnClickListener(v -> {
-            String brand = etBrand.getText().toString();
-            String model = etModel.getText().toString();
+        // Si venimos de “Editar”, cargar datos
+        if (getIntent() != null && getIntent().hasExtra("vehicleId")) {
+            vehicleId = getIntent().getIntExtra("vehicleId", -1);
+            etBrand.setText(getIntent().getStringExtra("brand"));
+            etModel.setText(getIntent().getStringExtra("model"));
+        }
 
+        btnSave.setOnClickListener(v -> {
+            String brand = etBrand.getText().toString().trim();
+            String model = etModel.getText().toString().trim();
+
+            if (brand.isEmpty()) {
+                etBrand.setError("La marca es obligatoria");
+                return;
+            }
 
             Vehicle vehicle = new Vehicle(brand, model);
-            repository.insert(vehicle);
+            if (vehicleId != -1) {
+                vehicle.setId(vehicleId);
+                repository.update(vehicle);
+            } else {
+                repository.insert(vehicle);
+            }
+
             finish();
         });
 

@@ -1,29 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:padding="4dp"
-    android:orientation="vertical">
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    android:backgroundTint="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_border_button"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="14dp">
 
-        <!-- 🔹 Marca y modelo -->
         <TextView
             android:id="@+id/tvBrandModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toyota Corolla"
-            android:textStyle="bold"
+            android:text="Hyundai Santa Fe"
+            android:textColor="@color/gestaller_blue"
             android:textSize="16sp"
-            android:textColor="@color/gestaller_blue" />
+            android:textStyle="bold" />
 
-
-
-    </LinearLayout>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/btnMoreOptions"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_more_vert"
+            android:contentDescription="Opciones"
+            android:tint="@color/gestaller_gray" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
