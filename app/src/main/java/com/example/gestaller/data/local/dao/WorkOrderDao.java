@@ -14,10 +14,14 @@ import java.util.List;
 @Dao
 public interface WorkOrderDao {
 
-    @Query("SELECT * FROM workorder ORDER BY date DESC")
+    // CONSULTA CORREGIDA
+    // Se usa 'work_orders' que es el nombre de la tabla definido en la entidad.
+    @Query("SELECT * FROM work_orders ORDER BY date DESC")
     LiveData<List<WorkOrder>> getAllWorkOrders();
 
-    @Query("SELECT * FROM WorkOrder ORDER BY id DESC")
+    // CONSULTA CORREGIDA
+    // También se usa 'work_orders'.
+    @Query("SELECT * FROM work_orders ORDER BY id DESC")
     LiveData<List<WorkOrder>> getAll();
 
     @Insert
@@ -28,7 +32,4 @@ public interface WorkOrderDao {
 
     @Delete
     void delete(WorkOrder workOrder);
-
-
 }
-

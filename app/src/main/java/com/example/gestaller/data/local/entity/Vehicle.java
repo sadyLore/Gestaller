@@ -1,45 +1,60 @@
 package com.example.gestaller.data.local.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "vehicles") // Es una buena práctica nombrar la tabla explícitamente
 public class Vehicle {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int clientId;
+
     private String brand;
     private String model;
-    private int year;
-    private String color;
-    private String plate;
 
-    public Vehicle(int clientId, String brand, String model, int year, String color, String plate) {
-        this.clientId = clientId;
+    // CONSTRUCTOR PRINCIPAL
+    // Este es el único constructor que Room usará para leer objetos de la base de datos.
+    // Inicializa TODOS los campos de la clase.
+    public Vehicle(int id, String brand, String model) {
+        this.id = id;
         this.brand = brand;
         this.model = model;
-        this.year = year;
-        this.color = color;
-        this.plate = plate;
     }
 
-    public Vehicle(String brand, String model, String year, String color, String plate) {
-
+    // CONSTRUCTOR SECUNDARIO (para crear vehículos NUEVOS)
+    // Se usa cuando quieres insertar un vehículo nuevo y no tienes el 'id' todavía (Room lo generará).
+    // Usamos @Ignore para decirle a Room que no intente usar este constructor para leer datos.
+    @Ignore
+    public Vehicle(String brand, String model) {
+        this.brand = brand;
+        this.model = model;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public int getClientId() { return clientId; }
-    public void setClientId(int clientId) { this.clientId = clientId; }
-    public String getBrand() { return brand; }
-    public void setBrand(String brand) { this.brand = brand; }
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
-    public String getColor() { return color; }
-    public void setColor(String color) { this.color = color; }
-    public String getPlate() { return plate; }
-    public void setPlate(String plate) { this.plate = plate; }
+
+    // --- GETTERS y SETTERS (Estos ya estaban bien) ---
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
 }
-

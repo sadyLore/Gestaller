@@ -18,7 +18,7 @@ import java.util.List;
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
 
     private List<Vehicle> vehicleList;
-    private VehicleRepository repository;
+    private final VehicleRepository repository;
 
     public VehicleAdapter(List<Vehicle> vehicleList, VehicleRepository repository) {
         this.vehicleList = vehicleList;
@@ -36,10 +36,7 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     @Override
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
         Vehicle vehicle = vehicleList.get(position);
-
         holder.tvBrandModel.setText(vehicle.getBrand() + " " + vehicle.getModel());
-        holder.tvPlate.setText("Chapa: " + vehicle.getPlate());
-        holder.tvYearColor.setText(vehicle.getYear() + " • " + vehicle.getColor());
 
         holder.itemView.setOnLongClickListener(v -> {
             repository.delete(vehicle);
@@ -53,14 +50,18 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         return vehicleList != null ? vehicleList.size() : 0;
     }
 
+    // 🔹 Método para actualizar lista desde LiveData
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicleList = vehicles;
+        notifyDataSetChanged();
+    }
+
     static class VehicleViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBrandModel, tvPlate, tvYearColor;
+        TextView tvBrandModel;
 
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);
             tvBrandModel = itemView.findViewById(R.id.tvBrandModel);
-            tvPlate = itemView.findViewById(R.id.tvPlate);
-            tvYearColor = itemView.findViewById(R.id.tvYearColor);
         }
     }
 }

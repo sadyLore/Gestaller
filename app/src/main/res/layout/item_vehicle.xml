@@ -23,24 +23,7 @@
             android:textSize="16sp"
             android:textColor="@color/gestaller_blue" />
 
-        <!-- 🔹 Chapa -->
-        <TextView
-            android:id="@+id/tvPlate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AAE 202"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp" />
 
-        <!-- 🔹 Año y color -->
-        <TextView
-            android:id="@+id/tvYearColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2020 • Blanco"
-            android:textSize="14sp"
-            android:textColor="@color/gestaller_gray"
-            android:layout_marginTop="2dp" />
+
     </LinearLayout>
 </LinearLayout>

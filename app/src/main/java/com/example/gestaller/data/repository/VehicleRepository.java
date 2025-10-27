@@ -22,8 +22,9 @@ public class VehicleRepository {
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public LiveData<List<Vehicle>> getAllVehicles() {
-        return vehicleDao.getAllVehicles();
+    // MÉTODO CORREGIDO
+    public LiveData<List<Vehicle>> getAll() {
+        return vehicleDao.getAll();
     }
 
     public void insert(Vehicle vehicle) {
@@ -38,4 +39,3 @@ public class VehicleRepository {
         executorService.execute(() -> vehicleDao.delete(vehicle));
     }
 }
-

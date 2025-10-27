@@ -38,7 +38,7 @@
         <!-- 🔹 Tarjeta del formulario -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="540dp"
+            android:layout_height="280dp"
             android:background="@drawable/rounded_border_button"
             android:orientation="vertical"
             android:padding="16dp">
@@ -55,6 +55,8 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/black" />
 
+
+            <!-- 🔹 Botones -->
             <EditText
                 android:id="@+id/etModel"
                 android:layout_width="match_parent"
@@ -67,43 +69,6 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/etYear"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_border_button"
-                android:gravity="center_vertical"
-                android:hint="Año"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/etColor"
-                android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_border_button"
-                android:gravity="center_vertical"
-                android:hint="Color"
-                android:inputType="textPersonName"
-                android:paddingHorizontal="12dp"
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/etPlate"
-                android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_border_button"
-                android:gravity="center_vertical"
-                android:hint="Chapa"
-                android:inputType="textPersonName"
-                android:paddingHorizontal="12dp"
-                android:textColor="@color/black" />
-
-            <!-- 🔹 Botones -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,10 +83,10 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_border_button"
+                    android:backgroundTint="@color/gestaller_blue"
                     android:text="Cancelar"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/gestaller_blue"/>
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnSave"
@@ -130,10 +95,10 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_border_button"
+                    android:backgroundTint="@color/gestaller_blue"
                     android:text="Guardar"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/gestaller_blue" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
