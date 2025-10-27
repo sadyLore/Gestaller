@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gestaller.R;
-import com.example.gestaller.data.local.entity.Client;
+import com.example.gestaller.data.repository.ClientRepository;
 import com.example.gestaller.ui.adapter.ClientAdapter;
+import com.example.gestaller.data.local.entity.Client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ public class ClientListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerClients;
     private ClientAdapter adapter;
-    private List<Client> clientList;
+    private ClientRepository clientRepo;
+    private List<Client> clientList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +28,18 @@ public class ClientListActivity extends AppCompatActivity {
         recyclerClients = findViewById(R.id.recyclerClients);
         recyclerClients.setLayoutManager(new LinearLayoutManager(this));
 
-        // 🔹 Datos de ejemplo (hasta conectar Room)
-        clientList = new ArrayList<>();
-        clientList.add(new Client("Carlos Ojeda", "098155690", "Villa Aurelia"));
-        clientList.add(new Client("Fiorella Miranda", "0972726832", "San Lorenzo, zona Sur"));
-        clientList.add(new Client("Nelly Bogado", "0992800200", "Fernando de la Mora"));
+        clientRepo = new ClientRepository(getApplication());
 
-        adapter = new ClientAdapter(clientList);
+        // 🔹 Observar los clientes guardados en Room
+        clientRepo.getAll().observe(this, clients -> {
+            if (clients != null) {
+                clientList = clients;
+                adapter.updateData(clientList);
+            }
+        });
+
+        // 🔹 Inicializar el adaptador
+        adapter = new ClientAdapter(clientList, clientRepo);
         recyclerClients.setAdapter(adapter);
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/white">
+
+    <TextView
+        android:text="Nuevo trabajo"
+        android:textColor="@color/gestaller_blue"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="12dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etClient"
+        android:hint="Cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border_button"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/etService"
+        android:hint="Servicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_border_button"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/etNotes"
+        android:hint="Notas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_border_button"
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/btnSaveWork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_border_button"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

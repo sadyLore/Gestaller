@@ -28,29 +28,27 @@ public class ServiceTemplateListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         fabAdd = findViewById(R.id.fabAdd);
         repository = new ServiceTemplateRepository(getApplication());
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // 🔹 Observamos los servicios y si está vacío, insertamos los predeterminados una sola vez
         repository.getAllTemplates().observe(this, services -> {
+            if (services.isEmpty()) {
+                // Inserta los predeterminados solo una vez
+                repository.insert(new ServiceTemplate("Cambio de aceite y filtro", "Reemplazo de aceite y filtro", 120000));
+                repository.insert(new ServiceTemplate("Alineación y balanceo", "Ajuste de ángulos y balanceo de ruedas", 100000));
+                repository.insert(new ServiceTemplate("Revisión y cambio de frenos", "Inspección y sustitución de pastillas o discos", 150000));
+                repository.insert(new ServiceTemplate("Cambio de bujías y mantenimiento del sistema de encendido", "Cambio de bujías y revisión del encendido", 130000));
+                repository.insert(new ServiceTemplate("Revisión del sistema eléctrico", "Chequeo de batería, alternador y fusibles", 110000));
+                repository.insert(new ServiceTemplate("Mantenimiento del sistema de refrigeración", "Revisión de radiador, líquido y mangueras", 140000));
+            }
+
+            // 🔹 Actualiza el adaptador
             adapter = new ServiceTemplateAdapter(services, repository);
             recyclerView.setAdapter(adapter);
         });
 
-
         // 🔹 Botón flotante para agregar un nuevo servicio
         fabAdd.setOnClickListener(v ->
                 startActivity(new Intent(this, AddServiceTemplateActivity.class)));
-        // 🔹 Insertar servicios predeterminados solo si la tabla está vacía
-        repository.getAllTemplates().observe(this, services -> {
-            if (services.isEmpty()) {
-                repository.insert(new ServiceTemplate("Cambio de aceite", "Reemplazo de aceite", 120000));
-                repository.insert(new ServiceTemplate("Alineación y balanceo", "Ajuste de ángulos y balanceo de ruedas", 100000));
-                repository.insert(new ServiceTemplate("Revisión y cambio de frenos", "Inspección y sustitución de pastillas o discos", 150000));
-                repository.insert(new ServiceTemplate("Cambio de bujías", "cambio de bujías", 130000));
-                repository.insert(new ServiceTemplate("Revisión del sistema eléctrico", "Chequeo de batería, alternador y fusibles", 110000));
-                repository.insert(new ServiceTemplate("Mantenimiento del sistema de refrigeración", "Revisión de radiador, líquido y mangueras", 140000));
-            }
-        });
-
     }
 }

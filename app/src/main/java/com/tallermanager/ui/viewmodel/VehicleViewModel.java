@@ -1,6 +1,5 @@
 package com.tallermanager.ui.viewmodel;
 
-
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -19,10 +18,12 @@ public class VehicleViewModel extends AndroidViewModel {
     public VehicleViewModel(@NonNull Application application) {
         super(application);
         repository = new VehicleRepository(application);
-        allVehicles = repository.getAllVehicles();
+        // 1. CORRECCIÓN EN EL CONSTRUCTOR
+        allVehicles = repository.getAll(); // Usamos el nuevo nombre 'getAll()'
     }
 
-    public LiveData<List<Vehicle>> getAllVehicles() {
+    // 2. CORRECCIÓN DEL MÉTODO PÚBLICO (por consistencia)
+    public LiveData<List<Vehicle>> getAll() { // Renombramos el método para que coincida
         return allVehicles;
     }
 
@@ -38,4 +39,3 @@ public class VehicleViewModel extends AndroidViewModel {
         repository.delete(vehicle);
     }
 }
-

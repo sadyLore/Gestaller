@@ -8,35 +8,57 @@
     card_view:strokeColor="@color/gestaller_blue"
     card_view:strokeWidth="1dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="12dp">
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+        <!-- 🔹 Datos del cliente -->
+        <LinearLayout
+            android:id="@+id/infoContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Carlos Ojeda"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:layout_toStartOf="@id/btnMenu"
+            android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="098155690"
-            android:textColor="@color/black"
-            android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carlos Ojeda"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Villa Aurelia"
-            android:textColor="@color/gray_600"
-            android:layout_marginTop="2dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="098155690"
+                android:textColor="@color/black"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Villa Aurelia"
+                android:textColor="@color/gray_600"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- 🔹 Botón de menú (tres puntos) -->
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more_vert"
+            android:contentDescription="Opciones"
+            android:padding="6dp"
+            android:tint="@color/gestaller_blue" />
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

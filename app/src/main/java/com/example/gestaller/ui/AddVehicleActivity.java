@@ -24,20 +24,15 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         etBrand = findViewById(R.id.etBrand);
         etModel = findViewById(R.id.etModel);
-        etYear = findViewById(R.id.etYear);
-        etColor = findViewById(R.id.etColor);
-        etPlate = findViewById(R.id.etPlate);
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
 
         btnSave.setOnClickListener(v -> {
             String brand = etBrand.getText().toString();
             String model = etModel.getText().toString();
-            String year = etYear.getText().toString();
-            String color = etColor.getText().toString();
-            String plate = etPlate.getText().toString();
 
-            Vehicle vehicle = new Vehicle(brand, model, year, color, plate);
+
+            Vehicle vehicle = new Vehicle(brand, model);
             repository.insert(vehicle);
             finish();
         });
