@@ -109,9 +109,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
             tvName = itemView.findViewById(R.id.tvName);
             tvPhone = itemView.findViewById(R.id.tvPhone);
             tvAddress = itemView.findViewById(R.id.tvAddress);
-            btnOptions = new ImageView(itemView.getContext());
-            btnOptions.setImageResource(R.drawable.ic_more_vert);
-            ((ViewGroup) itemView).addView(btnOptions);
+            btnOptions = itemView.findViewById(R.id.btnOptions);
+
         }
     }
 }

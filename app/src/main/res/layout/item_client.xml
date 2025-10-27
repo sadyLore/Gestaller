@@ -13,13 +13,11 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- 🔹 Datos del cliente -->
         <LinearLayout
-            android:id="@+id/infoContainer"
-            android:layout_width="match_parent"
+            android:id="@+id/layoutInfo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toStartOf="@id/btnMenu"
             android:layout_alignParentStart="true">
 
             <TextView
@@ -48,17 +46,15 @@
                 android:layout_marginTop="2dp" />
         </LinearLayout>
 
-        <!-- 🔹 Botón de menú (tres puntos) -->
+        <!-- 🔹 Botón de opciones (⋮) -->
         <ImageView
-            android:id="@+id/btnMenu"
+            android:id="@+id/btnOptions"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_more_vert"
             android:contentDescription="Opciones"
-            android:padding="6dp"
-            android:tint="@color/gestaller_blue" />
-
+            android:tint="@color/gray_600" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
