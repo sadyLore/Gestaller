@@ -58,7 +58,7 @@ public class WorkOrderListActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_workorder_detail);
 
-            imgWorkOrder = findViewById(R.id.imgWorkOrder);
+
             tvTitle = findViewById(R.id.tvTitle);
             tvPrice = findViewById(R.id.tvPrice);
             tvDate = findViewById(R.id.tvDate);
@@ -74,7 +74,7 @@ public class WorkOrderListActivity extends AppCompatActivity {
 
         private void cargarDatos(@NonNull WorkOrder order) {
             // Imagen temporal (Firebase más adelante)
-            imgWorkOrder.setImageResource(R.drawable.ic_car_placeholder);
+
 
             // Datos básicos
             tvTitle.setText("Trabajo #" + order.getId());

@@ -43,46 +43,32 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
 
     @Override
     public void onBindViewHolder(@NonNull WorkOrderViewHolder holder, int position) {
-        WorkOrder workOrder = workOrderList.get(position);
+        WorkOrder order = workOrderList.get(position);
 
-        holder.tvTitle.setText("Trabajo #" + workOrder.getId());
-        holder.tvClientVehicle.setText("Vehículo ID: " + workOrder.getVehicleId());
-        holder.tvPrice.setText("Total: Gs. " + String.format("%,.0f", workOrder.getTotalPrice()));
+        holder.tvTitle.setText(order.getClientName() != null
+                ? order.getClientName()
+                : "Cliente desconocido");
 
-        Date date = new Date(workOrder.getDate());
+        holder.tvClientVehicle.setText(
+                (order.getVehicleBrand() != null ? order.getVehicleBrand() : "") +
+                        " " +
+                        (order.getVehicleModel() != null ? order.getVehicleModel() : "") +
+                        (order.getVehiclePlate() != null ? " - " + order.getVehiclePlate() : "")
+        );
+
+        holder.tvPrice.setText("Total: Gs. " + String.format("%,.0f", order.getTotalPrice()));
+
+        Date date = new Date(order.getDate());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         holder.tvDate.setText("Fecha: " + sdf.format(date));
 
-        // ✅ Al tocar la tarjeta → abrir detalle de la orden
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), WorkOrderDetailActivity.class);
-            intent.putExtra("workOrderId", workOrder.getId());
+            intent.putExtra("orderId", order.getId());
             v.getContext().startActivity(intent);
         });
-
-        // 🔹 Menú de opciones (editar/eliminar)
-        holder.btnMoreOptions.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(v.getContext(), holder.btnMoreOptions);
-            popup.getMenuInflater().inflate(R.menu.menu_item_options, popup.getMenu());
-
-            popup.setOnMenuItemClickListener(item -> {
-                int id = item.getItemId();
-                if (id == R.id.action_edit) {
-                    Intent intent = new Intent(v.getContext(), AddWorkOrderActivity.class);
-                    intent.putExtra("workOrderId", workOrder.getId());
-                    v.getContext().startActivity(intent);
-                    return true;
-                } else if (id == R.id.action_delete) {
-                    repository.delete(workOrder);
-                    Toast.makeText(v.getContext(), "Trabajo eliminado", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
-            });
-
-            popup.show();
-        });
     }
+
 
     @Override
     public int getItemCount() {

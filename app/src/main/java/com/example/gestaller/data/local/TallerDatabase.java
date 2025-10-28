@@ -29,7 +29,7 @@ import com.example.gestaller.data.local.entity.WorkOrderService;
                 WorkOrderPhoto.class,
                 ServiceTemplate.class
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class TallerDatabase extends RoomDatabase {
