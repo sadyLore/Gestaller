@@ -10,106 +10,94 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- 🔹 Imagen del vehículo -->
-
-        <ImageView
-            android:id="@+id/imgWorkOrder"
-            android:layout_width="402dp"
-            android:layout_height="373dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/border_blue"
-            android:contentDescription="Imagen del trabajo"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_car_placeholder" />
-
-        <!-- 🔹 Cliente -->
-        <TextView
-            android:id="@+id/tvClientName"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Cliente"
-            android:textColor="@color/gestaller_blue"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <!-- 🔹 Vehículo -->
-        <TextView
-            android:id="@+id/tvVehicleInfo"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Ford Ranger - AAAA 212"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <!-- 🔹 Teléfono -->
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="0972586221"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <!-- 🔹 Servicios -->
-        <TextView
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Servicios:"
-            android:textColor="@color/gestaller_blue"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvServices"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cambio de aceite, alineación"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="12dp" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <!-- 🔹 Notas -->
-        <TextView
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Notas:"
-            android:textColor="@color/gestaller_blue"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <!-- Imagen del vehículo -->
+            <ImageView
+                android:id="@+id/imgWorkOrder"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_car_placeholder"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Imagen del vehículo" />
 
-        <TextView
-            android:id="@+id/tvNotes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Listo para la prueba"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="12dp" />
+            <!-- Nombre del cliente -->
+            <TextView
+                android:id="@+id/tvClientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/gestaller_blue"
+                android:layout_marginBottom="8dp"/>
 
-        <!-- 🔹 Fecha y total -->
+            <!-- Marca / Modelo / Chapa -->
+            <TextView
+                android:id="@+id/tvVehicleInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ford Ranger - AAAA212"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Precio total: Gs. 0"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp" />
+            <!-- Teléfono -->
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0972586221"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="19/10/2025, 13:02"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
+            <!-- Servicios -->
+            <TextView
+                android:id="@+id/tvServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cambio de aceite, alineación"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Notas -->
+            <TextView
+                android:id="@+id/tvNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notas: Listo para la prueba"
+                android:textSize="14sp"
+                android:textColor="@color/gestaller_gray"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Precio -->
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total: Gs. 0"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha: 28/10/2025"
+                android:textSize="14sp"
+                android:textColor="@color/gestaller_gray"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>
