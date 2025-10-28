@@ -71,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // 🔹 Ventana emergente para agregar trabajo
     // 🔹 Ventana emergente para agregar trabajo
+    // 🔹 Ventana emergente para agregar trabajo
     private void showAddWorkOrderDialog() {
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -78,7 +79,9 @@ public class HomeActivity extends AppCompatActivity {
             builder.setView(view);
             AlertDialog dialog = builder.create();
 
-            // Referencias
+            // Referencias a los campos del formulario
+            EditText etClientName = view.findViewById(R.id.etClientName);
+            EditText etPlate = view.findViewById(R.id.etPlate);
             EditText etNotes = view.findViewById(R.id.etNotes);
             LinearLayout servicesContainer = view.findViewById(R.id.servicesContainer);
             Spinner spBrand = view.findViewById(R.id.spBrand);
@@ -134,8 +137,7 @@ public class HomeActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
+                        public void onNothingSelected(AdapterView<?> parent) {}
                     });
                 }
             });
@@ -160,27 +162,35 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 String servicesText = String.join(", ", selectedServices);
-                String notes = etNotes.getText().toString();
+                String notes = etNotes.getText().toString().trim();
+                String clientName = etClientName.getText().toString().trim();
+                String plateText = etPlate.getText().toString().trim();
                 long date = System.currentTimeMillis();
 
-                // 🔹 Marca y modelo seleccionados
                 String selectedBrand = (String) spBrand.getSelectedItem();
                 String selectedModel = (String) spModel.getSelectedItem();
 
-                // 🔹 Buscar vehículo existente con esa marca y modelo
-                vehicleRepo.getAll().observe(this, vehicleList -> {
-                    for (Vehicle vehicle : vehicleList) {
-                        if (vehicle.getBrand().equals(selectedBrand) && vehicle.getModel().equals(selectedModel)) {
-                            // ✅ Guardar el trabajo con el vehicleId real
-                            WorkOrder order = new WorkOrder(vehicle.getId(), servicesText, 0.0, notes, date);
-                            workRepo.insert(order);
-                            Toast.makeText(this, "✅ Trabajo agregado correctamente", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            return; // Salir del bucle
-                        }
-                    }
-                    Toast.makeText(this, "⚠️ Vehículo no encontrado en la base de datos", Toast.LENGTH_SHORT).show();
-                });
+                // 🔹 Validaciones simples
+                if (clientName.isEmpty()  || plateText.isEmpty()) {
+                    Toast.makeText(this, "⚠️ Completá todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 🔹 Crear nueva orden de trabajo
+                WorkOrder order = new WorkOrder();
+                order.setClientName(clientName);
+                order.setVehicleBrand(selectedBrand);
+                order.setVehicleModel(selectedModel);
+                order.setVehiclePlate(plateText);
+                order.setServices(servicesText);
+                order.setNotes(notes);
+                order.setTotalPrice(0.0);
+                order.setDate(date);
+
+                // 🔹 Guardar en Room
+                workRepo.insert(order);
+                Toast.makeText(this, "✅ Trabajo agregado correctamente", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             });
 
             // 🔹 Botón Cancelar

@@ -40,7 +40,7 @@
             android:layout_below="@id/header"
             android:layout_marginTop="29dp"
             android:layout_marginBottom="16dp"
-            android:text="Servicios del Taller"
+            android:text="Servicios"
             android:textColor="@color/gestaller_blue"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -58,7 +58,7 @@
 
             <!-- 🔹 RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recyclerServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -66,7 +66,7 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAdd"
+            android:id="@+id/fabAddService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

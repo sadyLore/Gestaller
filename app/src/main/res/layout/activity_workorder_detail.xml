@@ -1,0 +1,116 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- 🔹 Imagen del vehículo -->
+
+        <ImageView
+            android:id="@+id/imgWorkOrder"
+            android:layout_width="402dp"
+            android:layout_height="373dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/border_blue"
+            android:contentDescription="Imagen del trabajo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_car_placeholder" />
+
+        <!-- 🔹 Cliente -->
+        <TextView
+            android:id="@+id/tvClientName"
+            android:layout_width="359dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Cliente"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 🔹 Vehículo -->
+        <TextView
+            android:id="@+id/tvVehicleInfo"
+            android:layout_width="357dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Ford Ranger - AAAA 212"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!-- 🔹 Teléfono -->
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="0972586221"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!-- 🔹 Servicios -->
+        <TextView
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Servicios:"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambio de aceite, alineación"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Notas -->
+        <TextView
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Notas:"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listo para la prueba"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Fecha y total -->
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio total: Gs. 0"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="19/10/2025, 13:02"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+</ScrollView>
