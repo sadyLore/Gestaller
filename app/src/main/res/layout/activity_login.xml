@@ -47,9 +47,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
 
             <!-- Usuario -->
             <EditText
@@ -80,7 +80,7 @@
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="67dp"
                 android:background="@drawable/bg_login_button"
                 android:text="Iniciar sesión"
                 android:textAllCaps="false"

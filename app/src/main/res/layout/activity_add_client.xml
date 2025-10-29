@@ -74,7 +74,7 @@
                 android:hint="Dirección"
                 android:inputType="textPostalAddress"
                 android:padding="14dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <!-- 🔹 Botones -->
             <LinearLayout
