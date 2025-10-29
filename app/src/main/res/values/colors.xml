@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gestaller_blue">#3A75C4</color>
     <color name="gestaller_blue_light">#5794D7</color>
@@ -7,5 +8,6 @@
     <color name="gray_600">#757575</color>
     <color name="colorAccent">#3A75C4</color> <!-- azul principal -->
     <color name="buttonColor">#5794D7</color> <!-- azul claro -->
-
+    <color name="purple_700">#FF6200EE</color>
+    <color name="teal_700">#018786</color>
 </resources>

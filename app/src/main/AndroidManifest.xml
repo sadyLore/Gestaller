@@ -1,5 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.gestaller">
+
+    <!-- Permisos para cámara -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Permisos para medios -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <!-- CORREGIDO: El permiso de escritura debe ser consistente con el de lectura -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Queries para que la app pueda ver a otras apps de cámara en Android 11+ -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -9,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Pantalla de inicio (Login) -->
+        <!-- Pantalla de inicio -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
@@ -19,29 +39,38 @@
             </intent-filter>
         </activity>
 
-        <!-- Pantalla principal (Propietario) -->
+        <!-- Pantalla principal -->
         <activity android:name=".ui.HomeActivity" />
 
-        <!-- Pantalla principal (Empleado) -->
-        <activity android:name=".ui.EmployeeHomeActivity" />
-
         <!-- 📋 Listas -->
-        <activity android:name=".ui.ClientListActivity" />
-        <activity android:name=".ui.WorkOrderDetailActivity" />
-        <activity android:name=".ui.VehicleListActivity" />
-        <activity android:name=".ui.ServiceTemplateListActivity" />
-        <activity android:name=".ui.WorkOrderListActivity" />
+        <activity android:name="com.example.gestaller.ui.ClientListActivity" />
+        <activity android:name="com.example.gestaller.ui.WorkOrderDetailActivity" />
+        <activity android:name="com.example.gestaller.ui.VehicleListActivity" />
+        <activity android:name="com.example.gestaller.ui.ServiceTemplateListActivity" />
+        <activity android:name="com.example.gestaller.ui.WorkOrderListActivity" />
 
         <!-- ➕ Formularios -->
-        <activity android:name=".ui.AddClientActivity" />
-        <activity android:name=".ui.AddVehicleActivity" />
-        <activity android:name=".ui.AddServiceTemplateActivity" />
-        <activity android:name=".ui.AddWorkOrderActivity" />
+        <activity android:name="com.example.gestaller.ui.AddClientActivity" />
+        <activity android:name="com.example.gestaller.ui.AddVehicleActivity" />
+        <activity android:name="com.example.gestaller.ui.AddServiceTemplateActivity" />
+        <activity android:name="com.example.gestaller.ui.AddWorkOrderActivity" />
 
         <!-- 🔹 MainActivity (para testear base de datos Room) -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
 
+        <!-- 📸 FileProvider para permitir acceso a fotos de la cámara -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.gestaller.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
 </manifest>

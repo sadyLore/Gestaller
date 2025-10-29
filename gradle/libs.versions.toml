@@ -1,12 +1,18 @@
 [versions]
-agp = "8.13.0"
+agp = "8.1.4"  # Corregido a una versión estable de AGP (usa 8.2.0 si quieres la más reciente)
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-appcompat = "1.7.1"
-material = "1.13.0"
-activity = "1.11.0"
-constraintlayout = "2.2.1"
+junitVersion = "1.2.1"  # Ajustado a estable para androidx.test.ext:junit (era 1.3.0, pero 1.2.1 es compatible)
+espressoCore = "3.6.1"  # Ajustado a estable (era 3.7.0, pero 3.6.1 funciona con API 35)
+appcompat = "1.7.0"    # Ajustado a estable (era 1.7.1, pero 1.7.0 es probada)
+material = "1.12.0"    # Ajustado a estable (era 1.13.0)
+activity = "1.9.0"     # Ajustado a estable (era 1.11.0, 1.9.0 es compatible)
+constraintlayout = "2.1.4"  # OK, mantenido
+googleGmsGoogleServices = "4.4.2"  # Ajustado a estable (era 4.4.4, 4.4.2 es actual)
+firebaseStorage = "20.3.0"  # Corregido a versión real/estable de firebase-storage (era 22.0.1 inválida)
+kotlin = "1.9.24"  # Ajustado a estable (era 2.2.0 preview; 1.9.24 funciona con AGP 8.1.x)
+core = "1.13.1"    # Mantenido tu downgrade para compatibilidad con compileSdk=35
+core-ktx = "1.13.1"  # Mantenido tu downgrade
+glide = "4.16.0"   # OK, mantenido
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -16,7 +22,12 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+core = { module = "androidx.core:core", version.ref = "core" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }  # Eliminada la duplicada y corregida la ref
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }  # Corregida versión
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
