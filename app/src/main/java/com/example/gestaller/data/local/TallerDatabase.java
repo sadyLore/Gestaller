@@ -65,7 +65,7 @@ public abstract class TallerDatabase extends RoomDatabase {
                                         TallerDatabase database = getInstance(context);
                                         UserDao userDao = database.userDao();
                                         userDao.insert(new User("admin", "1234", "propietario"));
-                                        userDao.insert(new User("colab", "1234", "empleado"));
+                                        userDao.insert(new User("colab", "1234", "colaborador"));
                                     }).start();
                                 }
                             })
