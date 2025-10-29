@@ -9,8 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Pantalla de inicio -->
-        <activity android:name=".ui.LoginActivity"
+        <!-- Pantalla de inicio (Login) -->
+        <activity
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +19,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Pantalla principal -->
+        <!-- Pantalla principal (Propietario) -->
         <activity android:name=".ui.HomeActivity" />
+
+        <!-- Pantalla principal (Empleado) -->
+        <activity android:name=".ui.EmployeeHomeActivity" />
 
         <!-- 📋 Listas -->
         <activity android:name=".ui.ClientListActivity" />
