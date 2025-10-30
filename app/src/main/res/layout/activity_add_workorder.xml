@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="22dp"
-    android:background="@drawable/bg_dialog_white"
+    android:background="?attr/colorSurface"
     android:layout_gravity="center"
     android:clipToOutline="true">
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cliente (nombre)"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 android:layout_marginBottom="4dp" />
 
@@ -60,7 +60,8 @@
                 android:background="@drawable/rounded_border_button"
                 android:hint="Ingresar nombre"
                 android:paddingHorizontal="20dp"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface" />
 
             <!-- 🔹 Marca y Modelo -->
             <LinearLayout
@@ -81,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Marca"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp" />
 
@@ -91,7 +92,7 @@
                         android:layout_height="54dp"
                         android:background="@drawable/rounded_border_button"
                         android:paddingHorizontal="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="?attr/colorOnSurface"/>
 
                 </LinearLayout>
 
@@ -107,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Modelo"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp" />
 
@@ -117,7 +118,7 @@
                         android:layout_height="54dp"
                         android:background="@drawable/rounded_border_button"
                         android:paddingHorizontal="20dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="?attr/colorOnSurface"/>
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -138,7 +139,8 @@
                     android:hint="Chapa"
                     android:background="@drawable/rounded_border_button"
                     android:paddingHorizontal="20dp"
-                    android:textColor="@color/black" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurface" />
 
                 <EditText
                     android:id="@+id/etImageUrl"
@@ -149,7 +151,8 @@
                     android:hint="URL imagen"
                     android:background="@drawable/rounded_border_button"
                     android:paddingHorizontal="20dp"
-                    android:textColor="@color/black" />
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurface" />
             </LinearLayout>
 
             <!-- 🔹 Servicios -->
@@ -157,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Servicios"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp" />
 
@@ -173,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notas"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="14sp"
                 android:layout_marginBottom="4dp" />
 
@@ -184,7 +187,8 @@
                 android:hint="Agregar nota"
                 android:background="@drawable/rounded_border_button"
                 android:paddingHorizontal="20dp"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface"
                 android:layout_marginBottom="22dp" />
 
             <!-- 🔹 Botones -->

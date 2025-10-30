@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Fondo blanco o del tema -->
+    <solid android:color="?attr/colorSurface" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="20dp" />
+
+    <!-- Sombra leve -->
+    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
+    <size android:width="300dp"/>
+</shape>

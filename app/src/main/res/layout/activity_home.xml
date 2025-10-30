@@ -12,34 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:background="?attr/colorSurface">
 
         <!-- Barra superior -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="16dp">
+            android:layout_height="56dp" 
+            android:paddingHorizontal="16dp">
 
-            <!-- Logo Gestaller -->
+            <!-- Logo Gestaller (tamaño estándar) -->
             <ImageView
-                android:layout_width="180dp"
-                android:layout_height="36dp"
+                android:id="@+id/imgLogo"
+                android:layout_width="140dp" 
+                android:layout_height="28dp" 
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="Logo Gestaller"
                 android:src="@drawable/gestaller_logo" />
 
-            <!-- Menú hamburguesa -->
+            <!-- Menú hamburguesa (ahora a la derecha) -->
             <ImageButton
                 android:id="@+id/btnMenu"
-                android:layout_width="326dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Menú"
                 android:src="@drawable/ic_menu"
-                app:tint="@color/gestaller_blue" />
-        </LinearLayout>
+                app:tint="?attr/colorPrimary" />
+        </RelativeLayout>
 
         <!-- Buscador -->
         <LinearLayout
@@ -48,38 +50,38 @@
             android:orientation="horizontal"
             android:background="@drawable/bg_search_box"
             android:paddingHorizontal="16dp"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:hint="Buscar..."
                 android:background="@null"
-                android:paddingVertical="8dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray_600" />
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_search"
-                app:tint="@color/gestaller_blue"
+                app:tint="?attr/colorPrimary"
                 android:contentDescription="Buscar" />
         </LinearLayout>
 
-        <!-- Título -->
+        <!-- Título de sección -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trabajos recientes"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.App.Subtitle"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="16dp" />
 
         <!-- Lista de trabajos -->
         <androidx.recyclerview.widget.RecyclerView
@@ -97,9 +99,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="24dp"
-            android:src="@drawable/ic_add"
-            app:tint="@color/white"
-            app:backgroundTint="@color/gestaller_blue"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="?attr/colorOnPrimary"
+            app:backgroundTint="?attr/colorPrimary"
             android:contentDescription="Agregar trabajo" />
     </LinearLayout>
 
@@ -109,9 +111,9 @@
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
+        android:background="?attr/colorSurface"
         app:menu="@menu/drawer_menu"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/gestaller_blue"
-        app:itemTextAppearance="@style/DrawerItemText" />
+        app:itemTextColor="?attr/colorOnSurface"
+        app:itemIconTint="?attr/colorPrimary"
+        app:itemTextAppearance="@style/TextAppearance.App.Body" />
 </androidx.drawerlayout.widget.DrawerLayout>

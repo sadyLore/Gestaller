@@ -1,34 +1,38 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="6dp"
-    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="16dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="3dp"
-    android:backgroundTint="@color/white">
+    app:cardElevation="2dp"
+    app:strokeColor="@color/gestaller_blue"
+    app:strokeWidth="1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="14dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvBrandModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hyundai Santa Fe"
-            android:textColor="@color/gestaller_blue"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnMoreOptions"
+            android:text="Marca y Modelo"
+            android:textAppearance="@style/TextAppearance.App.Subtitle"
+            android:textColor="?attr/colorPrimary" />
 
         <ImageView
             android:id="@+id/btnMoreOptions"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_more_vert"
             android:contentDescription="Opciones"
-            android:tint="@color/gestaller_gray" />
+            app:tint="?attr/colorPrimary" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

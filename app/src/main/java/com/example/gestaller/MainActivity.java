@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // o activity_home, según tu flujo real
+        setContentView(R.layout.activity_login);
 
         // 🔹 Inicializamos Room en un hilo aparte para no bloquear la UI
         new Thread(() -> {

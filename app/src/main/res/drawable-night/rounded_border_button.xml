@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!-- Fondo gris más claro para que el campo de texto se distinga del fondo del diálogo -->
+    <solid android:color="@color/gray_600"/> 
+    <stroke android:width="1dp" android:color="@color/gestaller_blue"/>
+    <corners android:radius="20dp"/>
+</shape>

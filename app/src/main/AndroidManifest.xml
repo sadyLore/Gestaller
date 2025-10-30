@@ -2,14 +2,16 @@
     package="com.example.gestaller">
 
     <application
+        android:name=".GestionModos"
         android:allowBackup="true"
         android:label="Gestaller"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        android:theme="@style/Theme.Gestaller">
 
-        <!-- Pantalla de inicio (Login) -->
+
+    <!-- Pantalla de inicio (Login) -->
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
@@ -42,6 +44,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
+
 
     </application>
 </manifest>
