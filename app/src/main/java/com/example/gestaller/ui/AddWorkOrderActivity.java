@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,37 +25,44 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.gestaller.R;
+import com.example.gestaller.data.local.entity.ServiceTemplate;
+import com.example.gestaller.data.local.entity.Vehicle;
 import com.example.gestaller.data.local.entity.WorkOrder;
-import com.example.gestaller.data.repository.WorkOrderRepository;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tallermanager.ui.viewmodel.ServiceTemplateViewModel;
+import com.tallermanager.ui.viewmodel.VehicleViewModel;
+import com.tallermanager.ui.viewmodel.WorkOrderViewModel;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddWorkOrderActivity extends AppCompatActivity {
 
-    // Campos del layout
-    private EditText etClientName, etPlate, etNotes;
+    private EditText etClientName, etClientPhone, etPlate, etNotes;
     private Spinner spBrand, spModel;
     private LinearLayout servicesContainer;
     private ImageView imgPreview;
     private Button btnTomarFoto, btnCancel, btnSave;
 
-    // Para cámara y Firebase
+    private VehicleViewModel vehicleViewModel;
+    private ServiceTemplateViewModel serviceTemplateViewModel;
+    private WorkOrderViewModel workOrderViewModel;
+
     private FirebaseStorage storage;
     private Uri photoUri;
     private String photoUrl = "";
 
-    // Repositorio
-    private WorkOrderRepository repository;
+    private List<Vehicle> vehicleList = new ArrayList<>();
 
-    // Launcher para permisos (CORREGIDO)
     private final ActivityResultLauncher<String[]> requestPermissions = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             permissions -> {
@@ -63,29 +73,24 @@ public class AddWorkOrderActivity extends AppCompatActivity {
                     storageGranted = Boolean.TRUE.equals(permissions.get(Manifest.permission.READ_MEDIA_IMAGES));
                 } else {
                     storageGranted = Boolean.TRUE.equals(permissions.get(Manifest.permission.READ_EXTERNAL_STORAGE))
-                                  && Boolean.TRUE.equals(permissions.get(Manifest.permission.WRITE_EXTERNAL_STORAGE));
+                            && Boolean.TRUE.equals(permissions.get(Manifest.permission.WRITE_EXTERNAL_STORAGE));
                 }
 
                 if (cameraGranted && storageGranted) {
                     tomarFoto();
-                    Log.d("AddWorkOrderActivity", "Permisos concedidos: Cámara y Almacenamiento");
                 } else {
                     Toast.makeText(this, "Se requieren permisos de cámara y almacenamiento", Toast.LENGTH_SHORT).show();
-                    Log.w("AddWorkOrderActivity", "Permisos denegados");
                 }
             }
     );
 
-    // Launcher para la cámara
     private final ActivityResultLauncher<Intent> takePictureLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && photoUri != null) {
                     subirAFirebase(photoUri);
-                    Log.d("AddWorkOrderActivity", "Foto capturada exitosamente con URI: " + photoUri);
                 } else {
                     Toast.makeText(this, "Captura cancelada o fallida", Toast.LENGTH_SHORT).show();
-                    Log.w("AddWorkOrderActivity", "Captura fallida");
                 }
             }
     );
@@ -95,11 +100,14 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workorder);
 
+        vehicleViewModel = new ViewModelProvider(this).get(VehicleViewModel.class);
+        serviceTemplateViewModel = new ViewModelProvider(this).get(ServiceTemplateViewModel.class);
+        workOrderViewModel = new ViewModelProvider(this).get(WorkOrderViewModel.class);
 
-        repository = new WorkOrderRepository(getApplication());
         storage = FirebaseStorage.getInstance();
 
         etClientName = findViewById(R.id.etClientName);
+        etClientPhone = findViewById(R.id.etClientPhone);
         spBrand = findViewById(R.id.spBrand);
         spModel = findViewById(R.id.spModel);
         etPlate = findViewById(R.id.etPlate);
@@ -113,20 +121,72 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         btnTomarFoto.setOnClickListener(v -> verificarPermisosYCapturarFoto());
         btnCancel.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> guardarOrdenDeTrabajo());
+
+        setupObservers();
     }
 
-    // Lógica de permisos (CORREGIDA)
+    private void setupObservers() {
+        vehicleViewModel.getAll().observe(this, vehicles -> {
+            if (vehicles != null && !vehicles.isEmpty()) {
+                this.vehicleList = vehicles;
+                List<String> brands = vehicles.stream()
+                        .map(Vehicle::getBrand)
+                        .distinct()
+                        .collect(Collectors.toList());
+
+                ArrayAdapter<String> brandAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, brands);
+                brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spBrand.setAdapter(brandAdapter);
+
+                spBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedBrand = (String) parent.getItemAtPosition(position);
+                        updateModelSpinner(selectedBrand);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        spModel.setAdapter(null);
+                    }
+                });
+            }
+        });
+
+        serviceTemplateViewModel.getAllTemplates().observe(this, serviceTemplates -> {
+            if (serviceTemplates != null) {
+                servicesContainer.removeAllViews();
+                for (ServiceTemplate service : serviceTemplates) {
+                    CheckBox checkBox = new CheckBox(this);
+                    checkBox.setText(service.getName());
+                    checkBox.setTag(service);
+                    servicesContainer.addView(checkBox);
+                }
+            }
+        });
+    }
+
+    private void updateModelSpinner(String brand) {
+        List<String> models = vehicleList.stream()
+                .filter(v -> v.getBrand().equals(brand))
+                .map(Vehicle::getModel)
+                .distinct()
+                .collect(Collectors.toList());
+
+        ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
+        modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spModel.setAdapter(modelAdapter);
+    }
+
     private void verificarPermisosYCapturarFoto() {
         boolean cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         String[] permissionsToRequest;
         boolean storagePermissionsGranted;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android 13 y superior: Solo se necesita READ_MEDIA_IMAGES
             storagePermissionsGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED;
             permissionsToRequest = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES};
         } else {
-            // Android 12 y inferior: Se necesitan ambos, READ y WRITE
             boolean readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
             boolean writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
             storagePermissionsGranted = readPermission && writePermission;
@@ -147,7 +207,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
             List<ResolveInfo> cameraApps = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
             for (ResolveInfo app : cameraApps) {
@@ -157,7 +216,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
 
             if (intent.resolveActivity(getPackageManager()) != null) {
                 takePictureLauncher.launch(intent);
-                Toast.makeText(this, "Abriendo cámara...", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "No se encontró app de cámara", Toast.LENGTH_SHORT).show();
             }
@@ -191,25 +249,32 @@ public class AddWorkOrderActivity extends AppCompatActivity {
             return;
         }
 
+        List<String> selectedServices = new ArrayList<>();
+        for (int i = 0; i < servicesContainer.getChildCount(); i++) {
+            View view = servicesContainer.getChildAt(i);
+            if (view instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) view;
+                if (checkBox.isChecked()) {
+                    selectedServices.add(checkBox.getText().toString());
+                }
+            }
+        }
+
+        String servicesString = String.join(", ", selectedServices);
+
         WorkOrder newOrder = new WorkOrder();
-        newOrder.setId(0); // Placeholder; Room lo generará auto
-        newOrder.setTotalPrice(0); // Placeholder; calcula de servicesContainer si tienes lógica
+        newOrder.setClientName(etClientName.getText().toString());
+        newOrder.setClientPhone(etClientPhone.getText().toString());
+        newOrder.setVehicleBrand(spBrand.getSelectedItem() != null ? spBrand.getSelectedItem().toString() : "");
+        newOrder.setVehicleModel(spModel.getSelectedItem() != null ? spModel.getSelectedItem().toString() : "");
+        newOrder.setVehiclePlate(etPlate.getText().toString());
+        newOrder.setServices(servicesString);
+        newOrder.setNotes(etNotes.getText().toString());
+        newOrder.setPhotoUrl(photoUrl);
         newOrder.setDate(new Date().getTime());
 
-        // Services: Placeholder (agrega lógica para recopilar de servicesContainer, ej: lista de strings)
-        newOrder.setServices("Servicios: Pendientes de implementar");
-
-        // Notes: Concatena todos los datos del form (workaround hasta agregar campos a WorkOrder)
-        String notes = "Cliente: " + etClientName.getText().toString() +
-                "\nMarca: " + (spBrand.getSelectedItem() != null ? spBrand.getSelectedItem().toString() : "") +
-                "\nModelo: " + (spModel.getSelectedItem() != null ? spModel.getSelectedItem().toString() : "") +
-                "\nChapa: " + etPlate.getText().toString() +
-                "\nNotas adicionales: " + etNotes.getText().toString() +
-                "\nFoto URL: " + photoUrl;
-        newOrder.setNotes(notes);
-
-        repository.insert(newOrder); // Asumiendo que insert existe y es asíncrono
+        workOrderViewModel.insert(newOrder);
         Toast.makeText(this, "Orden guardada ✅", Toast.LENGTH_SHORT).show();
-        finish(); // Cierra y vuelve a la lista (se actualizará via observe)
+        finish();
     }
 }
