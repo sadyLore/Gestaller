@@ -4,12 +4,8 @@
     <color name="gestaller_gray">#B0BEC5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
-    <!-- Tonos de gris para el modo oscuro -->
-    <color name="gray_300">#E0E0E0</color> <!-- Texto secundario -->
-    <color name="gray_600">#757575</color> <!-- Contenedores -->
-    <color name="gray_800">#424242</color> <!-- Fondo de diálogos -->
-
+    <color name="gray_600">#757575</color>
     <color name="colorAccent">#3A75C4</color> <!-- azul principal -->
     <color name="buttonColor">#5794D7</color> <!-- azul claro -->
+
 </resources>

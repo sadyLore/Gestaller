@@ -1,1 +1,26 @@
-/build
+# Archivos y carpetas de Android Studio
+.idea/
+.gradle/
+/local.properties
+/.DS_Store
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# Archivos de compilación
+/build/
+/app/build/
+/outputs/
+/generated/
+
+# Archivos de configuración personal
+*.iml
+*.log
+*.tmp
+
+# Cachés y archivos temporales
+.gradle/
+.navigation/
+.settings/
+.classpath
+.project

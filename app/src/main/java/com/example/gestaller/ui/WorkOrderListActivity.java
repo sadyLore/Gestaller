@@ -14,6 +14,7 @@ import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.WorkOrder;
 import com.example.gestaller.data.repository.WorkOrderRepository;
 import com.example.gestaller.ui.adapter.WorkOrderAdapter;
+// Se elimina la importación del archivo .kt
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -44,6 +45,7 @@ public class WorkOrderListActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         });
 
+        // Apuntar al AddWorkOrderActivity.java correcto
         fabAdd.setOnClickListener(v ->
                 startActivity(new Intent(this, AddWorkOrderActivity.class)));
     }

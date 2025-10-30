@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "754861641493",
+    "project_id": "gestallertest",
+    "storage_bucket": "gestallertest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754861641493:android:94a536676bee80438b231c",
+        "android_client_info": {
+          "package_name": "com.example.gestaller"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0XgVMSoD64NLV_T8t6xcxcwVyMz95YOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
