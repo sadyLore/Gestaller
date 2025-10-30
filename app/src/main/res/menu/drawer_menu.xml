@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_clientes"
@@ -13,4 +15,9 @@
             android:id="@+id/nav_trabajos"
             android:title="Trabajos" />
     </group>
+
+    <item
+        android:id="@+id/nav_dark_mode"
+        android:title="Modo oscuro"
+        android:icon="@drawable/ic_dark_mode" />
 </menu>

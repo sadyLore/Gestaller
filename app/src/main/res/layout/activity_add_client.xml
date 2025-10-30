@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorSurface"
     android:padding="20dp">
 
     <LinearLayout
@@ -52,7 +52,7 @@
                 android:hint="Nombre y apellido"
                 android:inputType="textPersonName"
                 android:padding="14dp"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <EditText
                 android:id="@+id/etPhone"
@@ -63,7 +63,7 @@
                 android:hint="Teléfono"
                 android:inputType="phone"
                 android:padding="14dp"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <EditText
                 android:id="@+id/etAddress"
@@ -74,7 +74,7 @@
                 android:hint="Dirección"
                 android:inputType="textPostalAddress"
                 android:padding="14dp"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <!-- 🔹 Botones -->
             <LinearLayout

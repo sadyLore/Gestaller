@@ -81,7 +81,7 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="67dp"
-                android:background="@drawable/bg_login_button"
+                android:background="@drawable/bg_login_input"
                 android:text="Iniciar sesión"
                 android:textAllCaps="false"
                 android:textColor="@color/gestaller_blue_light"
