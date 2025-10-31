@@ -45,7 +45,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
     public void onBindViewHolder(@NonNull WorkOrderViewHolder holder, int position) {
         WorkOrder order = workOrderList.get(position);
 
-        // 🧾 Título
+        // 🧾 Cliente o título
         holder.tvTitle.setText(
                 order.getClientName() != null && !order.getClientName().isEmpty()
                         ? order.getClientName()
@@ -59,9 +59,6 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
                         (order.getVehiclePlate() != null ? " - " + order.getVehiclePlate() : "")
         );
 
-        // 💰 Precio
-        holder.tvPrice.setText("Total: Gs. " + String.format("%,.0f", order.getTotalPrice()));
-
         // 📅 Fecha
         Date date = new Date(order.getDate());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -74,7 +71,7 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
             v.getContext().startActivity(intent);
         });
 
-        // ⋮ Menú de opciones
+        // ⋮ Menú de opciones (editar o eliminar)
         holder.btnMoreOptions.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), holder.btnMoreOptions);
             popup.getMenuInflater().inflate(R.menu.menu_item_options, popup.getMenu());
@@ -109,14 +106,13 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
     }
 
     static class WorkOrderViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvClientVehicle, tvPrice, tvDate;
+        TextView tvTitle, tvClientVehicle, tvDate;
         ImageView btnMoreOptions;
 
         public WorkOrderViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvClientVehicle = itemView.findViewById(R.id.tvClientVehicle);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
             tvDate = itemView.findViewById(R.id.tvDate);
             btnMoreOptions = itemView.findViewById(R.id.btnMoreOptions);
         }

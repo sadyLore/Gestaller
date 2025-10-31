@@ -1,104 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="20dp">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- 📸 Imagen -->
+        <ImageView
+            android:id="@+id/imgWorkOrder"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_border_button"
+            android:contentDescription="Imagen del trabajo" />
+
+        <!-- 🧾 Nombre del cliente -->
+        <TextView
+            android:id="@+id/tvClientName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:text="Nombre del cliente"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-            <!-- Imagen del vehículo -->
-            <ImageView
-                android:id="@+id/imgWorkOrder"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_car_placeholder"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="16dp"
-                android:contentDescription="Imagen del vehículo" />
+        <!-- 🚗 Vehículo -->
+        <TextView
+            android:id="@+id/tvVehicleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Marca Modelo - Chapa"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
 
-            <!-- Nombre del cliente -->
-            <TextView
-                android:id="@+id/tvClientName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cliente"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/gestaller_blue"
-                android:layout_marginBottom="8dp"/>
+        <!-- ☎️ Teléfono -->
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teléfono"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
 
-            <!-- Marca / Modelo / Chapa -->
-            <TextView
-                android:id="@+id/tvVehicleInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ford Ranger - AAAA212"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="8dp"/>
+        <!-- 🔧 Servicios -->
+        <TextView
+            android:id="@+id/tvServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Servicios realizados"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
 
-            <!-- Teléfono -->
-            <TextView
-                android:id="@+id/tvPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0972586221"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="8dp"/>
+        <!-- 📝 Notas -->
+        <TextView
+            android:id="@+id/tvNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notas"
+            android:textColor="@color/gestaller_gray"
+            android:textSize="15sp"
+            android:layout_marginBottom="16dp" />
 
-            <!-- Servicios -->
-            <TextView
-                android:id="@+id/tvServices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cambio de aceite, alineación"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="8dp"/>
+        <!-- 📅 Fecha -->
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:textColor="@color/gestaller_gray"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp" />
 
-            <!-- Notas -->
-            <TextView
-                android:id="@+id/tvNotes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notas: Listo para la prueba"
-                android:textSize="14sp"
-                android:textColor="@color/gestaller_gray"
-                android:layout_marginBottom="8dp"/>
-
-            <!-- Precio -->
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total: Gs. 0"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="8dp"/>
-
-            <!-- Fecha -->
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Fecha: 28/10/2025"
-                android:textSize="14sp"
-                android:textColor="@color/gestaller_gray"/>
-
-        </LinearLayout>
-
-
+        <!-- 🔘 Botón cerrar -->
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/purple_700"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 </ScrollView>
