@@ -9,7 +9,6 @@
     android:layout_gravity="center"
     android:clipToOutline="true">
 
-
     <!-- 🔹 Scroll general -->
     <ScrollView
         android:id="@+id/scrollContainer"
@@ -110,9 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:background="@drawable/rounded_border_button"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/black"/>
-
+                        android:paddingHorizontal="20dp" />
                 </LinearLayout>
 
                 <!-- Columna: Modelo -->
@@ -136,41 +133,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:background="@drawable/rounded_border_button"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/black"/>
-                        />
+                        android:paddingHorizontal="20dp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 🔹 Patente y URL imagen -->
-            <LinearLayout
+            <!-- 🔹 Chapa -->
+            <EditText
+                android:id="@+id/etPlate"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="Chapa"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 🔹 Botón para tomar foto -->
+            <Button
+                android:id="@+id/btnTomarFoto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginBottom="10dp">
+                android:text="📸 Tomar foto"
+                android:backgroundTint="@color/teal_700"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
 
-                <EditText
-                    android:id="@+id/etPlate"
-                    android:layout_width="0dp"
-                    android:layout_height="54dp"
-                    android:layout_weight="1"
-                    android:hint="Chapa"
-                    android:background="@drawable/rounded_border_button"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/etImageUrl"
-                    android:layout_width="0dp"
-                    android:layout_height="54dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:hint="URL imagen"
-                    android:background="@drawable/rounded_border_button"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+            <!-- 🔹 Vista previa de la imagen -->
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_border_button"
+                android:contentDescription="Vista previa de la foto"
+                android:visibility="gone" />
 
             <!-- 🔹 Servicios -->
             <TextView
@@ -222,7 +220,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="Cancelar"
                     android:textAllCaps="false"
-                    android:background="@drawable/rounded_border_button"
+                    android:backgroundTint="@color/purple_700"
                     android:textColor="@color/white" />
 
                 <Button
@@ -232,7 +230,7 @@
                     android:layout_weight="1"
                     android:text="Guardar"
                     android:textAllCaps="false"
-                    android:background="@drawable/rounded_border_button"
+                    android:backgroundTint="@color/purple_700"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
