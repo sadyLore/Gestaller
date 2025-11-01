@@ -1,5 +1,6 @@
 package com.example.gestaller.ui.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.WorkOrder;
 import com.example.gestaller.data.repository.WorkOrderRepository;
-import com.example.gestaller.ui.AddWorkOrderActivity;
 import com.example.gestaller.ui.WorkOrderDetailActivity;
+import com.example.gestaller.ui.WorkOrderListActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,9 +80,10 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
             popup.setOnMenuItemClickListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.action_edit) {
-                    Intent intent = new Intent(v.getContext(), AddWorkOrderActivity.class);
-                    intent.putExtra("workOrderId", order.getId());
-                    v.getContext().startActivity(intent);
+                    Context context = v.getContext();
+                    if (context instanceof WorkOrderListActivity) {
+                        ((WorkOrderListActivity) context).showEditWorkOrderDialog(order);
+                    }
                     return true;
                 } else if (id == R.id.action_delete) {
                     repository.delete(order);

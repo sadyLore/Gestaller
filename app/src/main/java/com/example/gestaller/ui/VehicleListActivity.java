@@ -80,4 +80,42 @@ public class VehicleListActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+    public void showEditVehicleDialog(Vehicle vehicle) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_edit_vehicle, null);
+        builder.setView(view);
+
+        EditText etBrand = view.findViewById(R.id.etEditBrand);
+        EditText etModel = view.findViewById(R.id.etEditModel);
+        Button btnSave = view.findViewById(R.id.btnSaveEdit);
+        Button btnCancel = view.findViewById(R.id.btnCancelEdit);
+
+        // Rellenar los campos con los datos del vehículo
+        etBrand.setText(vehicle.getBrand());
+        etModel.setText(vehicle.getModel());
+
+        AlertDialog dialog = builder.create();
+
+        btnSave.setOnClickListener(v -> {
+            String brand = etBrand.getText().toString();
+            String model = etModel.getText().toString();
+
+            if (brand.isEmpty() || model.isEmpty()) {
+                Toast.makeText(this, "La marca y el modelo son obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Actualizar el objeto vehículo y guardarlo en la base de datos
+            vehicle.setBrand(brand);
+            vehicle.setModel(model);
+            vehicleRepository.update(vehicle);
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
 }

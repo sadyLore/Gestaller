@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorSurface"
     android:padding="20dp">
 
@@ -10,18 +11,6 @@
         android:orientation="vertical">
 
         <!-- 🔹 Encabezado con logo -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginBottom="16dp">
-
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/gestaller_logo" />
-        </RelativeLayout>
 
         <!-- 🔹 Título -->
 
@@ -88,25 +77,26 @@
                     android:id="@+id/btnCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_border_button"
-                    android:backgroundTint="@color/gestaller_blue"
                     android:text="Cancelar"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_border_button"
+                    app:backgroundTint="@color/gestaller_blue"
+                    app:cornerRadius="12dp" />
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/rounded_border_button"
-                    android:backgroundTint="@color/gestaller_blue"
                     android:text="Guardar"
                     android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_border_button"
+                    app:backgroundTint="@color/gestaller_blue"
+                    app:cornerRadius="12dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

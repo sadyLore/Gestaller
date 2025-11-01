@@ -1,6 +1,6 @@
 package com.example.gestaller.ui.adapter;
 
-import android.content.Intent;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
 import com.example.gestaller.data.repository.ServiceTemplateRepository;
-import com.example.gestaller.ui.AddServiceTemplateActivity;
+import com.example.gestaller.ui.ServiceTemplateListActivity;
 
 import java.util.List;
 
@@ -60,12 +60,10 @@ public class ServiceTemplateAdapter extends RecyclerView.Adapter<ServiceTemplate
 
             popup.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.action_edit) {
-                    Intent intent = new Intent(v.getContext(), AddServiceTemplateActivity.class);
-                    intent.putExtra("serviceId", service.getId());
-                    intent.putExtra("name", service.getName());
-                    intent.putExtra("description", service.getDescription());
-                    intent.putExtra("price", service.getDefaultPrice());
-                    v.getContext().startActivity(intent);
+                    Context context = v.getContext();
+                    if (context instanceof ServiceTemplateListActivity) {
+                        ((ServiceTemplateListActivity) context).showEditServiceDialog(service);
+                    }
                     return true;
                 } else if (item.getItemId() == R.id.action_delete) {
                     repository.delete(service);

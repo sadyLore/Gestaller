@@ -21,6 +21,8 @@
         <item name="materialAlertDialogTheme">@style/App.MaterialAlertDialogTheme</item>
         <item name="android:statusBarColor">@color/gestaller_blue</item>
         <item name="android:navigationBarColor">@color/white</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
     </style>
 
     <!-- Estilo para diálogos con esquinas redondeadas -->
@@ -67,9 +69,36 @@
         <item name="android:textStyle">bold</item> <!-- Medium weight -->
     </style>
 
+    <!-- Estilos para Items de Lista -->
+    <style name="Widget.App.ListItemCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/item_card_border_color</item>
+    </style>
+
+    <style name="TextAppearance.App.ListItem.Title" parent="TextAppearance.App.Subtitle">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.ListItem.PrimaryText" parent="TextAppearance.App.Body">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.App.ListItem.SecondaryText" parent="TextAppearance.App.Caption">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
     <!-- Estilo para botones redondeados -->
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearance.App.Button</item>
+        <item name="backgroundTint">@color/gestaller_blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/gestaller_blue</item>
+        <item name="tint">@color/white</item>
     </style>
 
     <style name="ShapeAppearance.App.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">

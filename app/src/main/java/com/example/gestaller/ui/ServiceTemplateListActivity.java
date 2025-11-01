@@ -85,4 +85,48 @@ public class ServiceTemplateListActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+    public void showEditServiceDialog(ServiceTemplate service) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_edit_service, null);
+        builder.setView(view);
+
+        EditText etName = view.findViewById(R.id.etEditName);
+        EditText etDescription = view.findViewById(R.id.etEditDescription);
+        EditText etPrice = view.findViewById(R.id.etEditPrice);
+        Button btnSave = view.findViewById(R.id.btnSaveEdit);
+        Button btnCancel = view.findViewById(R.id.btnCancelEdit);
+
+        // Rellenar los campos con los datos del servicio
+        etName.setText(service.getName());
+        etDescription.setText(service.getDescription());
+        etPrice.setText(String.valueOf(service.getDefaultPrice()));
+
+        AlertDialog dialog = builder.create();
+
+        btnSave.setOnClickListener(v -> {
+            String name = etName.getText().toString();
+            String description = etDescription.getText().toString();
+            String priceStr = etPrice.getText().toString();
+
+            if (name.isEmpty() || priceStr.isEmpty()) {
+                Toast.makeText(this, "El nombre y el precio son obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double price = Double.parseDouble(priceStr);
+
+            // Actualizar el objeto servicio y guardarlo en la base de datos
+            service.setName(name);
+            service.setDescription(description);
+            service.setDefaultPrice(price);
+            serviceRepo.update(service);
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
 }

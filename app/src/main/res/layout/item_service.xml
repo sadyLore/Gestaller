@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.App.Subtitle"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="?attr/colorOnSurface" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/TextAppearance.App.Body"
-                android:textColor="?attr/colorOnSecondary" />
+                android:textColor="?attr/colorOnSurface" />
         </LinearLayout>
 
         <ImageView
@@ -54,6 +54,6 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_more_vert"
             android:contentDescription="Opciones"
-            app:tint="?attr/colorPrimary"/>
+            app:tint="@color/gestaller_blue_light"/>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -17,30 +17,31 @@
         <!-- Barra superior -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp" 
+            android:layout_height="56dp"
             android:paddingHorizontal="16dp">
 
-            <!-- Logo Gestaller (tamaño estándar) -->
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="140dp" 
-                android:layout_height="28dp" 
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="Logo Gestaller"
-                android:src="@drawable/gestaller_logo" />
-
-            <!-- Menú hamburguesa (ahora a la derecha) -->
+            <!-- Menú hamburguesa (ahora a la izquierda) -->
             <ImageButton
                 android:id="@+id/btnMenu"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Menú"
                 android:src="@drawable/ic_menu"
-                app:tint="?attr/colorPrimary" />
+                app:tint="@color/gestaller_blue" />
+
+            <!-- Logo Gestaller (ahora a la derecha) -->
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="Logo Gestaller"
+                android:src="@drawable/gestaller_logo" />
+
         </RelativeLayout>
 
         <!-- Buscador -->
@@ -57,7 +58,7 @@
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:hint="Buscar..."
                 android:background="@null"
@@ -69,7 +70,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_search"
-                app:tint="?attr/colorPrimary"
+                app:tint="@color/gestaller_blue"
                 android:contentDescription="Buscar" />
         </LinearLayout>
 
@@ -101,7 +102,7 @@
             android:layout_margin="24dp"
             app:srcCompat="@drawable/ic_add"
             app:tint="?attr/colorOnPrimary"
-            app:backgroundTint="?attr/colorPrimary"
+            app:backgroundTint="@color/gestaller_blue"
             android:contentDescription="Agregar trabajo" />
     </LinearLayout>
 
@@ -114,6 +115,6 @@
         android:background="?attr/colorSurface"
         app:menu="@menu/drawer_menu"
         app:itemTextColor="?attr/colorOnSurface"
-        app:itemIconTint="?attr/colorPrimary"
+        app:itemIconTint="@color/gestaller_blue"
         app:itemTextAppearance="@style/TextAppearance.App.Body" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="Dirección de ejemplo"
                 android:textAppearance="@style/TextAppearance.App.Caption"
-                android:textColor="?attr/colorOnSecondary"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
@@ -58,6 +58,6 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_more_vert"
             android:contentDescription="Opciones"
-            app:tint="?attr/colorPrimary" />
+            app:tint="@color/gestaller_blue_light" />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

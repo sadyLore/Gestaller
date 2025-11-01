@@ -18,6 +18,7 @@ public class WorkOrder {
     private String notes;
     private long date;
     private String photoUrl; // ✅ NUEVO CAMPO para guardar la imagen
+    private double totalPrice;
 
     public WorkOrder() {
         this.date = System.currentTimeMillis();
@@ -25,7 +26,7 @@ public class WorkOrder {
 
     public WorkOrder(String clientName, String clientPhone, String vehicleBrand,
                      String vehicleModel, String vehiclePlate, String services,
-                     String notes, long date, String photoUrl) {
+                     String notes, long date, String photoUrl, double totalPrice) {
         this.clientName = clientName;
         this.clientPhone = clientPhone;
         this.vehicleBrand = vehicleBrand;
@@ -35,6 +36,7 @@ public class WorkOrder {
         this.notes = notes;
         this.date = date;
         this.photoUrl = photoUrl;
+        this.totalPrice = totalPrice;
     }
 
     // 🔹 Getters y setters
@@ -67,4 +69,7 @@ public class WorkOrder {
 
     public String getPhotoUrl() { return photoUrl; }
     public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
+
+    public double getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
 }

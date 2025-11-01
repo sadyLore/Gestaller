@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/tvDialogTitle"
-        android:text="Nuevo Vehículo"
+        android:text="Editar Servicio"
         android:textAppearance="@style/TextAppearance.App.Title"
         android:textColor="@color/gestaller_blue"
         android:layout_marginBottom="24dp"
@@ -17,8 +17,9 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/etBrand"
-        android:hint="Marca"
+        android:id="@+id/etEditName"
+        style="@style/Widget.App.Button"
+        android:hint="Nombre"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/rounded_border_button"
@@ -28,8 +29,22 @@
         android:textColorHint="@color/gestaller_gray" />
 
     <EditText
-        android:id="@+id/etModel"
-        android:hint="Modelo"
+        android:id="@+id/etEditDescription"
+        style="@style/Widget.App.Button"
+        android:hint="Descripción"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_border_button"
+        android:paddingHorizontal="16dp"
+        android:textAppearance="@style/TextAppearance.App.Body"
+        android:textColor="?attr/colorOnSurface"
+        android:textColorHint="@color/gestaller_gray" />
+        
+    <EditText
+        android:id="@+id/etEditPrice"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -46,25 +61,25 @@
         android:layout_marginTop="24dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCancel"
-            style="@style/Widget.App.Button"
+            android:id="@+id/btnCancelEdit"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:text="Cancelar"
+            android:background="@drawable/rounded_button"
             app:backgroundTint="@color/gestaller_blue"
             android:textAppearance="@style/TextAppearance.App.Button" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSave"
-            style="@style/Widget.App.Button"
+            android:id="@+id/btnSaveEdit"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="Guardar"
             app:backgroundTint="@color/gestaller_blue"
+            android:background="@drawable/rounded_button"
             android:textAppearance="@style/TextAppearance.App.Button" />
     </LinearLayout>
 

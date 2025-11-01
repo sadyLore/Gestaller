@@ -1,89 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Tema Oscuro manteniendo el azul de marca -->
+    <!-- Tema para el modo Noche -->
     <style name="Theme.Gestaller" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- BRAND: permanece azul también en oscuro -->
+        <!-- Atributos generales del tema noche -->
         <item name="colorPrimary">@color/gestaller_blue</item>
-        <item name="colorPrimaryVariant">@color/gestaller_blue_light</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Superficies oscuras -->
-        <item name="colorSurface">@color/black</item>
+        <!-- Fondo principal de la app y componentes como CardView -->
+        <item name="colorSurface">@color/gestaller_dialog_dark_background</item>
         <item name="colorOnSurface">@color/white</item>
 
-        <item name="colorOnBackground">@color/white</item>
-
-        <!-- Secundarios / contenedores -->
-        <item name="colorSecondary">@color/gestaller_gray</item>
-        <item name="colorOnSecondary">@color/white</item> <!-- CORREGIDO: Texto secundario ahora es blanco -->
-        <item name="colorSurfaceVariant">@color/gray_600</item>
-
-        <!-- Componentes -->
-        <item name="materialAlertDialogTheme">@style/App.MaterialAlertDialogTheme.Dark</item>
-        <item name="android:statusBarColor">@color/black</item>
-        <item name="android:navigationBarColor">@color/black</item>
-    </style>
-
-    <!-- Estilo para diálogos en modo oscuro -->
-    <style name="App.MaterialAlertDialogTheme.Dark" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
-        <item name="colorSurface">@color/gray_800</item> <!-- Fondo del diálogo (gris oscuro, como el drawer) -->
-        <item name="colorOnSurface">@color/white</item> <!-- Color del texto principal -->
-        <item name="materialAlertDialogTitleTextStyle">@style/App.Title.Dark</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/App.Body.Dark</item>
-        <item name="shapeAppearance">@style/ShapeAppearance.App.Dialog</item>
-    </style>
-
-    <style name="ShapeAppearance.App.Dialog" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">28dp</item>
-    </style>
-
-    <!-- Estilo para el título del diálogo -->
-    <style name="App.Title.Dark" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <!-- Color de texto por defecto -->
         <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorHint">@color/gestaller_gray</item>
+
+        <!-- Estilos de componentes para modo Noche -->
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout.Night</item>
+
+        <!-- Estilos para todos los diálogos en modo Noche -->
+        <item name="alertDialogTheme">@style/Theme.App.Dialog.Alert.Night</item>
+        <item name="dialogTheme">@style/Theme.App.Dialog.Night</item>
     </style>
 
-    <!-- Estilo para el cuerpo del diálogo -->
-    <style name="App.Body.Dark" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
-        <item name="android:textColor">@color/gray_300</item>
+    <!-- Estilo para Diálogos de Alerta -->
+    <style name="Theme.App.Dialog.Alert.Night" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorSurface">@color/gestaller_dialog_dark_background</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:windowBackground">@color/gestaller_dialog_dark_background</item>
     </style>
 
-    <!-- Estilos de tipografía con sans-serif -->
-    <style name="TextAppearance.App.Title" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
+    <!-- Estilo para Diálogos generales (DialogFragments) -->
+    <style name="Theme.App.Dialog.Night" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorSurface">@color/gestaller_dialog_dark_background</item>
+        <item name="android:windowBackground">@drawable/dialog_night_background</item>
     </style>
 
-    <style name="TextAppearance.App.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item> <!-- Medium weight -->
-    </style>
-
-    <style name="TextAppearance.App.Body" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item> <!-- Medium weight -->
-    </style>
-
-    <!-- Estilo para botones redondeados -->
-    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
-        <item name="shapeAppearance">@style/ShapeAppearance.App.Button</item>
-    </style>
-
-    <style name="ShapeAppearance.App.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">24dp</item>
+    <!-- Estilo para TextInputLayout y EditText dentro de diálogos -->
+    <style name="Widget.App.TextInputLayout.Night" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/gestaller_dialog_dark_background</item>
+        <item name="android:textColorHint">@color/gestaller_gray</item>
     </style>
 </resources>

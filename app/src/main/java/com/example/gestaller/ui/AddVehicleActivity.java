@@ -3,6 +3,7 @@ package com.example.gestaller.ui;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gestaller.R;
@@ -13,6 +14,7 @@ public class AddVehicleActivity extends AppCompatActivity {
 
     private EditText etBrand, etModel;
     private Button btnSave, btnCancel;
+    private TextView tvTitle;
     private VehicleRepository repository;
     private int vehicleId = -1;
 
@@ -23,13 +25,17 @@ public class AddVehicleActivity extends AppCompatActivity {
 
         repository = new VehicleRepository(getApplication());
 
+        // Asignar vistas
         etBrand = findViewById(R.id.etBrand);
         etModel = findViewById(R.id.etModel);
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
+        tvTitle = findViewById(R.id.tvTitle);
 
-        // Si venimos de “Editar”, cargar datos
+        // Comprobar si estamos en modo edición
         if (getIntent() != null && getIntent().hasExtra("vehicleId")) {
+            // Modo Edición
+            tvTitle.setText("Editar Vehículo");
             vehicleId = getIntent().getIntExtra("vehicleId", -1);
             etBrand.setText(getIntent().getStringExtra("brand"));
             etModel.setText(getIntent().getStringExtra("model"));
@@ -46,13 +52,15 @@ public class AddVehicleActivity extends AppCompatActivity {
 
             Vehicle vehicle = new Vehicle(brand, model);
             if (vehicleId != -1) {
+                // Actualizar vehículo existente
                 vehicle.setId(vehicleId);
                 repository.update(vehicle);
             } else {
+                // Insertar nuevo vehículo
                 repository.insert(vehicle);
             }
 
-            finish();
+            finish(); // Cerrar la actividad
         });
 
         btnCancel.setOnClickListener(v -> finish());

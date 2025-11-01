@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="22dp">
+
+        <!-- 🔹 Título -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="Editar Orden de Trabajo"
+            android:textColor="@color/gestaller_blue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- 🔹 Cliente -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cliente (nombre)"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etClientName"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/rounded_border_button"
+            android:hint="Ingresar nombre"
+            android:paddingHorizontal="20dp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- 🔹 Teléfono -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teléfono"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etClientPhone"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_border_button"
+            android:hint="Número de teléfono"
+            android:inputType="phone"
+            android:paddingHorizontal="20dp"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- 🔹 Marca y Modelo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Marca"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <Spinner
+                    android:id="@+id/spBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="@drawable/rounded_border_button"
+                    android:paddingHorizontal="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modelo"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <Spinner
+                    android:id="@+id/spModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="@drawable/rounded_border_button"
+                    android:paddingHorizontal="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 🔹 Chapa -->
+        <EditText
+            android:id="@+id/etPlate"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:hint="Chapa"
+            android:background="@drawable/rounded_border_button"
+            android:paddingHorizontal="20dp"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Botón para tomar foto -->
+        <Button
+            android:id="@+id/btnTomarFoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📸 Tomar foto"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/white"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Vista previa de la imagen -->
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_border_button"
+            android:contentDescription="Vista previa de la foto"
+            android:visibility="gone" />
+
+        <!-- 🔹 Servicios -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Servicios"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:id="@+id/servicesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 🔹 Notas -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notas"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:hint="Agregar nota"
+            android:background="@drawable/rounded_border_button"
+            android:paddingHorizontal="20dp"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="22dp" />
+
+        <!-- 🔹 Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnCancelEdit"
+                style="@style/Widget.App.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_border_button"
+                app:backgroundTint="@color/gestaller_blue"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSaveEdit"
+                style="@style/Widget.App.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_border_button"
+                app:backgroundTint="@color/gestaller_blue"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

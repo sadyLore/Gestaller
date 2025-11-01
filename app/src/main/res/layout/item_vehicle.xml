@@ -23,7 +23,7 @@
             android:layout_toStartOf="@id/btnMoreOptions"
             android:text="Marca y Modelo"
             android:textAppearance="@style/TextAppearance.App.Subtitle"
-            android:textColor="?attr/colorPrimary" />
+            android:textColor="?attr/colorOnSurface" />
 
         <ImageView
             android:id="@+id/btnMoreOptions"
@@ -33,6 +33,6 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_more_vert"
             android:contentDescription="Opciones"
-            app:tint="?attr/colorPrimary" />
+            app:tint="@color/gestaller_blue_light" />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

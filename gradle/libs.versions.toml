@@ -12,7 +12,8 @@ firebaseStorage = "20.3.0"  # Corregido a versión real/estable de firebase-stor
 kotlin = "1.9.24"  # Ajustado a estable (era 2.2.0 preview; 1.9.24 funciona con AGP 8.1.x)
 core = "1.13.1"    # Mantenido tu downgrade para compatibilidad con compileSdk=35
 core-ktx = "1.13.1"  # Mantenido tu downgrade
-glide = "4.16.0"   # OK, mantenido
+glide = "4.16.0"
+constraintlayoutVersion = "2.2.1"   # OK, mantenido
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -25,7 +26,8 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 core = { module = "androidx.core:core", version.ref = "core" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }  # Eliminada la duplicada y corregida la ref
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }  # Corregida versión
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayoutVersion" }  # Corregida versión
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

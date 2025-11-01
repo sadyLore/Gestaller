@@ -1,7 +1,9 @@
 package com.example.gestaller.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -37,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FloatingActionButton fabAddWork;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,12 @@ public class HomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         fabAddWork = findViewById(R.id.fabAddWork);
 
+        sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
+
         // 🔹 Menú lateral
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+
+        setupDarkModeSwitch();
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -69,8 +78,26 @@ public class HomeActivity extends AppCompatActivity {
         fabAddWork.setOnClickListener(v -> showAddWorkOrderDialog());
     }
 
-    // 🔹 Ventana emergente para agregar trabajo
-    // 🔹 Ventana emergente para agregar trabajo
+    private void setupDarkModeSwitch() {
+        MenuItem darkModeItem = navigationView.getMenu().findItem(R.id.nav_dark_mode);
+        SwitchCompat darkModeSwitch = (SwitchCompat) darkModeItem.getActionView();
+
+        boolean isDarkMode = sharedPreferences.getBoolean("DarkMode", false);
+        darkModeSwitch.setChecked(isDarkMode);
+
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("DarkMode", isChecked);
+            editor.apply();
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
+    }
+
     // 🔹 Ventana emergente para agregar trabajo
     private void showAddWorkOrderDialog() {
         try {
@@ -170,9 +197,14 @@ public class HomeActivity extends AppCompatActivity {
                 String selectedBrand = (String) spBrand.getSelectedItem();
                 String selectedModel = (String) spModel.getSelectedItem();
 
-                // 🔹 Validaciones simples
-                if (clientName.isEmpty()  || plateText.isEmpty()) {
+                // 🔹 Validaciones
+                if (clientName.isEmpty() || plateText.isEmpty()) {
                     Toast.makeText(this, "⚠️ Completá todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (selectedBrand == null || selectedModel == null) {
+                    Toast.makeText(this, "⚠️ Seleccioná marca y modelo. Si no hay, agregalos desde el menú.", Toast.LENGTH_LONG).show();
                     return;
                 }
 

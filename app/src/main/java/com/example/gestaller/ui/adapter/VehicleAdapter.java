@@ -1,6 +1,6 @@
 package com.example.gestaller.ui.adapter;
 
-import android.content.Intent;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.Vehicle;
 import com.example.gestaller.data.repository.VehicleRepository;
-import com.example.gestaller.ui.AddVehicleActivity;
+import com.example.gestaller.ui.VehicleListActivity;
 
 import java.util.List;
 
@@ -49,12 +49,11 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
             popup.setOnMenuItemClickListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.action_edit) {
-                    // Editar vehículo
-                    Intent intent = new Intent(v.getContext(), AddVehicleActivity.class);
-                    intent.putExtra("vehicleId", vehicle.getId());
-                    intent.putExtra("brand", vehicle.getBrand());
-                    intent.putExtra("model", vehicle.getModel());
-                    v.getContext().startActivity(intent);
+                    // Llama al método en VehicleListActivity para mostrar el diálogo de edición
+                    Context context = v.getContext();
+                    if (context instanceof VehicleListActivity) {
+                        ((VehicleListActivity) context).showEditVehicleDialog(vehicle);
+                    }
                     return true;
 
                 } else if (id == R.id.action_delete) {
