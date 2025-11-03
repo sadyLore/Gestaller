@@ -1,0 +1,30 @@
+Index: app/src/main/res/layout/activity_client_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"?attr/colorSurface\"\r\n    android:fillViewport=\"true\">\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:padding=\"20dp\">\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/header\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"center_vertical\"\r\n            android:orientation=\"horizontal\"\r\n            android:layout_marginBottom=\"12dp\">\r\n\r\n            <ImageView\r\n                android:id=\"@+id/imgLogo\"\r\n                android:layout_width=\"150dp\"\r\n                android:layout_height=\"40dp\"\r\n                android:src=\"@drawable/gestaller_logo\"\r\n                android:contentDescription=\"@string/app_name\" />\r\n        </LinearLayout>\r\n\r\n        <TextView\r\n            android:id=\"@+id/tvTitle\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@id/header\"\r\n            android:layout_marginTop=\"29dp\"\r\n            android:layout_marginBottom=\"16dp\"\r\n            android:text=\"Clientes\"\r\n            android:textColor=\"@color/gestaller_blue\"\r\n            android:textSize=\"22sp\"\r\n            android:textStyle=\"bold\" />\r\n\r\n        <LinearLayout\r\n            android:id=\"@+id/container\"\r\n            android:layout_below=\"@+id/tvTitle\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            android:padding=\"16dp\"\r\n            android:layout_marginBottom=\"80dp\">\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/recyclerClients\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:clipToPadding=\"false\"\r\n                android:paddingBottom=\"8dp\" />\r\n        </LinearLayout>\r\n\r\n        <com.google.android.material.floatingactionbutton.FloatingActionButton\r\n            android:id=\"@+id/fabAddClient\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:layout_alignParentEnd=\"true\"\r\n            android:layout_margin=\"24dp\"\r\n            android:src=\"@drawable/ic_add\"\r\n            app:tint=\"@color/white\"\r\n            app:backgroundTint=\"@color/gestaller_blue\"\r\n            android:contentDescription=\"Agregar cliente\" />\r\n    </RelativeLayout>\r\n</ScrollView>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_client_list.xml b/app/src/main/res/layout/activity_client_list.xml
+--- a/app/src/main/res/layout/activity_client_list.xml	(revision 287bbb18de42f412714d185f18b5ea050152e44e)
++++ b/app/src/main/res/layout/activity_client_list.xml	(date 1761836285665)
+@@ -14,15 +14,15 @@
+         <LinearLayout
+             android:id="@+id/header"
+             android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:gravity="center_vertical"
++            android:layout_height="56dp"
+             android:orientation="horizontal"
++            android:gravity="center_vertical"
+             android:layout_marginBottom="12dp">
+ 
+             <ImageView
+                 android:id="@+id/imgLogo"
+-                android:layout_width="150dp"
+-                android:layout_height="40dp"
++                android:layout_width="140dp"
++                android:layout_height="28dp"
+                 android:src="@drawable/gestaller_logo"
+                 android:contentDescription="@string/app_name" />
+         </LinearLayout>

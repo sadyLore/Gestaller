@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Color de borde para items (visible solo en modo noche) -->
+    <color name="item_card_border_color">@color/gestaller_blue</color>
+</resources>

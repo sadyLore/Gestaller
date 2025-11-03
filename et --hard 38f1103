@@ -1,0 +1,48 @@
+[33m53450c2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m editar y elimnar trabajo-funcional
+[33me348a9f[m FORMATO DE LOS TRABAJPS
+[33m0561427[m FORMATO DE LOS TRABAJPS
+[33m38f1103[m editar y eliminar trabajo
+[33m9980ca5[m editar y eliminar vehiculo
+[33m0f32f72[m editar y eliminar servicios
+[33m4395f74[m hoy
+[33ma7c09ef[m hoy
+[33mf641d62[m Base de datos solucionada
+[33mb37ba0e[m orden de trabajo
+[33md5dc22a[m orden de trabajo
+[33mbe85e46[m orden de trabajo
+[33mc0db985[m servicios
+[33m3cb00aa[m lista de autos
+[33m7e3eb86[m lista de clientes
+[33m5c66d31[m homeactivity , drawer_menu.xml
+[33m35d8669[m homeactivity
+[33m5ddfa79[m homeactivity
+[33mc710ab4[m homeactivity
+[33m54010bc[m inicio sesion
+[33mb782ab8[m Correccion de errores pt4
+[33mb91af99[m Correccion de errores pt3
+[33mcfff41f[m Correccion de errores pt2
+[33mdfb3f07[m Correccion de errores
+[33m69d4fa5[m frontend mejoras pt.2
+[33m5fe1424[m frontend mejoras
+[33mf6f9c66[m frontend
+[33ma1b5a3c[m Codigo de color.xml
+[33md07b357[m Merge remote-tracking branch 'origin/master'
+[33mbab503d[m con manifest
+[33mf466f9a[m Edición de build.grasle.kts para el reconocimiento de las anotaciones @Dao, @Query, @Insert, etc.
+[33me5ec2b1[m Cambios realizados por Sady para probar pantallas
+[33m01d321d[m Merge remote-tracking branch 'origin/master'
+[33m4850e70[m Se agregaron las clases de ViewModels
+[33m51d128d[m Se agrego el paquete repositorio con sus archivos, ademas el paquete dao dentro del paquete local
+[33m36b7388[m Merge remote-tracking branch 'origin/master'
+[33mbbf793a[m Solución de errores y creación de clases  Dao para base de datos
+[33m6cc17fd[m Solución de errores y creación de clases  Dao para base de datos
+[33m6146c96[m Merge remote-tracking branch 'origin/master'
+[33m2889546[m Nuevas clases
+[33mde7454e[m Se agrego los archivos Client.java Vehicle.java WorkOrder.java
+[33m14e04a2[m Se agrego los paquetees y los archivos para usuario
+[33md0bb04e[m Se agrego los paquetees y los archivos para usuario
+[33m786224c[m Merge remote-tracking branch 'origin/master'
+[33me00e222[m nada
+[33m5d0fe9c[m crear carpetas
+[33ma5e2f41[m crear carpetas
+[33m6ee2392[m solo comparto el nuevo proyecto
