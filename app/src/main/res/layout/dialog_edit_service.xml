@@ -18,7 +18,6 @@
 
     <EditText
         android:id="@+id/etEditName"
-        style="@style/Widget.App.Button"
         android:hint="Nombre"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -30,7 +29,6 @@
 
     <EditText
         android:id="@+id/etEditDescription"
-        style="@style/Widget.App.Button"
         android:hint="Descripción"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -40,7 +38,7 @@
         android:textAppearance="@style/TextAppearance.App.Body"
         android:textColor="?attr/colorOnSurface"
         android:textColorHint="@color/gestaller_gray" />
-        
+
     <EditText
         android:id="@+id/etEditPrice"
         android:hint="Precio"
@@ -62,6 +60,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelEdit"
+            style="@style/Widget.App.Button"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -73,6 +72,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveEdit"
+            style="@style/Widget.App.Button"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"

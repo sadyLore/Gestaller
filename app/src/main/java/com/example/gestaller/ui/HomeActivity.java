@@ -3,6 +3,8 @@ package com.example.gestaller.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +39,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +52,10 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerWorkOrders;
     private WorkOrderAdapter workOrderAdapter;
     private WorkOrderRepository workOrderRepository;
+    private EditText etSearch;
+    private TextView tvNoResults;
+    private TextView tvWorkOrdersTitle;
+    private LiveData<List<WorkOrder>> workOrdersLiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +66,12 @@ public class HomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         fabAddWork = findViewById(R.id.fabAddWork);
         recyclerWorkOrders = findViewById(R.id.recyclerWorkOrders);
+        etSearch = findViewById(R.id.etSearch);
+        tvNoResults = findViewById(R.id.tvNoResults);
+        tvWorkOrdersTitle = findViewById(R.id.tvWorkOrdersTitle);
 
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
+        workOrderRepository = new WorkOrderRepository(getApplication());
 
         // 🔹 Menú lateral
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
@@ -85,28 +96,70 @@ public class HomeActivity extends AppCompatActivity {
         // 🔹 Botón flotante para agregar trabajo
         fabAddWork.setOnClickListener(v -> showAddWorkOrderDialog());
 
-        // 🔹 Configurar RecyclerView
+        // 🔹 Configurar RecyclerView y buscador
         setupRecyclerView();
+        setupSearch();
     }
 
     private void setupRecyclerView() {
         recyclerWorkOrders.setLayoutManager(new LinearLayoutManager(this));
-        workOrderRepository = new WorkOrderRepository(getApplication());
         workOrderAdapter = new WorkOrderAdapter(new ArrayList<>(), workOrderRepository, false);
         recyclerWorkOrders.setAdapter(workOrderAdapter);
+    }
 
-        workOrderRepository.getAllWorkOrders().observe(this, workOrders -> {
-            if (workOrders != null) {
-                // Ordenar por fecha (más recientes primero) y tomar los últimos 10
-                List<WorkOrder> recentWorkOrders = new ArrayList<>(workOrders);
-                Collections.sort(recentWorkOrders, (o1, o2) -> Long.compare(o2.getDate(), o1.getDate()));
-                if (recentWorkOrders.size() > 10) {
-                    recentWorkOrders = recentWorkOrders.subList(0, 10);
+    private void setupSearch() {
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                loadWorkOrders(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Carga inicial de datos
+        loadWorkOrders("");
+    }
+
+    private void loadWorkOrders(String query) {
+        boolean isSearching = !query.trim().isEmpty();
+
+        if (workOrdersLiveData != null) {
+            workOrdersLiveData.removeObservers(this);
+        }
+
+        if (isSearching) {
+            tvWorkOrdersTitle.setText("Resultados");
+            workOrdersLiveData = workOrderRepository.searchWorkOrders(query);
+        } else {
+            tvWorkOrdersTitle.setText("Trabajos recientes");
+            workOrdersLiveData = workOrderRepository.getAllWorkOrders();
+        }
+
+        workOrdersLiveData.observe(this, workOrders -> {
+            boolean hasResults = workOrders != null && !workOrders.isEmpty();
+
+            if (hasResults) {
+                recyclerWorkOrders.setVisibility(View.VISIBLE);
+                tvNoResults.setVisibility(View.GONE);
+
+                if (!isSearching && workOrders.size() > 10) {
+                    workOrderAdapter.updateData(workOrders.subList(0, 10));
+                } else {
+                    workOrderAdapter.updateData(workOrders);
                 }
-                workOrderAdapter.updateData(recentWorkOrders);
+            } else {
+                recyclerWorkOrders.setVisibility(View.GONE);
+                tvNoResults.setVisibility(View.VISIBLE);
+                workOrderAdapter.updateData(new ArrayList<>()); // Limpiar el adaptador
             }
         });
     }
+
 
     private void setupDarkModeSwitch() {
         MenuItem darkModeItem = navigationView.getMenu().findItem(R.id.nav_dark_mode);

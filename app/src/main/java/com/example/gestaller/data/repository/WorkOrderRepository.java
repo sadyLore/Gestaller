@@ -28,6 +28,11 @@ public class WorkOrderRepository {
         return workOrderDao.getAllWorkOrders();
     }
 
+    // 🔹 Buscar órdenes de trabajo
+    public LiveData<List<WorkOrder>> searchWorkOrders(String query) {
+        return workOrderDao.searchWorkOrders("%" + query + "%");
+    }
+
     // 🔹 Insertar una nueva orden
     public void insert(WorkOrder workOrder) {
         executorService.execute(() -> workOrderDao.insert(workOrder));
