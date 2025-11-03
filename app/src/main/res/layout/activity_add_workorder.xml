@@ -1,79 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/bg_dialog_white"
-    android:layout_gravity="center"
-    android:clipToOutline="true">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:padding="20dp">
 
-    <!-- 🔹 Scroll general -->
-    <ScrollView
-        android:id="@+id/scrollContainer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- 🔹 Encabezado con logo -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="65dp"
+            android:layout_marginBottom="16dp">
 
-            <!-- 🔹 Logo -->
-
-            <!-- 🔹 Título -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="12dp"
                 android:text="Nuevo trabajo"
                 android:textColor="@color/gestaller_blue"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
+        </RelativeLayout>
 
-            <!-- 🔹 Cliente -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cliente (nombre)"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginBottom="4dp" />
+        <!-- 🔹 Tarjeta del formulario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_border_button"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <EditText
                 android:id="@+id/etClientName"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginBottom="12dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
                 android:hint="Ingresar nombre"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/black" />
-
-            <!-- 🔹 Teléfono -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teléfono"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginBottom="4dp" />
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:textColor="?attr/colorOnSurface" />
 
             <EditText
                 android:id="@+id/etClientPhone"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_border_button"
+                android:gravity="center_vertical"
                 android:hint="Número de teléfono"
                 android:inputType="phone"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/black" />
+                android:paddingHorizontal="12dp"
+                android:textColor="?attr/colorOnSurface" />
 
-            <!-- 🔹 Marca y Modelo -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,66 +67,36 @@
                 android:weightSum="2"
                 android:layout_marginBottom="10dp">
 
-                <!-- Columna: Marca -->
-                <LinearLayout
+                <Spinner
+                    android:id="@+id/spBrand"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="65dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:background="@drawable/rounded_border_button"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginEnd="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Marca"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="4dp" />
-
-                    <Spinner
-                        android:id="@+id/spBrand"
-                        android:layout_width="match_parent"
-                        android:layout_height="54dp"
-                        android:background="@drawable/rounded_border_button"
-                        android:paddingHorizontal="20dp" />
-                </LinearLayout>
-
-                <!-- Columna: Modelo -->
-                <LinearLayout
+                <Spinner
+                    android:id="@+id/spModel"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="65dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Modelo"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="4dp" />
-
-                    <Spinner
-                        android:id="@+id/spModel"
-                        android:layout_width="match_parent"
-                        android:layout_height="54dp"
-                        android:background="@drawable/rounded_border_button"
-                        android:paddingHorizontal="20dp" />
-                </LinearLayout>
+                    android:background="@drawable/rounded_border_button"
+                    android:paddingHorizontal="20dp" />
             </LinearLayout>
 
-            <!-- 🔹 Chapa -->
             <EditText
                 android:id="@+id/etPlate"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:hint="Chapa"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_border_button"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="12dp" />
+                android:gravity="center_vertical"
+                android:hint="Chapa"
+                android:inputType="textCapCharacters"
+                android:paddingHorizontal="12dp"
+                android:textColor="?attr/colorOnSurface" />
 
-            <!-- 🔹 Botón para tomar foto -->
             <Button
                 android:id="@+id/btnTomarFoto"
                 android:layout_width="match_parent"
@@ -150,7 +106,6 @@
                 android:textColor="@color/white"
                 android:layout_marginBottom="12dp" />
 
-            <!-- 🔹 Vista previa de la imagen -->
             <ImageView
                 android:id="@+id/imgPreview"
                 android:layout_width="match_parent"
@@ -162,15 +117,6 @@
                 android:contentDescription="Vista previa de la foto"
                 android:visibility="gone" />
 
-            <!-- 🔹 Servicios -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Servicios"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
-
             <LinearLayout
                 android:id="@+id/servicesContainer"
                 android:layout_width="match_parent"
@@ -178,55 +124,51 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="16dp" />
 
-            <!-- 🔹 Notas -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notas"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_marginBottom="4dp" />
-
             <EditText
                 android:id="@+id/etNotes"
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:hint="Agregar nota"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_border_button"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="22dp" />
+                android:gravity="center_vertical"
+                android:hint="Agregar nota"
+                android:inputType="textMultiLine"
+                android:paddingHorizontal="12dp"
+                android:textColor="?attr/colorOnSurface" />
 
-            <!-- 🔹 Botones -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
                     android:text="Cancelar"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:background="@drawable/rounded_border_button"
                     app:backgroundTint="@color/gestaller_blue"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="12dp" />
 
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:text="Guardar"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:background="@drawable/rounded_border_button"
                     app:backgroundTint="@color/gestaller_blue"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="12dp" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

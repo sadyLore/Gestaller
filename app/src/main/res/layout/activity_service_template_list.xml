@@ -11,7 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:layout_marginTop="20dp">
 
         <!-- 🔹 Título -->
 
@@ -23,7 +24,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
             android:layout_marginBottom="16dp"
             android:text="Servicios"
             android:textColor="@color/gestaller_blue"
