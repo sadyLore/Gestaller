@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
@@ -28,10 +30,12 @@ import com.example.gestaller.data.local.entity.WorkOrder;
 import com.example.gestaller.data.repository.ServiceTemplateRepository;
 import com.example.gestaller.data.repository.VehicleRepository;
 import com.example.gestaller.data.repository.WorkOrderRepository;
+import com.example.gestaller.ui.adapter.WorkOrderAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,6 +46,9 @@ public class HomeActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private FloatingActionButton fabAddWork;
     private SharedPreferences sharedPreferences;
+    private RecyclerView recyclerWorkOrders;
+    private WorkOrderAdapter workOrderAdapter;
+    private WorkOrderRepository workOrderRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
         fabAddWork = findViewById(R.id.fabAddWork);
+        recyclerWorkOrders = findViewById(R.id.recyclerWorkOrders);
 
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
 
@@ -76,6 +84,28 @@ public class HomeActivity extends AppCompatActivity {
 
         // 🔹 Botón flotante para agregar trabajo
         fabAddWork.setOnClickListener(v -> showAddWorkOrderDialog());
+
+        // 🔹 Configurar RecyclerView
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
+        recyclerWorkOrders.setLayoutManager(new LinearLayoutManager(this));
+        workOrderRepository = new WorkOrderRepository(getApplication());
+        workOrderAdapter = new WorkOrderAdapter(new ArrayList<>(), workOrderRepository, false);
+        recyclerWorkOrders.setAdapter(workOrderAdapter);
+
+        workOrderRepository.getAllWorkOrders().observe(this, workOrders -> {
+            if (workOrders != null) {
+                // Ordenar por fecha (más recientes primero) y tomar los últimos 10
+                List<WorkOrder> recentWorkOrders = new ArrayList<>(workOrders);
+                Collections.sort(recentWorkOrders, (o1, o2) -> Long.compare(o2.getDate(), o1.getDate()));
+                if (recentWorkOrders.size() > 10) {
+                    recentWorkOrders = recentWorkOrders.subList(0, 10);
+                }
+                workOrderAdapter.updateData(recentWorkOrders);
+            }
+        });
     }
 
     private void setupDarkModeSwitch() {

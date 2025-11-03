@@ -28,10 +28,12 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
 
     private List<WorkOrder> workOrderList;
     private final WorkOrderRepository repository;
+    private final boolean showOptionsMenu;
 
-    public WorkOrderAdapter(List<WorkOrder> workOrderList, WorkOrderRepository repository) {
+    public WorkOrderAdapter(List<WorkOrder> workOrderList, WorkOrderRepository repository, boolean showOptionsMenu) {
         this.workOrderList = workOrderList;
         this.repository = repository;
+        this.showOptionsMenu = showOptionsMenu;
     }
 
     @NonNull
@@ -73,28 +75,33 @@ public class WorkOrderAdapter extends RecyclerView.Adapter<WorkOrderAdapter.Work
         });
 
         // ⋮ Menú de opciones (editar o eliminar)
-        holder.btnMoreOptions.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(v.getContext(), holder.btnMoreOptions);
-            popup.getMenuInflater().inflate(R.menu.menu_item_options, popup.getMenu());
+        if (showOptionsMenu) {
+            holder.btnMoreOptions.setVisibility(View.VISIBLE);
+            holder.btnMoreOptions.setOnClickListener(v -> {
+                PopupMenu popup = new PopupMenu(v.getContext(), holder.btnMoreOptions);
+                popup.getMenuInflater().inflate(R.menu.menu_item_options, popup.getMenu());
 
-            popup.setOnMenuItemClickListener(item -> {
-                int id = item.getItemId();
-                if (id == R.id.action_edit) {
-                    Context context = v.getContext();
-                    if (context instanceof WorkOrderListActivity) {
-                        ((WorkOrderListActivity) context).showEditWorkOrderDialog(order);
+                popup.setOnMenuItemClickListener(item -> {
+                    int id = item.getItemId();
+                    if (id == R.id.action_edit) {
+                        Context context = v.getContext();
+                        if (context instanceof WorkOrderListActivity) {
+                            ((WorkOrderListActivity) context).showEditWorkOrderDialog(order);
+                        }
+                        return true;
+                    } else if (id == R.id.action_delete) {
+                        repository.delete(order);
+                        Toast.makeText(v.getContext(), "Trabajo eliminado", Toast.LENGTH_SHORT).show();
+                        return true;
                     }
-                    return true;
-                } else if (id == R.id.action_delete) {
-                    repository.delete(order);
-                    Toast.makeText(v.getContext(), "Trabajo eliminado", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
-            });
+                    return false;
+                });
 
-            popup.show();
-        });
+                popup.show();
+            });
+        } else {
+            holder.btnMoreOptions.setVisibility(View.GONE);
+        }
     }
 
     @Override

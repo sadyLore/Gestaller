@@ -41,7 +41,7 @@ public class WorkOrderListActivity extends AppCompatActivity {
 
         // 🔹 Cargar lista de trabajos
         repository.getAll().observe(this, workOrders -> {
-            adapter = new WorkOrderAdapter(workOrders, repository);
+            adapter = new WorkOrderAdapter(workOrders, repository, true);
             recyclerView.setAdapter(adapter);
         });
 
