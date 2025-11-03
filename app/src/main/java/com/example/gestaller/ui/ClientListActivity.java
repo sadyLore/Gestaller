@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -32,6 +33,11 @@ public class ClientListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
+
+        ImageButton menuButton = findViewById(R.id.btnMenu);
+        if (menuButton != null) {
+            menuButton.setVisibility(View.GONE);
+        }
 
         recyclerClients = findViewById(R.id.recyclerClients);
         fabAddClient = findViewById(R.id.fabAddClient);

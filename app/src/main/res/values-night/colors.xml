@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Color de borde para items (visible solo en modo noche) -->
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_700">#FF018786</color>
+
+    <!-- COLORES PRINCIPALES DE LA APP -->
+    <color name="gestaller_blue">#3A75C4</color>
+    <color name="gestaller_blue_light">#5794D7</color>
+    <color name="gestaller_gray">#B0BEC5</color>
+    <color name="vibrant_blue">#5B8DEF</color>
     <color name="item_card_border_color">@color/gestaller_blue</color>
+
+    <!-- COLORES BÁSICOS -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- OTROS TONOS DE GRIS -->
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_800">#424242</color>
+
+    <!-- MODO NOCHE -->
+    <color name="gestaller_dialog_dark_background">#37474F</color>
+
 </resources>

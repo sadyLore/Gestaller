@@ -1,37 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
+
+    <include layout="@layout/app_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="20dp">
-
-        <LinearLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end|center_vertical"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:src="@drawable/gestaller_logo"
-                android:contentDescription="@string/app_name" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/header"
             android:layout_marginTop="29dp"
             android:layout_marginBottom="16dp"
             android:text="Clientes"
@@ -68,4 +53,4 @@
             app:backgroundTint="@color/gestaller_blue"
             android:contentDescription="Agregar cliente" />
     </RelativeLayout>
-</ScrollView>
+</LinearLayout>

@@ -1,8 +1,11 @@
 package com.example.gestaller.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
@@ -19,6 +22,11 @@ public class AddServiceTemplateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service_template);
+
+        ImageButton menuButton = findViewById(R.id.btnMenu);
+        if (menuButton != null) {
+            menuButton.setVisibility(View.GONE);
+        }
 
         repository = new ServiceTemplateRepository(getApplication());
 
