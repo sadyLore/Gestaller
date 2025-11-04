@@ -2,6 +2,7 @@ package com.example.gestaller.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.LiveData;
@@ -73,10 +73,9 @@ public class HomeActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         workOrderRepository = new WorkOrderRepository(getApplication());
 
-        // 🔹 Menú lateral
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-        setupDarkModeSwitch();
+        updateThemeIcon(); // Actualizar el ícono al iniciar
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -88,15 +87,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ServiceTemplateListActivity.class));
             } else if (id == R.id.nav_trabajos) {
                 startActivity(new Intent(this, WorkOrderListActivity.class));
+            } else if (id == R.id.nav_theme_toggle) {
+                toggleTheme(); // Lógica para cambiar el tema
             }
             drawerLayout.closeDrawers();
             return true;
         });
 
-        // 🔹 Botón flotante para agregar trabajo
         fabAddWork.setOnClickListener(v -> showAddWorkOrderDialog());
 
-        // 🔹 Configurar RecyclerView y buscador
         setupRecyclerView();
         setupSearch();
     }
@@ -121,7 +120,6 @@ public class HomeActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Carga inicial de datos
         loadWorkOrders("");
     }
 
@@ -155,33 +153,33 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 recyclerWorkOrders.setVisibility(View.GONE);
                 tvNoResults.setVisibility(View.VISIBLE);
-                workOrderAdapter.updateData(new ArrayList<>()); // Limpiar el adaptador
+                workOrderAdapter.updateData(new ArrayList<>());
             }
         });
     }
 
+    private void toggleTheme() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        recreate(); // Reinicia la actividad para aplicar el nuevo tema
+    }
 
-    private void setupDarkModeSwitch() {
-        MenuItem darkModeItem = navigationView.getMenu().findItem(R.id.nav_dark_mode);
-        SwitchCompat darkModeSwitch = (SwitchCompat) darkModeItem.getActionView();
-
-        boolean isDarkMode = sharedPreferences.getBoolean("DarkMode", false);
-        darkModeSwitch.setChecked(isDarkMode);
-
-        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("DarkMode", isChecked);
-            editor.apply();
-
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    private void updateThemeIcon() {
+        MenuItem themeItem = navigationView.getMenu().findItem(R.id.nav_theme_toggle);
+        if (themeItem != null) {
+            int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+                themeItem.setIcon(R.drawable.ic_dark_mode); // Icono de luna
             } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                themeItem.setIcon(R.drawable.ic_light_mode); // Icono de sol
             }
-        });
+        }
     }
 
-    // 🔹 Ventana emergente para agregar trabajo
     private void showAddWorkOrderDialog() {
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -189,7 +187,6 @@ public class HomeActivity extends AppCompatActivity {
             builder.setView(view);
             AlertDialog dialog = builder.create();
 
-            // Referencias a los campos del formulario
             EditText etClientName = view.findViewById(R.id.etClientName);
             EditText etPlate = view.findViewById(R.id.etPlate);
             EditText etNotes = view.findViewById(R.id.etNotes);
@@ -199,23 +196,19 @@ public class HomeActivity extends AppCompatActivity {
             Button btnSave = view.findViewById(R.id.btnSave);
             Button btnCancel = view.findViewById(R.id.btnCancel);
 
-            // Repositorios
             WorkOrderRepository workRepo = new WorkOrderRepository(getApplication());
             ServiceTemplateRepository serviceRepo = new ServiceTemplateRepository(getApplication());
             VehicleRepository vehicleRepo = new VehicleRepository(getApplication());
 
-            // 🔹 Cargar marcas y modelos desde la BD
             vehicleRepo.getAll().observe(this, vehicleList -> {
                 if (vehicleList != null && !vehicleList.isEmpty()) {
                     List<String> brands = new ArrayList<>();
                     for (Vehicle vehicle : vehicleList) brands.add(vehicle.getBrand());
 
-                    // Eliminar duplicados
                     Set<String> uniqueBrands = new LinkedHashSet<>(brands);
                     brands.clear();
                     brands.addAll(uniqueBrands);
 
-                    // Adaptador de marcas
                     ArrayAdapter<String> brandAdapter = new ArrayAdapter<>(
                             this,
                             android.R.layout.simple_spinner_item,
@@ -224,7 +217,6 @@ public class HomeActivity extends AppCompatActivity {
                     brandAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spBrand.setAdapter(brandAdapter);
 
-                    // Al seleccionar marca → filtrar modelos
                     spBrand.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -252,7 +244,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            // 🔹 Cargar lista de servicios
             serviceRepo.getAllTemplates().observe(this, services -> {
                 servicesContainer.removeAllViews();
                 for (ServiceTemplate s : services) {
@@ -263,7 +254,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            // 🔹 Botón Guardar
             btnSave.setOnClickListener(view1 -> {
                 List<String> selectedServices = new ArrayList<>();
                 for (int i = 0; i < servicesContainer.getChildCount(); i++) {
@@ -280,7 +270,6 @@ public class HomeActivity extends AppCompatActivity {
                 String selectedBrand = (String) spBrand.getSelectedItem();
                 String selectedModel = (String) spModel.getSelectedItem();
 
-                // 🔹 Validaciones
                 if (clientName.isEmpty() || plateText.isEmpty()) {
                     Toast.makeText(this, "⚠️ Completá todos los campos obligatorios", Toast.LENGTH_SHORT).show();
                     return;
@@ -291,7 +280,6 @@ public class HomeActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 🔹 Crear nueva orden de trabajo
                 WorkOrder order = new WorkOrder();
                 order.setClientName(clientName);
                 order.setVehicleBrand(selectedBrand);
@@ -302,16 +290,13 @@ public class HomeActivity extends AppCompatActivity {
                 order.setTotalPrice(0.0);
                 order.setDate(date);
 
-                // 🔹 Guardar en Room
                 workRepo.insert(order);
                 Toast.makeText(this, "✅ Trabajo agregado correctamente", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             });
 
-            // 🔹 Botón Cancelar
             btnCancel.setOnClickListener(v -> dialog.dismiss());
 
-            // ✅ Mostrar el diálogo
             dialog.show();
 
         } catch (Exception e) {
