@@ -107,13 +107,13 @@
         <item name="cornerSize">24dp</item>
     </style>
 
-    <!-- 🎨 Estilo para el BottomSheet -->
-    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
-    </style>
-
+    <!-- 🎨 Estilo para el BottomSheet personalizado -->
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_bottomsheet_rounded</item>
+    </style>
+
+    <style name="ThemeOverlay.Gestaller.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
     </style>
 
 

@@ -62,7 +62,7 @@
             android:inputType="phone"
             android:paddingHorizontal="20dp"
             android:textColor="?attr/colorOnSurface"
-            android:enabled="false" />
+            android:enabled="true" />
 
         <!-- 🔹 Marca y Modelo -->
         <LinearLayout
@@ -198,7 +198,7 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Guardar"
+                android:text="Cancelar"
                 android:background="@drawable/rounded_button"
                 app:backgroundTint="@color/gestaller_blue"
                 android:textAppearance="@style/TextAppearance.App.Button" />

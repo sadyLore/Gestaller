@@ -309,8 +309,9 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog =
                 new com.google.android.material.bottomsheet.BottomSheetDialog(
                         this,
-                        com.google.android.material.R.style.ThemeOverlay_Material3_BottomSheetDialog
+                        R.style.ThemeOverlay_Gestaller_BottomSheetDialog
                 );
+
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
 
