@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,12 +25,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gestaller.R;
+import com.example.gestaller.data.local.TallerDatabase;
+import com.example.gestaller.data.local.dao.ClientDao;
 import com.example.gestaller.data.local.entity.Client;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
 import com.example.gestaller.data.local.entity.Vehicle;
@@ -38,12 +40,9 @@ import com.example.gestaller.ui.adapter.PhotoAdapter;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.example.gestaller.data.local.dao.ClientDao;
 import com.tallermanager.ui.viewmodel.ServiceTemplateViewModel;
 import com.tallermanager.ui.viewmodel.VehicleViewModel;
 import com.tallermanager.ui.viewmodel.WorkOrderViewModel;
-import com.example.gestaller.data.local.TallerDatabase;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -121,7 +120,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     }
 
     private void setupClientAutoComplete() {
-        // Inicializa Room
         TallerDatabase db = TallerDatabase.getDatabase(this);
         clientDao = db.clientDao();
 
@@ -260,15 +258,72 @@ public class AddWorkOrderActivity extends AppCompatActivity {
             return;
         }
 
-        List<String> selectedServices = new ArrayList<>();
+        // ✅ Recoger los servicios seleccionados
+        List<ServiceTemplate> serviciosSeleccionados = new ArrayList<>();
         for (int i = 0; i < servicesContainer.getChildCount(); i++) {
             View view = servicesContainer.getChildAt(i);
-            if (view instanceof CheckBox && ((CheckBox) view).isChecked()) {
-                selectedServices.add(((CheckBox) view).getText().toString());
+            if (view instanceof CheckBox) {
+                CheckBox checkBox = (CheckBox) view;
+                if (checkBox.isChecked()) {
+                    ServiceTemplate service = (ServiceTemplate) checkBox.getTag();
+                    serviciosSeleccionados.add(service);
+                }
             }
         }
 
-        String servicesString = String.join(", ", selectedServices);
+        if (serviciosSeleccionados.isEmpty()) {
+            Toast.makeText(this, "Selecciona al menos un servicio", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Mostrar resumen antes de guardar
+        mostrarResumenServicios(serviciosSeleccionados);
+    }
+
+    private void mostrarResumenServicios(List<ServiceTemplate> serviciosSeleccionados) {
+        View view = getLayoutInflater().inflate(R.layout.bottomsheet_services_summary, null);
+        LinearLayout container = view.findViewById(R.id.containerServices);
+        TextView tvTotal = view.findViewById(R.id.tvTotal);
+        Button btnFacturar = view.findViewById(R.id.btnFacturar);
+
+        double total = 0.0;
+
+        for (ServiceTemplate s : serviciosSeleccionados) {
+            TextView item = new TextView(this);
+            item.setText(String.format("%s – Gs. %.0f", s.getName(), s.getDefaultPrice()));
+            item.setTextSize(15);
+            item.setPadding(0, 6, 0, 6);
+            item.setTextColor(getResources().getColor(android.R.color.black));
+            container.addView(item);
+            total += s.getDefaultPrice();
+        }
+
+        tvTotal.setText(String.format("Total: Gs. %.0f", total));
+
+        btnFacturar.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://ekuatia.set.gov.py/ekuatiai/"));
+            startActivity(browserIntent);
+        });
+
+        com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog =
+                new com.google.android.material.bottomsheet.BottomSheetDialog(
+                        this,
+                        com.google.android.material.R.style.ThemeOverlay_Material3_BottomSheetDialog
+                );
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            guardarOrdenEnBaseDeDatos(serviciosSeleccionados);
+        });
+    }
+
+    private void guardarOrdenEnBaseDeDatos(List<ServiceTemplate> serviciosSeleccionados) {
+        String servicesString = serviciosSeleccionados.stream()
+                .map(ServiceTemplate::getName)
+                .collect(Collectors.joining(", "));
+
         String photosString = String.join(",", photoUrls);
 
         WorkOrder newOrder = new WorkOrder();
@@ -287,4 +342,3 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         finish();
     }
 }
-
