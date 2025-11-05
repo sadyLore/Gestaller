@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/app_bar_background"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    android:fitsSystemWindows="true">
 
     <ImageButton
         android:id="@+id/btnMenu"

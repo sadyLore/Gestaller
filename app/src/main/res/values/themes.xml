@@ -19,10 +19,11 @@
 
         <!-- Componentes -->
         <item name="materialAlertDialogTheme">@style/App.MaterialAlertDialogTheme</item>
-        <item name="android:statusBarColor">@color/gestaller_blue</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <!-- Estilo para diálogos con esquinas redondeadas -->
