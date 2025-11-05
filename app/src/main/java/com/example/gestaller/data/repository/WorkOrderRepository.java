@@ -18,7 +18,7 @@ public class WorkOrderRepository {
     private final ExecutorService executorService;
 
     public WorkOrderRepository(Application application) {
-        TallerDatabase db = TallerDatabase.getInstance(application);
+        TallerDatabase db = TallerDatabase.getDatabase(application);
         workOrderDao = db.workOrderDao();
         executorService = Executors.newSingleThreadExecutor();
     }

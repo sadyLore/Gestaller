@@ -17,7 +17,7 @@ public class VehicleRepository {
     private final ExecutorService executorService;
 
     public VehicleRepository(Application application) {
-        TallerDatabase db = TallerDatabase.getInstance(application);
+        TallerDatabase db = TallerDatabase.getDatabase(application);
         vehicleDao = db.vehicleDao();
         executorService = Executors.newSingleThreadExecutor();
     }
