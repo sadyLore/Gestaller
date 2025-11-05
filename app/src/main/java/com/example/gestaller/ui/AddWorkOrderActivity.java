@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import android.widget.TextView;
 
 public class AddWorkOrderActivity extends AppCompatActivity {
 
@@ -234,18 +235,74 @@ public class AddWorkOrderActivity extends AppCompatActivity {
             return;
         }
 
-        List<String> selectedServices = new ArrayList<>();
+        List<ServiceTemplate> serviciosSeleccionados = new ArrayList<>();
         for (int i = 0; i < servicesContainer.getChildCount(); i++) {
             View view = servicesContainer.getChildAt(i);
             if (view instanceof CheckBox) {
                 CheckBox checkBox = (CheckBox) view;
                 if (checkBox.isChecked()) {
-                    selectedServices.add(checkBox.getText().toString());
+                    ServiceTemplate service = (ServiceTemplate) checkBox.getTag();
+                    serviciosSeleccionados.add(service);
                 }
             }
         }
 
-        String servicesString = String.join(", ", selectedServices);
+        if (serviciosSeleccionados.isEmpty()) {
+            Toast.makeText(this, "Selecciona al menos un servicio", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Mostrar resumen antes de guardar
+        mostrarResumenServicios(serviciosSeleccionados);
+    }
+
+    private void mostrarResumenServicios(List<ServiceTemplate> serviciosSeleccionados) {
+        View view = getLayoutInflater().inflate(R.layout.bottomsheet_services_summary, null);
+        LinearLayout container = view.findViewById(R.id.containerServices);
+        TextView tvTotal = view.findViewById(R.id.tvTotal);
+        Button btnFacturar = view.findViewById(R.id.btnFacturar);
+
+        double total = 0.0;
+
+        for (ServiceTemplate s : serviciosSeleccionados) {
+            TextView item = new TextView(this);
+            item.setText(String.format("%s – Gs. %.0f", s.getName(), s.getDefaultPrice()));
+            item.setTextSize(15);
+            item.setPadding(0, 6, 0, 6);
+            item.setTextColor(getResources().getColor(android.R.color.black));
+            container.addView(item);
+            total += s.getDefaultPrice();
+        }
+
+        tvTotal.setText(String.format("Total: Gs. %.0f", total));
+
+        btnFacturar.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://ekuatia.set.gov.py/ekuatiai/"));
+            startActivity(browserIntent);
+        });
+
+
+        com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog =
+                new com.google.android.material.bottomsheet.BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+        bottomSheetDialog.setContentView(view);
+
+        bottomSheetDialog.getBehavior().setDraggable(true);
+        bottomSheetDialog.getBehavior().setPeekHeight(Integer.MAX_VALUE);
+
+        bottomSheetDialog.show();
+
+
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            guardarOrdenEnBaseDeDatos(serviciosSeleccionados);
+        });
+    }
+
+    private void guardarOrdenEnBaseDeDatos(List<ServiceTemplate> serviciosSeleccionados) {
+        List<String> nombres = serviciosSeleccionados.stream()
+                .map(ServiceTemplate::getName)
+                .collect(Collectors.toList());
+        String servicesString = String.join(", ", nombres);
         String photosString = String.join(",", photoUrls);
 
         WorkOrder newOrder = new WorkOrder();
@@ -263,4 +320,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         Toast.makeText(this, "Orden guardada ✅", Toast.LENGTH_SHORT).show();
         finish();
     }
+
+
 }

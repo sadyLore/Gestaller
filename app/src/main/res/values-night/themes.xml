@@ -43,4 +43,15 @@
         <item name="boxBackgroundColor">@color/gestaller_dialog_dark_background</item>
         <item name="android:textColorHint">@color/gestaller_gray</item>
     </style>
+
+    <!-- 🌙 Estilo para BottomSheet en modo oscuro -->
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyleDark</item>
+    </style>
+
+    <style name="CustomBottomSheetStyleDark" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottomsheet_rounded_dark</item>
+    </style>
+
+
 </resources>
