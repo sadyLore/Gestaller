@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,11 +24,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gestaller.R;
+import com.example.gestaller.data.local.entity.Client;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
 import com.example.gestaller.data.local.entity.Vehicle;
 import com.example.gestaller.data.local.entity.WorkOrder;
@@ -35,9 +38,12 @@ import com.example.gestaller.ui.adapter.PhotoAdapter;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.example.gestaller.data.local.dao.ClientDao;
 import com.tallermanager.ui.viewmodel.ServiceTemplateViewModel;
 import com.tallermanager.ui.viewmodel.VehicleViewModel;
 import com.tallermanager.ui.viewmodel.WorkOrderViewModel;
+import com.example.gestaller.data.local.TallerDatabase;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +53,8 @@ import java.util.stream.Collectors;
 
 public class AddWorkOrderActivity extends AppCompatActivity {
 
-    private EditText etClientName, etClientPhone, etPlate, etNotes;
+    private AutoCompleteTextView autoCliente;
+    private EditText etClientPhone, etPlate, etNotes;
     private Spinner spBrand, spModel;
     private LinearLayout servicesContainer;
     private RecyclerView photosRecyclerView;
@@ -63,26 +70,22 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     private PhotoAdapter photoAdapter;
 
     private List<Vehicle> vehicleList = new ArrayList<>();
+    private List<Client> clientList = new ArrayList<>();
+    private ClientDao clientDao;
 
     private final ActivityResultLauncher<String> requestCameraPermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             isGranted -> {
-                if (isGranted) {
-                    tomarFoto();
-                } else {
-                    Toast.makeText(this, "Se requiere permiso de cámara", Toast.LENGTH_SHORT).show();
-                }
+                if (isGranted) tomarFoto();
+                else Toast.makeText(this, "Se requiere permiso de cámara", Toast.LENGTH_SHORT).show();
             }
     );
 
     private final ActivityResultLauncher<Intent> takePictureLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == RESULT_OK && photoUri != null) {
-                    subirAFirebase(photoUri);
-                } else {
-                    Toast.makeText(this, "Captura cancelada o fallida", Toast.LENGTH_SHORT).show();
-                }
+                if (result.getResultCode() == RESULT_OK && photoUri != null) subirAFirebase(photoUri);
+                else Toast.makeText(this, "Captura cancelada o fallida", Toast.LENGTH_SHORT).show();
             }
     );
 
@@ -94,10 +97,9 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         vehicleViewModel = new ViewModelProvider(this).get(VehicleViewModel.class);
         serviceTemplateViewModel = new ViewModelProvider(this).get(ServiceTemplateViewModel.class);
         workOrderViewModel = new ViewModelProvider(this).get(WorkOrderViewModel.class);
-
         storage = FirebaseStorage.getInstance();
 
-        etClientName = findViewById(R.id.etClientName);
+        autoCliente = findViewById(R.id.autoCliente);
         etClientPhone = findViewById(R.id.etClientPhone);
         spBrand = findViewById(R.id.spBrand);
         spModel = findViewById(R.id.spModel);
@@ -110,12 +112,39 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
 
         setupPhotoRecycler();
+        setupObservers();
+        setupClientAutoComplete();
 
         btnTomarFoto.setOnClickListener(v -> verificarPermisosYCapturarFoto());
         btnCancel.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> guardarOrdenDeTrabajo());
+    }
 
-        setupObservers();
+    private void setupClientAutoComplete() {
+        // Inicializa Room
+        TallerDatabase db = TallerDatabase.getDatabase(this);
+        clientDao = db.clientDao();
+
+        clientDao.getAllClients().observe(this, clients -> {
+            if (clients != null && !clients.isEmpty()) {
+                clientList = clients;
+                List<String> nombres = clients.stream().map(Client::getName).collect(Collectors.toList());
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_dropdown_item_1line, nombres);
+                autoCliente.setAdapter(adapter);
+
+                autoCliente.setOnItemClickListener((parent, view, position, id) -> {
+                    String seleccionado = (String) parent.getItemAtPosition(position);
+                    for (Client c : clientList) {
+                        if (c.getName().equals(seleccionado)) {
+                            etClientPhone.setText(c.getPhone());
+                            break;
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void setupPhotoRecycler() {
@@ -178,11 +207,10 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     }
 
     private void verificarPermisosYCapturarFoto() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
             tomarFoto();
-        } else {
+        else
             requestCameraPermission.launch(Manifest.permission.CAMERA);
-        }
     }
 
     private void tomarFoto() {
@@ -199,11 +227,9 @@ public class AddWorkOrderActivity extends AppCompatActivity {
                         Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
 
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                takePictureLauncher.launch(intent);
-            } else {
-                Toast.makeText(this, "No se encontró app de cámara", Toast.LENGTH_SHORT).show();
-            }
+            if (intent.resolveActivity(getPackageManager()) != null) takePictureLauncher.launch(intent);
+            else Toast.makeText(this, "No se encontró app de cámara", Toast.LENGTH_SHORT).show();
+
         } catch (Exception e) {
             Toast.makeText(this, "Error al abrir cámara: " + e.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("AddWorkOrderActivity", "Error cámara", e);
@@ -229,19 +255,16 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     }
 
     private void guardarOrdenDeTrabajo() {
-        if (etClientName.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Ingresa el nombre del cliente", Toast.LENGTH_SHORT).show();
+        if (autoCliente.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Selecciona un cliente", Toast.LENGTH_SHORT).show();
             return;
         }
 
         List<String> selectedServices = new ArrayList<>();
         for (int i = 0; i < servicesContainer.getChildCount(); i++) {
             View view = servicesContainer.getChildAt(i);
-            if (view instanceof CheckBox) {
-                CheckBox checkBox = (CheckBox) view;
-                if (checkBox.isChecked()) {
-                    selectedServices.add(checkBox.getText().toString());
-                }
+            if (view instanceof CheckBox && ((CheckBox) view).isChecked()) {
+                selectedServices.add(((CheckBox) view).getText().toString());
             }
         }
 
@@ -249,7 +272,7 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         String photosString = String.join(",", photoUrls);
 
         WorkOrder newOrder = new WorkOrder();
-        newOrder.setClientName(etClientName.getText().toString());
+        newOrder.setClientName(autoCliente.getText().toString());
         newOrder.setClientPhone(etClientPhone.getText().toString());
         newOrder.setVehicleBrand(spBrand.getSelectedItem() != null ? spBrand.getSelectedItem().toString() : "");
         newOrder.setVehicleModel(spModel.getSelectedItem() != null ? spModel.getSelectedItem().toString() : "");
@@ -264,3 +287,4 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         finish();
     }
 }
+

@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        db = TallerDatabase.getInstance(this);
+        db = TallerDatabase.getDatabase(this);
 
         // Crear usuarios por defecto (solo una vez)
         new Thread(() -> {
