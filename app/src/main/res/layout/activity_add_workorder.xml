@@ -32,14 +32,15 @@
             android:textSize="14sp"
             android:layout_marginBottom="4dp" />
 
-        <EditText
-            android:id="@+id/etClientName"
+        <AutoCompleteTextView
+            android:id="@+id/autoCliente"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/rounded_border_button"
-            android:hint="Ingresar nombre"
+            android:hint="Seleccionar cliente"
             android:paddingHorizontal="20dp"
+            android:inputType="textPersonName"
             android:textColor="?attr/colorOnSurface" />
 
         <!-- 🔹 Teléfono -->
@@ -60,7 +61,8 @@
             android:hint="Número de teléfono"
             android:inputType="phone"
             android:paddingHorizontal="20dp"
-            android:textColor="?attr/colorOnSurface" />
+            android:textColor="?attr/colorOnSurface"
+            android:enabled="false" />
 
         <!-- 🔹 Marca y Modelo -->
         <LinearLayout
@@ -137,17 +139,15 @@
             android:textColor="@color/white"
             android:layout_marginBottom="12dp" />
 
-        <!-- 🔹 Vista previa de la imagen -->
-        <ImageView
-            android:id="@+id/imgPreview"
+        <!-- 🔹 Vista previa de las fotos -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photosRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
             android:layout_marginBottom="20dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:background="@drawable/rounded_border_button"
-            android:contentDescription="Vista previa de la foto"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <!-- 🔹 Servicios -->
         <TextView

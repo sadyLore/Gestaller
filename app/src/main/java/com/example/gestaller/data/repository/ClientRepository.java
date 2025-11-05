@@ -14,7 +14,7 @@ public class ClientRepository {
     private final ExecutorService executorService;
 
     public ClientRepository(Application application) {
-        TallerDatabase db = TallerDatabase.getInstance(application);
+        TallerDatabase db = TallerDatabase.getDatabase(application);
         clientDao = db.clientDao();
         executorService = Executors.newSingleThreadExecutor();
     }

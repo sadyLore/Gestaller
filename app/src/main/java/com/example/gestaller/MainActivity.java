@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 // Inicializa la base de datos
-                TallerDatabase db = TallerDatabase.getInstance(this);
+                TallerDatabase db = TallerDatabase.getDatabase(this);
 
                 // Obtiene el DAO
                 ClientDao clientDao = db.clientDao();

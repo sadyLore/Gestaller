@@ -14,7 +14,7 @@ public class ServiceTemplateRepository {
     private final ExecutorService executorService;
 
     public ServiceTemplateRepository(Application application) {
-        TallerDatabase db = TallerDatabase.getInstance(application);
+        TallerDatabase db = TallerDatabase.getDatabase(application);
         serviceTemplateDao = db.serviceTemplateDao();
         executorService = Executors.newSingleThreadExecutor();
     }
