@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,12 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.gestaller.R;
 import com.example.gestaller.data.local.entity.ServiceTemplate;
 import com.example.gestaller.data.local.entity.Vehicle;
 import com.example.gestaller.data.local.entity.WorkOrder;
+import com.example.gestaller.ui.adapter.PhotoAdapter;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -50,7 +50,7 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     private EditText etClientName, etClientPhone, etPlate, etNotes;
     private Spinner spBrand, spModel;
     private LinearLayout servicesContainer;
-    private ImageView imgPreview;
+    private RecyclerView photosRecyclerView;
     private Button btnTomarFoto, btnCancel, btnSave;
 
     private VehicleViewModel vehicleViewModel;
@@ -59,27 +59,18 @@ public class AddWorkOrderActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
     private Uri photoUri;
-    private String photoUrl = "";
+    private final List<String> photoUrls = new ArrayList<>();
+    private PhotoAdapter photoAdapter;
 
     private List<Vehicle> vehicleList = new ArrayList<>();
 
-    private final ActivityResultLauncher<String[]> requestPermissions = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(),
-            permissions -> {
-                boolean cameraGranted = Boolean.TRUE.equals(permissions.get(Manifest.permission.CAMERA));
-                boolean storageGranted;
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    storageGranted = Boolean.TRUE.equals(permissions.get(Manifest.permission.READ_MEDIA_IMAGES));
-                } else {
-                    storageGranted = Boolean.TRUE.equals(permissions.get(Manifest.permission.READ_EXTERNAL_STORAGE))
-                            && Boolean.TRUE.equals(permissions.get(Manifest.permission.WRITE_EXTERNAL_STORAGE));
-                }
-
-                if (cameraGranted && storageGranted) {
+    private final ActivityResultLauncher<String> requestCameraPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
                     tomarFoto();
                 } else {
-                    Toast.makeText(this, "Se requieren permisos de cámara y almacenamiento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Se requiere permiso de cámara", Toast.LENGTH_SHORT).show();
                 }
             }
     );
@@ -112,17 +103,25 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         spModel = findViewById(R.id.spModel);
         etPlate = findViewById(R.id.etPlate);
         btnTomarFoto = findViewById(R.id.btnTomarFoto);
-        imgPreview = findViewById(R.id.imgPreview);
+        photosRecyclerView = findViewById(R.id.photosRecyclerView);
         servicesContainer = findViewById(R.id.servicesContainer);
         etNotes = findViewById(R.id.etNotes);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
+
+        setupPhotoRecycler();
 
         btnTomarFoto.setOnClickListener(v -> verificarPermisosYCapturarFoto());
         btnCancel.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> guardarOrdenDeTrabajo());
 
         setupObservers();
+    }
+
+    private void setupPhotoRecycler() {
+        photoAdapter = new PhotoAdapter(this, photoUrls);
+        photosRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        photosRecyclerView.setAdapter(photoAdapter);
     }
 
     private void setupObservers() {
@@ -179,24 +178,10 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     }
 
     private void verificarPermisosYCapturarFoto() {
-        boolean cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-        String[] permissionsToRequest;
-        boolean storagePermissionsGranted;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            storagePermissionsGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED;
-            permissionsToRequest = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES};
-        } else {
-            boolean readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-            boolean writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-            storagePermissionsGranted = readPermission && writePermission;
-            permissionsToRequest = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        }
-
-        if (!cameraPermission || !storagePermissionsGranted) {
-            requestPermissions.launch(permissionsToRequest);
-        } else {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             tomarFoto();
+        } else {
+            requestCameraPermission.launch(Manifest.permission.CAMERA);
         }
     }
 
@@ -232,9 +217,9 @@ public class AddWorkOrderActivity extends AppCompatActivity {
 
         uploadTask.addOnSuccessListener(taskSnapshot ->
                 storageRef.getDownloadUrl().addOnSuccessListener(downloadUrl -> {
-                    photoUrl = downloadUrl.toString();
-                    Glide.with(this).load(photoUrl).into(imgPreview);
-                    imgPreview.setVisibility(View.VISIBLE);
+                    photoUrls.add(downloadUrl.toString());
+                    photosRecyclerView.setVisibility(View.VISIBLE);
+                    photoAdapter.notifyItemInserted(photoUrls.size() - 1);
                     Toast.makeText(this, "Foto subida ✅", Toast.LENGTH_SHORT).show();
                 })
         ).addOnFailureListener(e -> {
@@ -261,6 +246,7 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         }
 
         String servicesString = String.join(", ", selectedServices);
+        String photosString = String.join(",", photoUrls);
 
         WorkOrder newOrder = new WorkOrder();
         newOrder.setClientName(etClientName.getText().toString());
@@ -270,7 +256,7 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         newOrder.setVehiclePlate(etPlate.getText().toString());
         newOrder.setServices(servicesString);
         newOrder.setNotes(etNotes.getText().toString());
-        newOrder.setPhotoUrl(photoUrl);
+        newOrder.setPhotoUrl(photosString);
         newOrder.setDate(new Date().getTime());
 
         workOrderViewModel.insert(newOrder);
