@@ -42,7 +42,9 @@
                     android:hint="Buscar..."
                     android:textAppearance="?attr/textAppearanceBody1"
                     android:textColor="?attr/colorOnSurface"
-                    android:textColorHint="?attr/colorOnSurface" />
+                    android:textColorHint="?attr/colorOnSurface"
+                    android:inputType="text"
+                    android:autofillHints="search" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -63,7 +65,7 @@
                 android:textAppearance="@style/TextAppearance.App.Subtitle"
                 android:textColor="?attr/colorOnSurface" />
 
-            <!-- Contenedor para la lista y el mensaje de 'no resultados' -->
+            <!-- Contenedor principal -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -89,7 +91,6 @@
                     android:visibility="gone" />
 
             </FrameLayout>
-
         </LinearLayout>
 
         <!-- Botón flotante -->
@@ -106,14 +107,17 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <!-- 🔹 Menú lateral con cabecera personalizada -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="?attr/colorSurface"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
         app:itemTextColor="?attr/colorOnSurface"
         app:itemIconTint="@color/gestaller_blue"
         app:itemTextAppearance="@style/TextAppearance.App.Body" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

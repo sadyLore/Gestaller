@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
         db = TallerDatabase.getDatabase(this);
 
-        // Crear usuarios por defecto (solo una vez)
+        // 🔹 Crear usuarios por defecto (solo una vez)
         new Thread(() -> {
             try {
                 if (db.userDao().getAllUsers().isEmpty()) {
@@ -51,14 +51,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
 
-        // 🔹 LOGIN CON USUARIO Y CONTRASEÑA
+        // 🔹 LOGIN MANUAL
         btnLogin.setOnClickListener(v -> loginUser());
 
-        // 🔹 AUTENTICACIÓN POR HUELLA DIGITAL
+        // 🔹 LOGIN CON HUELLA DIGITAL
+        setupFingerprintLogin();
+    }
+
+    private void setupFingerprintLogin() {
         Executor executor = ContextCompat.getMainExecutor(this);
         BiometricManager biometricManager = BiometricManager.from(this);
-
-        // Usar solo huella (sin PIN del sistema)
         int authenticators = BiometricManager.Authenticators.BIOMETRIC_STRONG;
 
         if (biometricManager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS) {
@@ -72,11 +74,16 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences prefs = getSharedPreferences("GestallerPrefs", MODE_PRIVATE);
                             String role = prefs.getString("userRole", "propietario");
 
+                            Intent intent;
                             if (role.equalsIgnoreCase("propietario")) {
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                intent = new Intent(LoginActivity.this, HomeActivity.class);
                             } else {
-                                startActivity(new Intent(LoginActivity.this, EmployeeHomeActivity.class));
+                                intent = new Intent(LoginActivity.this, EmployeeHomeActivity.class);
                             }
+
+                            // ✅ enviamos el rol al siguiente Activity
+                            intent.putExtra("USER_ROLE", role);
+                            startActivity(intent);
                             finish();
                         }
 
@@ -97,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-            // ✅ Solo huella, con botón "Cancelar"
             BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
                     .setTitle("Gestaller")
                     .setSubtitle("Toca el sensor de huellas dactilares")
@@ -108,7 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
             btnFingerprint.setOnClickListener(v -> biometricPrompt.authenticate(promptInfo));
         } else {
-            // Oculta el botón si el dispositivo no tiene lector de huella
             btnFingerprint.setVisibility(View.GONE);
         }
     }
@@ -136,12 +141,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     Toast.makeText(this, "Bienvenido " + user.getRole(), Toast.LENGTH_SHORT).show();
 
+                    Intent intent;
                     if (user.getRole().equalsIgnoreCase("propietario")) {
-                        startActivity(new Intent(this, HomeActivity.class));
+                        intent = new Intent(this, HomeActivity.class);
                     } else {
-                        startActivity(new Intent(this, EmployeeHomeActivity.class));
+                        intent = new Intent(this, EmployeeHomeActivity.class);
                     }
+
+                    // ✅ enviamos el rol del usuario al siguiente Activity
+                    intent.putExtra("USER_ROLE", user.getRole());
+                    startActivity(intent);
                     finish();
+
                 } else {
                     Toast.makeText(this, "Contraseña o nombre de usuario incorrectos.", Toast.LENGTH_SHORT).show();
                 }

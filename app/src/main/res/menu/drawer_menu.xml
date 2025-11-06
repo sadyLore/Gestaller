@@ -5,15 +5,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_clientes"
+            android:icon="@android:drawable/ic_menu_myplaces"
             android:title="Clientes" />
         <item
             android:id="@+id/nav_vehiculos"
+            android:icon="@drawable/ic_car_placeholder"
             android:title="Vehículos" />
         <item
             android:id="@+id/nav_servicios"
+            android:icon="@android:drawable/ic_menu_preferences"
             android:title="Servicios" />
         <item
             android:id="@+id/nav_trabajos"
+            android:icon="@android:drawable/ic_menu_agenda"
             android:title="Trabajos" />
     </group>
 
@@ -21,4 +25,10 @@
         android:id="@+id/nav_theme_toggle"
         android:icon="@drawable/ic_light_mode"
         android:title="Cambiar Tema" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="Cerrar Sesión" />
+
 </menu>
