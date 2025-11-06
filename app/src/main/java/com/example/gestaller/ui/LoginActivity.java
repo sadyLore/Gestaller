@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 if (db.userDao().getAllUsers().isEmpty()) {
-                    db.userDao().insert(new User("admin", "1234", "propietario"));
-                    db.userDao().insert(new User("colab", "1234", "colaborador"));
+                    db.userDao().insert(new User("admin", "061203", "propietario"));
+                    db.userDao().insert(new User("colab", "161204", "colaborador"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                             super.onAuthenticationSucceeded(result);
-                            Toast.makeText(getApplicationContext(), "Huella verificada ✅", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Huella verificada", Toast.LENGTH_SHORT).show();
 
                             SharedPreferences prefs = getSharedPreferences("GestallerPrefs", MODE_PRIVATE);
                             String role = prefs.getString("userRole", "propietario");
