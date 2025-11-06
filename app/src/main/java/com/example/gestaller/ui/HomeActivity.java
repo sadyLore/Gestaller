@@ -61,7 +61,17 @@ public class HomeActivity extends AppCompatActivity {
 
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-        updateThemeIcon(); // Actualizar el ícono al iniciar
+        // 🔹 Mostrar rol en el header
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvUserRole = headerView.findViewById(R.id.tvUserRole);
+        String role = getIntent().getStringExtra("USER_ROLE");
+        if (role != null && role.equalsIgnoreCase("propietario")) {
+            tvUserRole.setText("Usuario: propietario");
+        } else {
+            tvUserRole.setText("Usuario: colaborador");
+        }
+
+        updateThemeIcon(); // Actualizar ícono del tema
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -74,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
             } else if (id == R.id.nav_trabajos) {
                 startActivity(new Intent(this, WorkOrderListActivity.class));
             } else if (id == R.id.nav_theme_toggle) {
-                toggleTheme(); // Lógica para cambiar el tema
+                toggleTheme();
             }
             drawerLayout.closeDrawers();
             return true;
@@ -105,7 +115,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
         loadWorkOrders("");
     }
 
@@ -130,7 +139,6 @@ public class HomeActivity extends AppCompatActivity {
             if (hasResults) {
                 recyclerWorkOrders.setVisibility(View.VISIBLE);
                 tvNoResults.setVisibility(View.GONE);
-
                 if (!isSearching && workOrders.size() > 10) {
                     workOrderAdapter.updateData(workOrders.subList(0, 10));
                 } else {
@@ -151,7 +159,7 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
-        recreate(); // Reinicia la actividad para aplicar el nuevo tema
+        recreate();
     }
 
     private void updateThemeIcon() {
@@ -159,9 +167,9 @@ public class HomeActivity extends AppCompatActivity {
         if (themeItem != null) {
             int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
-                themeItem.setIcon(R.drawable.ic_dark_mode); // Icono de luna
+                themeItem.setIcon(R.drawable.ic_dark_mode);
             } else {
-                themeItem.setIcon(R.drawable.ic_light_mode); // Icono de sol
+                themeItem.setIcon(R.drawable.ic_light_mode);
             }
         }
     }

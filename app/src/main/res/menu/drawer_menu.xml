@@ -3,15 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
+
+        <!-- Visible para propietario y colaborador -->
         <item
             android:id="@+id/nav_clientes"
             android:title="Clientes" />
+
+        <!-- Solo propietario (se ocultan en EmployeeHomeActivity) -->
         <item
             android:id="@+id/nav_vehiculos"
             android:title="Vehículos" />
+
         <item
             android:id="@+id/nav_servicios"
             android:title="Servicios" />
+
+        <!-- Visible para ambos -->
         <item
             android:id="@+id/nav_trabajos"
             android:title="Trabajos" />
@@ -19,6 +26,6 @@
 
     <item
         android:id="@+id/nav_theme_toggle"
-        android:icon="@drawable/ic_light_mode"
-        android:title="Cambiar Tema" />
+        android:title="Cambiar tema" />
 </menu>
+
