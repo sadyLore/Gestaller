@@ -1,6 +1,7 @@
 package com.example.gestaller.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FloatingActionButton fabAddWork;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +33,14 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationView);
         fabAddWork = findViewById(R.id.fabAddWork);
 
+        sharedPreferences = getSharedPreferences("GestallerPrefs", MODE_PRIVATE);
+
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-        // 🔹 Mostrar el rol en el header
         View headerView = navigationView.getHeaderView(0);
         TextView tvUserRole = headerView.findViewById(R.id.tvUserRole);
         tvUserRole.setText("Usuario: colaborador");
 
-        // 🔹 Ocultar opciones que no debe ver
         navigationView.getMenu().findItem(R.id.nav_vehiculos).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_servicios).setVisible(false);
 
@@ -56,6 +58,8 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             startActivity(new Intent(this, WorkOrderListActivity.class));
         } else if (id == R.id.nav_theme_toggle) {
             toggleTheme();
+        } else if (id == R.id.nav_logout) {
+            logoutUser();
         }
 
         drawerLayout.closeDrawers();
@@ -70,5 +74,16 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         recreate();
+    }
+
+    private void logoutUser() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("userRole");
+        editor.apply();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

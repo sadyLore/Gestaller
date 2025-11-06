@@ -25,4 +25,10 @@
         android:id="@+id/nav_theme_toggle"
         android:icon="@drawable/ic_light_mode"
         android:title="Cambiar Tema" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="Cerrar Sesión" />
+
 </menu>
