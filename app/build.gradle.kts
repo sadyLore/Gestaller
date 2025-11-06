@@ -47,7 +47,6 @@ dependencies {
 
     // --- ROOM (Base de datos local) ---
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation(libs.androidx.constraintlayout)
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
@@ -66,6 +65,9 @@ dependencies {
 
     // --- Para ActivityResultLauncher en Kotlin (necesario para la cámara) ---
     implementation("androidx.activity:activity-ktx:1.8.0")
+
+    // --- Autenticación biométrica (huella digital) ---
+    implementation("androidx.biometric:biometric:1.1.0")
 
     // --- Testing ---
     testImplementation("junit:junit:4.13.2")

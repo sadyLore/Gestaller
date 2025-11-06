@@ -24,6 +24,7 @@
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Gestaller.BottomSheetDialog</item>
     </style>
 
     <!-- Estilo para diálogos con esquinas redondeadas -->

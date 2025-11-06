@@ -111,6 +111,24 @@
                 android:textStyle="bold"
                 app:backgroundTint="@android:color/white"
                 app:cornerRadius="30dp" />
+
+            <!-- Botón de huella digital -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFingerprint"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Iniciar con huella"
+                android:textAllCaps="false"
+                android:textColor="@color/gestaller_blue"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_fingerprint"
+                app:iconTint="@color/gestaller_blue"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:backgroundTint="@android:color/white"
+                app:cornerRadius="30dp"
+                android:layout_marginTop="12dp" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
