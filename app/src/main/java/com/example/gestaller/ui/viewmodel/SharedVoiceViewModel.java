@@ -17,7 +17,7 @@ public class SharedVoiceViewModel extends ViewModel {
     public enum NavigationTarget {
         NONE,
 
-        // --- Comandos de Creación ---
+        // Comandos de Creación ---
         NEW_CLIENT,    // "Añadir cliente"
         NEW_VEHICLE,   // "Añadir vehículo/auto"
         NEW_ORDER,     // "Añadir orden/trabajo"
