@@ -1,219 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollContainer"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    tools:context=".ui.AddWorkOrderActivity">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="22dp">
-
-        <!-- 🔹 Título -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:text="Nuevo Trabajo"
-            android:textColor="@color/gestaller_blue"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- 🔹 Cliente -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cliente (nombre)"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCliente"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/rounded_border_button"
-            android:hint="Seleccionar cliente"
-            android:paddingHorizontal="20dp"
-            android:inputType="textPersonName"
-            android:textColor="?attr/colorOnSurface" />
-
-        <!-- 🔹 Teléfono -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Teléfono"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etClientPhone"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded_border_button"
-            android:hint="Número de teléfono"
-            android:inputType="phone"
-            android:paddingHorizontal="20dp"
-            android:textColor="?attr/colorOnSurface"
-            android:enabled="true" />
-
-        <!-- 🔹 Marca y Modelo -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="10dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Marca"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/spBrand"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@drawable/rounded_border_button"
-                    android:paddingHorizontal="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Modelo"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/spModel"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@drawable/rounded_border_button"
-                    android:paddingHorizontal="20dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- 🔹 Chapa -->
-        <EditText
-            android:id="@+id/etPlate"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:hint="Chapa"
-            android:background="@drawable/rounded_border_button"
-            android:paddingHorizontal="20dp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="12dp" />
-
-        <!-- 🔹 Botón para tomar foto -->
-        <Button
-            android:id="@+id/btnTomarFoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="📸 Tomar foto"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/white"
-            android:layout_marginBottom="12dp" />
-
-        <!-- 🔹 Vista previa de las fotos -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photosRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <!-- 🔹 Servicios -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Servicios"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
-            android:layout_marginBottom="8dp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/servicesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp" />
+            android:padding="22dp">
 
-        <!-- 🔹 Notas -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notas"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
+            <!-- 🔹 Título -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:text="Nuevo Trabajo"
+                android:textColor="@color/gestaller_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etNotes"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:hint="Agregar nota"
-            android:background="@drawable/rounded_border_button"
-            android:paddingHorizontal="20dp"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="22dp" />
+            <!-- 🔹 Cliente -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cliente (nombre)"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
 
-        <!-- 🔹 Botones -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <AutoCompleteTextView
+                android:id="@+id/autoCliente"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rounded_border_button"
+                android:hint="Seleccionar cliente"
+                android:paddingHorizontal="20dp"
+                android:inputType="textPersonName"
+                android:textColor="?attr/colorOnSurface" />
 
+            <!-- 🔹 Teléfono -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teléfono"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etClientPhone"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_border_button"
+                android:hint="Número de teléfono"
+                android:inputType="phone"
+                android:paddingHorizontal="20dp"
+                android:textColor="?attr/colorOnSurface"
+                android:enabled="true" />
+
+            <!-- 🔹 Marca y Modelo -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Marca"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp" />
+
+                    <Spinner
+                        android:id="@+id/spBrand"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/rounded_border_button"
+                        android:paddingHorizontal="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Modelo"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp" />
+
+                    <Spinner
+                        android:id="@+id/spModel"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:background="@drawable/rounded_border_button"
+                        android:paddingHorizontal="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 🔹 Chapa -->
+            <EditText
+                android:id="@+id/etPlate"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="Chapa"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 🔹 Botón para tomar foto -->
             <Button
-                android:id="@+id/btnCancel"
-                style="@style/Widget.App.Button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Cancelar"
+                android:id="@+id/btnTomarFoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📸 Tomar foto"
                 android:background="@drawable/rounded_button"
-                app:backgroundTint="@color/gestaller_blue"
-                android:textAppearance="@style/TextAppearance.App.Button" />
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
 
-            <Button
-                android:id="@+id/btnSave"
-                style="@style/Widget.App.Button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="Guardar"
-                android:background="@drawable/rounded_button"
-                app:backgroundTint="@color/gestaller_blue"
-                android:textAppearance="@style/TextAppearance.App.Button" />
+            <!-- 🔹 Vista previa de las fotos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photosRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <!-- 🔹 Servicios -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicios"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:id="@+id/servicesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 🔹 Notas -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notas"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etNotes"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="Agregar nota"
+                android:background="@drawable/rounded_border_button"
+                android:paddingHorizontal="20dp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="22dp" />
+
+            <!-- 🔹 Botones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    style="@style/Widget.App.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Cancelar"
+                    android:background="@drawable/rounded_button"
+                    app:backgroundTint="@color/gestaller_blue"
+                    android:textAppearance="@style/TextAppearance.App.Button" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    style="@style/Widget.App.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Guardar"
+                    android:background="@drawable/rounded_button"
+                    app:backgroundTint="@color/gestaller_blue"
+                    android:textAppearance="@style/TextAppearance.App.Button" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabVoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Voz"
+        android:src="@android:drawable/ic_btn_speak_now"
+        app:tint="@android:color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

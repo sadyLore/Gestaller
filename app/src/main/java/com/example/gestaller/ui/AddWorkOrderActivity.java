@@ -7,6 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,8 @@ import com.example.gestaller.data.local.entity.ServiceTemplate;
 import com.example.gestaller.data.local.entity.Vehicle;
 import com.example.gestaller.data.local.entity.WorkOrder;
 import com.example.gestaller.ui.adapter.PhotoAdapter;
+import com.example.gestaller.ui.viewmodel.SharedVoiceViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -58,10 +61,12 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     private LinearLayout servicesContainer;
     private RecyclerView photosRecyclerView;
     private Button btnTomarFoto, btnCancel, btnSave;
+    private FloatingActionButton fabVoice;
 
     private VehicleViewModel vehicleViewModel;
     private ServiceTemplateViewModel serviceTemplateViewModel;
     private WorkOrderViewModel workOrderViewModel;
+    private SharedVoiceViewModel voiceVm;
 
     private FirebaseStorage storage;
     private Uri photoUri;
@@ -71,6 +76,8 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     private List<Vehicle> vehicleList = new ArrayList<>();
     private List<Client> clientList = new ArrayList<>();
     private ClientDao clientDao;
+
+    private ActivityResultLauncher<Intent> voiceRecognitionLauncher;
 
     private final ActivityResultLauncher<String> requestCameraPermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
@@ -93,11 +100,14 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workorder);
 
+        // ViewModels
         vehicleViewModel = new ViewModelProvider(this).get(VehicleViewModel.class);
         serviceTemplateViewModel = new ViewModelProvider(this).get(ServiceTemplateViewModel.class);
         workOrderViewModel = new ViewModelProvider(this).get(WorkOrderViewModel.class);
+        voiceVm = new ViewModelProvider(this).get(SharedVoiceViewModel.class);
         storage = FirebaseStorage.getInstance();
 
+        // Views
         autoCliente = findViewById(R.id.autoCliente);
         etClientPhone = findViewById(R.id.etClientPhone);
         spBrand = findViewById(R.id.spBrand);
@@ -109,14 +119,109 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         etNotes = findViewById(R.id.etNotes);
         btnCancel = findViewById(R.id.btnCancel);
         btnSave = findViewById(R.id.btnSave);
+        fabVoice = findViewById(R.id.fabVoice);
 
+        // Setup
         setupPhotoRecycler();
         setupObservers();
         setupClientAutoComplete();
+        setupVoiceRecognition();
 
+        // Listeners
         btnTomarFoto.setOnClickListener(v -> verificarPermisosYCapturarFoto());
         btnCancel.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> guardarOrdenDeTrabajo());
+        fabVoice.setOnClickListener(v -> {
+            voiceVm.changeState(SharedVoiceViewModel.VoiceState.LISTENING);
+            startVoiceRecognition();
+        });
+    }
+
+    private void setupVoiceRecognition() {
+        voiceRecognitionLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        ArrayList<String> results = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                        if (results != null && !results.isEmpty()) {
+                            voiceVm.setRecognizedText(results.get(0));
+                        }
+                    }
+                }
+        );
+
+        voiceVm.getRecognizedText().observe(this, text -> {
+            if (text == null || text.trim().isEmpty()) return;
+
+            SharedVoiceViewModel.VoiceState state = voiceVm.voiceState.getValue();
+            if (state != SharedVoiceViewModel.VoiceState.LISTENING) return;
+
+            SharedVoiceViewModel.NavigationTarget target = parseInitialCommand(text);
+
+            if (target != null) {
+                voiceVm.setNavigationTarget(target);
+                voiceVm.changeState(SharedVoiceViewModel.VoiceState.AWAITING_DATA);
+            } else {
+                voiceVm.changeState(SharedVoiceViewModel.VoiceState.IDLE);
+                Toast.makeText(this, "Comando no reconocido", Toast.LENGTH_SHORT).show();
+            }
+            voiceVm.setRecognizedText(null); // Evita procesar de nuevo
+        });
+
+        voiceVm.getNavigationTarget().observe(this, target -> {
+            if (target == null || target == SharedVoiceViewModel.NavigationTarget.NONE) return;
+
+            switch (target) {
+                case NEW_VEHICLE:
+                    startActivity(new Intent(this, AddVehicleActivity.class));
+                    break;
+                case NEW_ORDER:
+                    Toast.makeText(this, "Ya te encuentras en la pantalla de nueva orden.", Toast.LENGTH_SHORT).show();
+                    break;
+                case NEW_CLIENT:
+                    // startActivity(new Intent(this, AddClientActivity.class));
+                    Toast.makeText(this, "Navegando a Nuevo Cliente...", Toast.LENGTH_SHORT).show();
+                    break;
+                case NEW_SERVICE:
+                    // startActivity(new Intent(this, AddServiceActivity.class));
+                     Toast.makeText(this, "Navegando a Nuevo Servicio...", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+            voiceVm.navigationHandled();
+        });
+    }
+
+    private void startVoiceRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-ES");
+        try {
+            voiceRecognitionLauncher.launch(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "El reconocimiento de voz no está disponible en este dispositivo.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private SharedVoiceViewModel.NavigationTarget parseInitialCommand(String raw) {
+        String text = raw.toLowerCase().trim();
+        text = text.replace("á", "a").replace("é", "e").replace("í", "i")
+                .replace("ó", "o").replace("ú", "u");
+
+        if (text.contains("nuevo vehiculo")) {
+            return SharedVoiceViewModel.NavigationTarget.NEW_VEHICLE;
+        }
+        if (text.contains("nueva orden") || text.contains("nuevo trabajo")) {
+            return SharedVoiceViewModel.NavigationTarget.NEW_ORDER;
+        }
+        if (text.contains("nuevo cliente")) {
+            return SharedVoiceViewModel.NavigationTarget.NEW_CLIENT;
+        }
+        if (text.contains("nuevo servicio")) {
+            return SharedVoiceViewModel.NavigationTarget.NEW_SERVICE;
+        }
+
+        return null;
     }
 
     private void setupClientAutoComplete() {
