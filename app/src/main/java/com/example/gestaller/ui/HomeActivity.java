@@ -61,6 +61,11 @@ public class HomeActivity extends AppCompatActivity {
 
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
+        // 🔹 Mostrar el rol en el header
+        View headerView = navigationView.getHeaderView(0);
+        TextView tvUserRole = headerView.findViewById(R.id.tvUserRole);
+        tvUserRole.setText("Usuario: Propietario");
+
         updateThemeIcon();
 
         navigationView.setNavigationItemSelectedListener(item -> {

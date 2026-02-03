@@ -144,7 +144,10 @@ public class AddWorkOrderActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         ArrayList<String> results = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                         if (results != null && !results.isEmpty()) {
-                            voiceVm.setRecognizedText(results.get(0));
+                            String text = results.get(0);
+                            Log.d("VoiceRecognition", "Texto reconocido: " + text);
+                            Toast.makeText(this, "Escuché: " + text, Toast.LENGTH_SHORT).show();
+                            voiceVm.setRecognizedText(text);
                         }
                     }
                 }
@@ -153,7 +156,7 @@ public class AddWorkOrderActivity extends AppCompatActivity {
         voiceVm.getRecognizedText().observe(this, text -> {
             if (text == null || text.trim().isEmpty()) return;
 
-            SharedVoiceViewModel.VoiceState state = voiceVm.voiceState.getValue();
+            SharedVoiceViewModel.VoiceState state = voiceVm.getState().getValue();
             if (state != SharedVoiceViewModel.VoiceState.LISTENING) return;
 
             SharedVoiceViewModel.NavigationTarget target = parseInitialCommand(text);
@@ -165,29 +168,35 @@ public class AddWorkOrderActivity extends AppCompatActivity {
                 voiceVm.changeState(SharedVoiceViewModel.VoiceState.IDLE);
                 Toast.makeText(this, "Comando no reconocido", Toast.LENGTH_SHORT).show();
             }
-            voiceVm.setRecognizedText(null); // Evita procesar de nuevo
+            voiceVm.setRecognizedText(null);
         });
 
         voiceVm.getNavigationTarget().observe(this, target -> {
             if (target == null || target == SharedVoiceViewModel.NavigationTarget.NONE) return;
 
+            Intent intent = null;
             switch (target) {
                 case NEW_VEHICLE:
-                    startActivity(new Intent(this, AddVehicleActivity.class));
+                    intent = new Intent(this, AddVehicleActivity.class);
+                    intent.putExtra("VOICE_MODE", "AWAITING_DATA");
+                    intent.putExtra("VOICE_TARGET", "VEHICLE");
                     break;
                 case NEW_ORDER:
                     Toast.makeText(this, "Ya te encuentras en la pantalla de nueva orden.", Toast.LENGTH_SHORT).show();
                     break;
                 case NEW_CLIENT:
-                    // startActivity(new Intent(this, AddClientActivity.class));
-                    Toast.makeText(this, "Navegando a Nuevo Cliente...", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(this, AddClientActivity.class);
+                    intent.putExtra("VOICE_MODE", "AWAITING_DATA");
+                    intent.putExtra("VOICE_TARGET", "CLIENT");
                     break;
                 case NEW_SERVICE:
-                    // startActivity(new Intent(this, AddServiceActivity.class));
-                     Toast.makeText(this, "Navegando a Nuevo Servicio...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Funcionalidad de Nuevo Servicio próximamente.", Toast.LENGTH_SHORT).show();
                     break;
             }
 
+            if (intent != null) {
+                startActivity(intent);
+            }
             voiceVm.navigationHandled();
         });
     }
@@ -195,29 +204,34 @@ public class AddWorkOrderActivity extends AppCompatActivity {
     private void startVoiceRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-ES");
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-419");
         try {
             voiceRecognitionLauncher.launch(intent);
         } catch (Exception e) {
-            Toast.makeText(this, "El reconocimiento de voz no está disponible en este dispositivo.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "El reconocimiento de voz no está disponible.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private SharedVoiceViewModel.NavigationTarget parseInitialCommand(String raw) {
+        if (raw == null) return null;
+        
         String text = raw.toLowerCase().trim();
+        // Normalización básica de acentos
         text = text.replace("á", "a").replace("é", "e").replace("í", "i")
                 .replace("ó", "o").replace("ú", "u");
+        // Quitar signos de puntuación
+        text = text.replaceAll("[^a-z0-9 ]", "");
 
-        if (text.contains("nuevo vehiculo")) {
+        if (text.contains("vehiculo") || text.contains("auto") || text.contains("carro")) {
             return SharedVoiceViewModel.NavigationTarget.NEW_VEHICLE;
         }
-        if (text.contains("nueva orden") || text.contains("nuevo trabajo")) {
+        if (text.contains("orden") || text.contains("trabajo")) {
             return SharedVoiceViewModel.NavigationTarget.NEW_ORDER;
         }
-        if (text.contains("nuevo cliente")) {
+        if (text.contains("cliente") || text.contains("persona")) {
             return SharedVoiceViewModel.NavigationTarget.NEW_CLIENT;
         }
-        if (text.contains("nuevo servicio")) {
+        if (text.contains("servicio")) {
             return SharedVoiceViewModel.NavigationTarget.NEW_SERVICE;
         }
 
@@ -304,7 +318,8 @@ public class AddWorkOrderActivity extends AppCompatActivity {
                 .distinct()
                 .collect(Collectors.toList());
 
-        ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
+        ArrayAdapter<String> modelAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, models);
         modelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spModel.setAdapter(modelAdapter);
     }
@@ -363,7 +378,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
             return;
         }
 
-        // ✅ Recoger los servicios seleccionados
         List<ServiceTemplate> serviciosSeleccionados = new ArrayList<>();
         for (int i = 0; i < servicesContainer.getChildCount(); i++) {
             View view = servicesContainer.getChildAt(i);
@@ -381,7 +395,6 @@ public class AddWorkOrderActivity extends AppCompatActivity {
             return;
         }
 
-        // Mostrar resumen antes de guardar
         mostrarResumenServicios(serviciosSeleccionados);
     }
 
