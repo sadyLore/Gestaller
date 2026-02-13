@@ -18,6 +18,7 @@ public class SharedVoiceViewModel extends ViewModel {
         NEW_VEHICLE,
         NEW_ORDER,
         NEW_SERVICE,
+        EDIT_SERVICE,
         LIST_CLIENTS,
         LIST_VEHICLES,
         LIST_ORDERS,
