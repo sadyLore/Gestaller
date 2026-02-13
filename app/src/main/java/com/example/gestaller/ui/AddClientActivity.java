@@ -95,7 +95,7 @@ public class AddClientActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-419");
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Dime el nombre y el teléfono del cliente");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Dime el nombre, el teléfono y dirección del cliente");
         try {
             voiceRecognitionLauncher.launch(intent);
         } catch (Exception e) {
@@ -105,18 +105,66 @@ public class AddClientActivity extends AppCompatActivity {
 
     private void processClientData(String text) {
         if (text == null || text.isEmpty()) return;
-        
-        // Lógica simple de extracción:
-        // Teléfono: todo lo que sean números
-        String phone = text.replaceAll("[^0-9]", "");
-        // Nombre: el resto del texto
-        String name = text.replaceAll("[0-9]", "").trim();
+        android.util.Log.d("VoiceParsing", "Original: " + text);
 
-        if (!name.isEmpty()) {
-            etName.setText(name.substring(0, 1).toUpperCase() + name.substring(1));
+        String name = "";
+        String phone = "";
+        String address = "";
+
+        // 1. Encontrar el Teléfono (primer bloque de 6 a 15 dígitos, acepta +, espacios o guiones)
+        java.util.regex.Pattern phonePattern = java.util.regex.Pattern.compile("(\\+?[0-9][0-9\\s-]{4,13}[0-9])");
+        java.util.regex.Matcher matcher = phonePattern.matcher(text);
+
+        int phoneStart = -1;
+        int phoneEnd = -1;
+
+        if (matcher.find()) {
+            phone = matcher.group(0).trim();
+            phoneStart = matcher.start();
+            phoneEnd = matcher.end();
         }
-        if (!phone.isEmpty()) {
-            etPhone.setText(phone);
+
+        // 2. Determinar posición de la palabra "dirección"
+        String lowerText = text.toLowerCase();
+        int dirIndex = lowerText.indexOf("dirección");
+        if (dirIndex == -1) dirIndex = lowerText.indexOf("direccion");
+
+        // 3. Extraer Nombre (texto al inicio antes de teléfono o dirección)
+        int nameEnd = text.length();
+        if (phoneStart != -1) nameEnd = Math.min(nameEnd, phoneStart);
+        if (dirIndex != -1) nameEnd = Math.min(nameEnd, dirIndex);
+
+        name = text.substring(0, nameEnd).trim();
+        // Quitar palabras clave del nombre
+        String[] keywords = {"telefono", "teléfono", "celular", "movil", "móvil", "direccion", "dirección"};
+        for (String kw : keywords) {
+            name = name.replaceAll("(?i)" + kw, "").trim();
+        }
+
+        // 4. Extraer Dirección
+        if (dirIndex != -1) {
+            // Caso A: Palabra clave "dirección" detectada
+            address = text.substring(dirIndex + 9).trim();
+        } else if (phoneEnd != -1 && phoneEnd < text.length()) {
+            // Caso B: Fallback (lo que queda después del teléfono si tiene letras)
+            String fallback = text.substring(phoneEnd).trim();
+            if (fallback.matches(".*[a-zA-ZáéíóúÁÉÍÓÚ].*")) {
+                address = fallback;
+            }
+        }
+
+        android.util.Log.d("VoiceParsing", "Parsed -> Name: [" + name + "] Phone: [" + phone + "] Address: [" + address + "]");
+
+        // 5. Rellenar campos reales con null-checks
+        if (etName != null && !name.isEmpty()) {
+            String capitalized = name.substring(0, 1).toUpperCase() + (name.length() > 1 ? name.substring(1) : "");
+            etName.setText(capitalized);
+        }
+        if (etPhone != null && !phone.isEmpty()) {
+            etPhone.setText(phone.replaceAll("[\\s-]", ""));
+        }
+        if (etAddress != null && !address.isEmpty()) {
+            etAddress.setText(address);
         }
     }
 
